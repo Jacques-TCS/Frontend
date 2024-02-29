@@ -2,7 +2,7 @@
   <form>
     <div class="row mb-4">
       <div
-        class="col align-self-start col-md-4 offset-md-3 mt-4"
+        class="col align-self-start col-md-6 offset-md-2 mt-4"
         style="color: #021925"
       >
         <h3>CONSULTA DE FUNCIONÁRIOS</h3>
@@ -18,10 +18,10 @@
 
     <div class="row" *ngIf="this.mostrar">
       <div class="row mb-4">
-        <div class="col col-sm-1 offset-sm-3 fw-medium" style="color: #021925">
+        <div class="col col-sm-1 offset-sm-2 fw-medium" style="color: #021925">
           <label>Nome: </label>
         </div>
-        <div class="col col-sm-5">
+        <div class="col col-sm-7">
           <input
             class="form-control border border-0"
             style="background: #dcf2fc"
@@ -32,10 +32,10 @@
       </div>
 
       <div class="row mb-4">
-        <div class="col col-sm-1 offset-sm-3 fw-medium" style="color: #021925">
+        <div class="col col-sm-1 offset-sm-2 fw-medium" style="color: #021925">
           <label>Cargo: </label>
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-sm-3">
           <select
             class="form-select border border-0"
             style="background: #dcf2fc"
@@ -54,7 +54,7 @@
         <div class="col col-sm-1 fw-medium" style="color: #021925">
           <label>Status: </label>
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-sm-3">
           <select
             class="form-select border border-0"
             style="background: #dcf2fc"
@@ -76,16 +76,16 @@
       </div>
 
       <div class="row mb-4">
-        <div class="col offset-sm-3 fw-bold" style="color: #021925">
+        <div class="col offset-sm-2 fw-bold" style="color: #021925">
           <label>Período de desligamento: </label>
         </div>
       </div>
 
       <div class="row mb-4">
-        <div class="col col-sm-1 offset-sm-3 fw-medium" style="color: #021925">
+        <div class="col col-sm-1 offset-sm-2 fw-medium" style="color: #021925">
           <label>De: </label>
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-sm-3">
           <input
             class="form-control border border-0"
             style="background: #dcf2fc"
@@ -97,7 +97,7 @@
         <div class="col col-sm-1 fw-medium" style="color: #021925">
           <label>Até: </label>
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-sm-3">
           <input
             class="form-control border border-0"
             style="background: #dcf2fc"
@@ -109,7 +109,7 @@
       </div>
 
       <div class="row mb-4">
-        <div class="col col-md-3 offset-md-7 d-flex justify-content-center">
+        <div class="col col-md-3 offset-md-8 d-flex justify-content-center">
           <button
             id="btn-filtrar"
             class="btn fw-semibold"
@@ -129,7 +129,7 @@
 
     <!--TABELA-->
     <div class="row mb-4">
-      <div class="col-sm-6 offset-sm-3">
+      <div class="col-sm-8 offset-sm-2">
         <table
           class="rounded-3 overflow-hidden table table-primary table-striped"
           id="tabela-usuarios"
@@ -171,6 +171,13 @@
               >
                 Edição
               </th>
+              <th
+                scope="col"
+                class="text-center"
+                style="background-color: #0c62a0; color: #e9f8ff"
+              >
+                Afastamento
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -195,7 +202,24 @@
                   "
                   (click)="editar(usuario.id)"
                 >
-                  Editar
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+              </td>
+              <td class="text-center">
+                <button
+                  class="btn btn-xs mr-12"
+                  style="
+                    background: linear-gradient(
+                      180deg,
+                      #4ac9ff 0%,
+                      #06b5ec 100%
+                    );
+                    color: #00314d;
+                    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+                  "
+                  (click)="afastar(usuario.id)"
+                >
+                  <i class="bi bi-clock-history"></i>
                 </button>
               </td>
             </tr>
@@ -251,7 +275,6 @@
       </nav>
     </div>
   -->
-
     <div class="row mb-4">
       <div class="col col-md-3 offset-md-3 justify-content-start">
         <button

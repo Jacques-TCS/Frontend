@@ -1,6 +1,5 @@
-import { UsuarioCadastroComponent } from './../usuario-cadastro/usuario-cadastro.component';
-import { UsuarioService } from './../../shared/service/usuario.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { UsuarioService } from './../../shared/service/usuario.service';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioSeletor } from 'src/app/shared/model/seletor/usuario.seletor';
@@ -72,15 +71,6 @@ export class UsuarioListagemComponent implements OnInit {
   }
 
   filtrarUsuario() {
-    // const localStartTime = new Date(this.seletor.dataDesligamentoInicio);
-    // const localEndTime = new Date(this.seletor.dataDesligamentoFim);
-
-    // // Ajuste de timezone para menos 3 horas
-    // localStartTime.setHours(localStartTime.getHours() - 3);
-    // localEndTime.setHours(localEndTime.getHours() - 3);
-    // this.seletor.dataDesligamentoInicio = localStartTime;
-    // this.seletor.dataDesligamentoFim = localEndTime;
-
     this.usuarioService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.usuarios = resultado;
@@ -96,7 +86,11 @@ export class UsuarioListagemComponent implements OnInit {
   }
 
   editar(id: number){
-    this.router.navigate(['/usuarios/cadastro', id]);
+    this.router.navigate(['/usuarios/edicao', id]);
+  }
+
+  afastar(id: number){
+    this.router.navigate(['/usuarios/afastamento', id]);
   }
 
   fileName = 'ExcleSheet.xlsx';

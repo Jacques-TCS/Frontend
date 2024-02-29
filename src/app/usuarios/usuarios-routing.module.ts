@@ -9,12 +9,12 @@ import { HomeComponent } from '../dashboard/home/home.component';
 
 const routes: Routes = [
   { path: 'cadastro', component: UsuarioCadastroComponent },
-  { path: 'cadastro/:id', component: UsuarioCadastroComponent },
   { path: 'afastamento', component: UsuarioAfastamentoComponent },
-  { path: 'edicao', component: UsuarioEdicaoComponent },
+  { path: 'edicao/:id', component: UsuarioEdicaoComponent },
   { path: 'listagem', component: UsuarioListagemComponent },
   { path: 'perfil', component: UsuarioPerfilComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'afastamento/:id', component: UsuarioAfastamentoComponent },
 ];
 
 @NgModule({

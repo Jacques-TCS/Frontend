@@ -12,7 +12,7 @@
       >
         <label for="sala">Sala: </label>
         <span
-          ><strong> {{ sala.numero }} </strong></span
+          ><strong> {{ sala?.numero }} </strong></span
         >
       </div>
     </div>
@@ -69,6 +69,7 @@
           id="descricao-categoria"
           placeholder="Descreva a Ocorrência"
           [(ngModel)]="ocorrencia.descricao"
+          required
         ></textarea>
       </div>
       <div class="row mb-4 mt-2">

@@ -43,7 +43,7 @@ export class UsuarioCadastroComponent implements OnInit {
         this.cargos = resultado;
       },
       (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro, 'error');
+        Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro.error.message, 'error');
       }
     );
 
@@ -53,9 +53,7 @@ export class UsuarioCadastroComponent implements OnInit {
       },
       (erro) => {
         Swal.fire(
-          'Erro',
-          'Erro ao buscar os níveis de acesso: ' + erro,
-          'error'
+          'Erro', erro.error.message, 'error'
         );
       }
     );
@@ -69,47 +67,15 @@ export class UsuarioCadastroComponent implements OnInit {
     });
   }
 
-  salvar(form: NgForm){
-    // if(form.invalid){
-    //   Swal.fire("Atenção", "Revise, por gentileza", 'warning');
-    //   return;
-    // }
-    if(this.idUsuario){
-      // this.isEdit = true;
-      this.atualizarUsuario()
-    }else{
-      // this.isEdit = false;
-      this.inserirUsuario();
-    }
-  }
-
-  atualizarUsuario() {
-    this.usuarioService.atualizar(this.usuario).subscribe(
-      (sucesso) => {
-        Swal.fire('Sucesso', 'Usuario atualizado!', 'success');
-      },
-      (erro) => {
-        Swal.fire(
-          'Erro',
-          'Erro ao editar usuario: ' + 'preencha todos os campos',
-          'error'
-        );
-      }
-    );
-  }
-
-  inserirUsuario() {
+  inserirUsuario(form: NgForm) {
     this.usuarioService.inserir(this.usuario).subscribe(
       (sucesso) => {
         Swal.fire('Sucesso', 'Usuario cadastrado!', 'success');
         this.usuario = new Usuario();
-        // this.limparFormulario();
       },
       (erro) => {
         Swal.fire(
-          'Erro',
-          'Erro ao cadastrar usuario: ' + 'preencha todos os campos',
-          'error'
+          'Erro', erro.error.message, 'error'
         );
       }
     );
