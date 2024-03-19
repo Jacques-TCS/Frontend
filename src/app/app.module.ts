@@ -1,3 +1,4 @@
+// import { Datepicker } from 'flowbite-datepicker/Datepicker';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -23,6 +24,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     FontAwesomeModule,
     InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
     ZXingScannerModule,
+    // Datepicker
   ],
   providers: [],
   bootstrap: [AppComponent],

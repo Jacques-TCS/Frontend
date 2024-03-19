@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/shared/model/usuario';
@@ -6,13 +6,16 @@ import { UsuarioService } from './../../shared/service/usuario.service';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
+// import { Datepicker } from 'flowbite-datepicker'
 
 @Component({
   selector: 'app-usuario-cadastro',
   templateUrl: './usuario-cadastro.component.html',
   styleUrls: ['./usuario-cadastro.component.scss'],
 })
+// export class UsuarioCadastroComponent{}
 export class UsuarioCadastroComponent implements OnInit {
+  @ViewChild('dateField') date!: ElementRef;
   public usuario: Usuario = new Usuario();
   public cargos: string[] = [];
   public niveis: string[] = [];
@@ -38,25 +41,25 @@ export class UsuarioCadastroComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usuarioService.listarCargos().subscribe(
-      (resultado) => {
-        this.cargos = resultado;
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro.error.message, 'error');
-      }
-    );
+    // this.usuarioService.listarCargos().subscribe(
+    //   (resultado) => {
+    //     this.cargos = resultado;
+    //   },
+    //   (erro) => {
+    //     Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro.error.message, 'error');
+    //   }
+    // );
 
-    this.usuarioService.listarNiveis().subscribe(
-      (resultado) => {
-        this.niveis = resultado;
-      },
-      (erro) => {
-        Swal.fire(
-          'Erro', erro.error.message, 'error'
-        );
-      }
-    );
+    // this.usuarioService.listarNiveis().subscribe(
+    //   (resultado) => {
+    //     this.niveis = resultado;
+    //   },
+    //   (erro) => {
+    //     Swal.fire(
+    //       'Erro', erro.error.message, 'error'
+    //     );
+    //   }
+    // );
 
     this.route.params.subscribe(params => {
       this.idUsuario = params['id'];
