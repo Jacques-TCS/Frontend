@@ -1,9 +1,9 @@
 <div class="p-4 sm:ml-64">
-  <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+  <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
     <div class="container mx-auto">
       <form #ngForm="ngForm" novalidate class="max-w-sm mx-auto">
         <div class="mb-4 mt-4">
-          <div class="md:mx-auto md:w-1/2 text-blue-900 dark:text-blue-100">
+          <div class="text-blue-900 dark:text-blue-100">
             <h3 class="text-3xl text-center">CADASTRO DE USUÁRIO</h3>
           </div>
         </div>
@@ -51,6 +51,30 @@
             CPF inválido!
           </div>
         </div>
+        <!--DATA DE NASCIMENTO-->
+        <!-- TODO -->
+        <div class="mb-5 relative max-w-sm">
+          <label for="dataNascimento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de Nascimento: </label>
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pt-6 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+            </svg>
+          </div>
+          <input datepicker datepicker-autohide type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="dd/mm/aaaa"
+            minlength="8"
+            id="dataNascimento"
+            name="dataNascimento"
+            [(ngModel)]="usuario.dataNascimento"
+            required
+          />
+          <div
+            *ngIf="ngForm.submitted && !this.usuario.dataNascimento"
+            class="text-red-500"
+          >
+            Data inválida!
+          </div>
+        </div>
         <!--TELEFONE-->
       <div class="mb-5">
         <label for="telefone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone: </label>
@@ -74,32 +98,54 @@
           Telefone inválido!
         </div>
       </div>
-      <!--DATA DE NASCIMENTO-->
-      <!-- TODO -->
-      <div class="mb-5 relative max-w-sm">
-        <label for="dataNascimento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de Nascimento: </label>
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pt-6 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-          </svg>
-        </div>
-        <input datepicker datepicker-autohide type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="dd/mm/aaaa"
-          minlength="8"
-          id="dataNascimento"
-          name="dataNascimento"
-          [(ngModel)]="usuario.dataNascimento"
-          required
-        />
-        <div
-          *ngIf="ngForm.submitted && !this.usuario.dataNascimento"
-          class="text-red-500"
-        >
-          Data inválida!
-        </div>
+      <!--CARGO-->
+    <div class="mb-5">
+      <label for="cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo: </label>
+      <select
+        :class="{
+          'border-red-500': !usuario.cargo && ngForm.submitted,
+          'border-gray-200': usuario.cargo && ngForm.submitted
+        }"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+        name="cargo"
+        [ngModelOptions]="{ standalone: true }"
+        [(ngModel)]="usuario.cargo"
+        required
+      >
+        <option *ngFor="let cargo of cargos" [ngValue]="cargo">
+          {{ cargo }}
+        </option>
+      </select>
+      <div
+        *ngIf="ngForm.submitted && !this.usuario.cargo"
+        class="text-red-500"
+      >
+        Selecione um cargo!
       </div>
+    </div>
+    <div class="mb-5">
+      <div class="md:mx-auto md:w-1/2 flex justify-end">
+        <button
+          id="btn-salvar"
+          class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          style="
+            background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
+            color: #00314d;
+            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+          "
+          (click)="inserirUsuario(ngForm)"
+          type="submit"
+        >
+          Cadastrar Usuário
+        </button>
+      </div>
+    </div>
+    </form>
+  </div>
+ </div>
+</div>
       <!--CTPS-->
-      <div class="mb-5">
+      <!-- <div class="mb-5">
         <label for="ctps" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CTPS: </label>
         <input
           :class="{
@@ -120,34 +166,9 @@
         >
           CTPS inválido!
         </div>
-      </div>
-        <!--CARGO-->
-      <div class="mb-5">
-        <label for="cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo: </label>
-        <select
-          :class="{
-            'border-red-500': !usuario.cargo && ngForm.submitted,
-            'border-gray-200': usuario.cargo && ngForm.submitted
-          }"
-          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-          name="cargo"
-          [ngModelOptions]="{ standalone: true }"
-          [(ngModel)]="usuario.cargo"
-          required
-        >
-          <option *ngFor="let cargo of cargos" [ngValue]="cargo">
-            {{ cargo }}
-          </option>
-        </select>
-        <div
-          *ngIf="ngForm.submitted && !this.usuario.cargo"
-          class="text-red-500"
-        >
-          Selecione um cargo!
-        </div>
-      </div>
+      </div> -->
       <!--MATRICULA-->
-      <div class="mb-5">
+      <!-- <div class="mb-5">
         <label for="matricula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matrícula: </label>
         <input
           :class="{
@@ -165,9 +186,9 @@
         >
           Matrícula inválida!
         </div>
-      </div>
+      </div> -->
       <!--SENHA-->
-      <div class="mb-5">
+      <!-- <div class="mb-5">
         <label for="senha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha: </label>
         <input
           :class="{
@@ -187,28 +208,7 @@
         >
           Senha inválida!
         </div>
-      </div>
-      <div class="mb-5">
-        <div class="md:mx-auto md:w-1/2 flex justify-end">
-          <button
-            id="btn-salvar"
-            class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-            style="
-              background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-              color: #00314d;
-              box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-            "
-            (click)="inserirUsuario(ngForm)"
-            type="submit"
-          >
-            Cadastrar Usuário
-          </button>
-        </div>
-      </div>
-      </form>
-    </div>
-   </div>
-</div>
+      </div> -->
 
 
 <!-- <div class="container-fluid">
