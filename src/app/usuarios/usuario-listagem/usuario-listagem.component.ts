@@ -6,6 +6,9 @@ import { UsuarioSeletor } from 'src/app/shared/model/seletor/usuario.seletor';
 import { Usuario } from 'src/app/shared/model/usuario';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { Modal } from 'flowbite';
+import type { ModalOptions, ModalInterface } from 'flowbite';
+import type { InstanceOptions } from 'flowbite';
 
 @Component({
   selector: 'app-usuario-listagem',

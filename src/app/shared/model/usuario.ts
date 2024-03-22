@@ -6,6 +6,7 @@ export class Usuario {
   cpf: string;
   telefone: string;
   dataNascimento: Date;
+  email: string;
   ctps: string;
   nivelAcesso: string;
   cargo: string;
