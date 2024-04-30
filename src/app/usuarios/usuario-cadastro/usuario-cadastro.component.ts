@@ -6,6 +6,8 @@ import { UsuarioService } from './../../shared/service/usuario.service';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
+import { Cargo } from 'src/app/shared/model/cargo';
+import { CargoService } from 'src/app/shared/service/cargo.service';
 // import { Datepicker } from 'flowbite-datepicker'
 
 @Component({
@@ -20,6 +22,7 @@ export class UsuarioCadastroComponent implements OnInit {
   public cargos: string[] = [];
   public niveis: string[] = [];
   public idUsuario: number;
+  public cargo: Cargo = new Cargo();
   // public isEdit: boolean = true;
 
   @ViewChild('ngForm')
@@ -37,30 +40,19 @@ export class UsuarioCadastroComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cargoService: CargoService
   ) {}
 
   ngOnInit(): void {
-    // this.usuarioService.listarCargos().subscribe(
-    //   (resultado) => {
-    //     this.cargos = resultado;
-    //   },
-    //   (erro) => {
-    //     Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro.error.message, 'error');
-    //   }
-    // );
-
-    // this.usuarioService.listarNiveis().subscribe(
-    //   (resultado) => {
-    //     this.niveis = resultado;
-    //   },
-    //   (erro) => {
-    //     Swal.fire(
-    //       'Erro', erro.error.message, 'error'
-    //     );
-    //   }
-    // );
-
+    this.cargoService.listarTodos().subscribe(
+      (resultado) => {
+        this.cargos = resultado.map((cargo) => cargo.cargo);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar cargos', 'error');
+      }
+    );
     this.route.params.subscribe(params => {
       this.idUsuario = params['id'];
 

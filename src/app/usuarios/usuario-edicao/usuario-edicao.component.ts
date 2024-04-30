@@ -38,37 +38,6 @@ export class UsuarioEdicaoComponent {
   ) {}
 
   ngOnInit(): void {
-    this.usuarioService.listarCargos().subscribe(
-      (resultado) => {
-        this.cargos = resultado;
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro, 'error');
-      }
-    );
-
-    this.usuarioService.listarStatus().subscribe(
-      (resultado) => {
-        this.statusUsuario = resultado;
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os starus: ' + erro, 'error');
-      }
-    );
-
-    this.usuarioService.listarNiveis().subscribe(
-      (resultado) => {
-        this.niveis = resultado;
-      },
-      (erro) => {
-        Swal.fire(
-          'Erro',
-          'Erro ao buscar os níveis de acesso: ' + erro,
-          'error'
-        );
-      }
-    );
-
     this.route.params.subscribe(params => {
       this.idUsuario = params['id'];
 

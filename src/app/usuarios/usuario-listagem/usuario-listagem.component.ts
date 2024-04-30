@@ -42,23 +42,6 @@ export class UsuarioListagemComponent implements OnInit {
     // this.seletor.limite = 5;
     // this.seletor.pagina = ;
 
-    this.usuarioService.listarCargos().subscribe(
-      (resultado) => {
-        this.cargos = resultado;
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro, 'error');
-      }
-    );
-    this.usuarioService.listarStatus().subscribe(
-      (resultado) => {
-        this.status = resultado;
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os status: ' + erro, 'error');
-      }
-    );
-
     this.buscarTodos();
   }
 

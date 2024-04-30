@@ -20,6 +20,18 @@ export class UsuarioService {
     return this.httpClient.put<Usuario>(this.API, usuario);
   }
 
+  redefinirSenha(usuario: Usuario): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.API, usuario.password);
+  }
+
+  recuperarSenha(usuario: Usuario): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.API, usuario.email);
+  }
+
+  // login(username: string, password: string): Observable<Usuario> {
+  //   return this.httpClient.post<Usuario>(this.API + '/login', {username, password});
+  // }
+
   pesquisarPorId(id: number): Observable<Usuario> {
     return this.httpClient.get<Usuario>(this.API + '/' + id);
   }
@@ -30,20 +42,5 @@ export class UsuarioService {
 
   listarComSeletor(seletor: UsuarioSeletor) {
     return this.httpClient.post<Array<Usuario>>(this.API + '/filtro', seletor);
-  }
-  excluir(id: number): Observable<Usuario> {
-    return this.httpClient.delete<Usuario>(this.API + '/' + id);
-  }
-
-  listarCargos(): Observable<Array<string>> {
-    return this.httpClient.get<Array<string>>(this.API + '/cargos');
-  }
-
-  listarNiveis(): Observable<Array<string>> {
-    return this.httpClient.get<Array<string>>(this.API + '/niveisAcesso');
-  }
-
-  listarStatus(): Observable<Array<string>> {
-    return this.httpClient.get<Array<string>>(this.API + '/status');
   }
 }
