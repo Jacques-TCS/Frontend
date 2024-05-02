@@ -5,22 +5,24 @@ import { MenuComponent } from './menu/menu.component';
 const routes: Routes = [
   {
     path: '',
-    component: MenuComponent
-  },
-  {
-    path: 'usuarios',
-    loadChildren: () =>
-      import('../usuarios/usuarios.module').then((m) => m.UsuariosModule),
-  },
-  {
-    path: 'servicos',
-    loadChildren: () =>
-      import('../servicos/servicos.module').then((m) => m.ServicosModule),
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+    component: MenuComponent,
+    children: [
+      {
+        path: 'usuarios',
+        loadChildren: () =>
+          import('../usuarios/usuarios.module').then((m) => m.UsuariosModule),
+      },
+      {
+        path: 'servicos',
+        loadChildren: () =>
+          import('../servicos/servicos.module').then((m) => m.ServicosModule),
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+    ],
   },
 ];
 

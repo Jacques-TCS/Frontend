@@ -10,6 +10,6 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   autenticar(): void {
-    this.router.navigate(['menu']);
+    this.router.navigate(['/dashboard']);
   }
 }
