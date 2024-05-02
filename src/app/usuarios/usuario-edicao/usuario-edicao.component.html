@@ -1,1 +1,148 @@
-<p>usuario-edicao works!</p>
+<div class="p-4 sm:ml-64">
+  <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    <div class="container mx-auto">
+      <form #ngForm="ngForm" novalidate class="max-w-4xl mx-auto">
+        <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
+          <div class="text-blue-900 dark:text-blue-100">
+            <h3 class="sm:text-3xl text-2xl text-center">Edição de Usuário</h3>
+          </div>
+        </div>
+        <!--NOME-->
+        <div class="mb-5">
+          <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome: </label>
+          <input
+            :class="{
+              'border-red-500': (!usuario.nome || (usuario.nome && usuario.nome.length < 3)) && ngForm.submitted,
+              'border-gray-200': !(!usuario.nome || (usuario.nome && usuario.nome.length < 3)) && ngForm.submitted
+            }"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            name="nome"
+            minlength="3"
+            [(ngModel)]="usuario.nome"
+            required
+          />
+          <div
+            *ngIf="ngForm.submitted && !this.usuario.nome"
+            class="text-red-500"
+          >
+            Informe um nome com no mínimo 2 caracteres
+          </div>
+        </div>
+        <!--EMAIL-->
+        <div class="mb-5">
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email: </label>
+          <input
+            :class="{
+              'border-red-500': (!usuario.email || (usuario.email && usuario.email.length < 3)) && ngForm.submitted,
+              'border-gray-200': !(!usuario.email || (usuario.email && usuario.email.length < 3)) && ngForm.submitted
+            }"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            name="email"
+            minlength="3"
+            placeholder="nome@email.com"
+            [(ngModel)]="usuario.email"
+            required
+          />
+          <div
+            *ngIf="ngForm.submitted && !this.usuario.email"
+            class="text-red-500"
+          >
+            Informe um email válido
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row justify-between">
+          <!--TELEFONE-->
+          <div class="mb-5 relative flex-1 sm:mr-2.5">
+            <label for="telefone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone: </label>
+            <input
+              :class="{
+                'border-red-500': !usuario.telefone && ngForm.submitted,
+                'border-gray-200': usuario.telefone && ngForm.submitted
+              }"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              [inputMask]="mascaraTelefone"
+              [formControl]="telefone"
+              placeholder="(00) 00000-0000"
+              name="telefone"
+              [(ngModel)]="usuario.telefone"
+              required
+            />
+            <div
+              *ngIf="ngForm.submitted && !this.usuario.telefone"
+              class="text-red-500"
+            >
+              Telefone inválido!
+            </div>
+          </div>
+          <!--CARGO-->
+        <div class="mb-5 relative flex-1 sm:ml-2.5">
+          <label for="cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo: </label>
+          <select
+            :class="{
+              'border-red-500': !usuario.cargo && ngForm.submitted,
+              'border-gray-200': usuario.cargo && ngForm.submitted
+            }"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            name="cargo"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="usuario.cargo"
+            required
+          >
+            <option *ngFor="let cargo of cargos" [ngValue]="cargo">
+              {{ cargo }}
+            </option>
+          </select>
+          <div
+            *ngIf="ngForm.submitted && !this.usuario.cargo"
+            class="text-red-500"
+          >
+            Selecione um cargo!
+          </div>
+        </div>
+      </div>
+        <!-- ATUAÇÃO -->
+        <div class="mb-5">
+          <label for="statusUsuario" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status de Atuação: </label>
+          <select
+            :class="{
+              'border-red-500': !usuario.statusUsuario && ngForm.submitted,
+              'border-gray-200': usuario.statusUsuario && ngForm.submitted
+            }"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            name="statusUsuario"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="usuario.status"
+            required
+          >
+            <option *ngFor="let status of statusUsuario" [ngValue]="statusUsuario">
+              {{ statusUsuario }}
+            </option>
+          </select>
+          <div
+            *ngIf="ngForm.submitted && !this.usuario.status"
+            class="text-red-500"
+          >
+            Selecione um cargo!
+          </div>
+        </div>
+    <div class="mb-5 mt-5 sm:mt-20">
+      <div class="md:mx-auto md:w-1/2 flex justify-end">
+        <button
+          id="btn-salvar"
+          class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          style="
+            background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
+            color: #00314d;
+            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+          "
+          (click)="atualizarUsuario()"
+          type="submit"
+        >
+          Editar Usuário
+        </button>
+      </div>
+    </div>
+    </form>
+  </div>
+ </div>
+</div>

@@ -1,12 +1,14 @@
-import { UsuarioCadastroComponent } from './../usuario-cadastro/usuario-cadastro.component';
-import { UsuarioService } from './../../shared/service/usuario.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { UsuarioService } from './../../shared/service/usuario.service';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioSeletor } from 'src/app/shared/model/seletor/usuario.seletor';
 import { Usuario } from 'src/app/shared/model/usuario';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { Modal } from 'flowbite';
+import type { ModalOptions, ModalInterface } from 'flowbite';
+import type { InstanceOptions } from 'flowbite';
 
 @Component({
   selector: 'app-usuario-listagem',
@@ -16,8 +18,8 @@ import * as XLSX from 'xlsx';
 export class UsuarioListagemComponent implements OnInit {
   public usuarios: Array<Usuario> = new Array();
   public seletor: UsuarioSeletor = new UsuarioSeletor();
-  public cargos: string[] = [];
-  public status: string[] = [];
+  public cargos: string[];
+  public status: string[];
 
   public mostrar: boolean;
   public esconder: boolean;
@@ -39,23 +41,6 @@ export class UsuarioListagemComponent implements OnInit {
   ngOnInit(): void {
     // this.seletor.limite = 5;
     // this.seletor.pagina = ;
-
-    this.usuarioService.listarCargos().subscribe(
-      (resultado) => {
-        this.cargos = resultado;
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os cargos: ' + erro, 'error');
-      }
-    );
-    this.usuarioService.listarStatus().subscribe(
-      (resultado) => {
-        this.status = resultado;
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar os status: ' + erro, 'error');
-      }
-    );
 
     this.buscarTodos();
   }
@@ -84,6 +69,14 @@ export class UsuarioListagemComponent implements OnInit {
 
   voltarUsuario() {
     this.router.navigate(['/dashboard/']);
+  }
+
+  editar(id: number){
+    this.router.navigate(['/usuarios/edicao', id]);
+  }
+
+  afastar(id: number){
+    this.router.navigate(['/usuarios/afastamento', id]);
   }
 
   fileName = 'ExcleSheet.xlsx';

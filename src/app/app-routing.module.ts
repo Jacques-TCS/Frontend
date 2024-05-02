@@ -3,19 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'usuarios',
-    loadChildren: () =>
-      import('./usuarios/usuarios.module').then((m) => m.UsuariosModule),
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login',
   },
   {
-    path: 'servicos',
+    path: 'login',
     loadChildren: () =>
-      import('./servicos/servicos.module').then((m) => m.ServicosModule),
+      import('./login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'dashboard',
+    path: 'menu',
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      import('./menu/menu.module').then((m) => m.MenuModule),
   },
 ];
 

@@ -54,7 +54,7 @@ export class ServicoCadastroComponent {
         this.categorias = resultado;
       },
       (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar as categorias de ocorrências: ' + erro, 'error');
+        Swal.fire('Erro', erro.error.message, 'error');
       }
     );
   }
@@ -71,10 +71,10 @@ export class ServicoCadastroComponent {
         this.atividades = resultado;
       },
       (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar as atividades de serviços: ' + erro, 'error');
+        Swal.fire('Erro', erro.error.message, 'error');
       }
     );
-    this.servico.ocorrencia.categorias = new Array();
+    this.ocorrencia.categorias = new Array();
 
     this.route.params.subscribe(params => {
       this.idSala = params['idSala']});
@@ -110,6 +110,7 @@ export class ServicoCadastroComponent {
 
     this.servico.sala = this.sala;
     this.servico.atividades = this.selecionados;
+    this.servico.ocorrencia = this.ocorrencia;
     this.servico.ocorrencia.categorias.push(this.categoriaSelecionada);
     this.servicoService.inserir(this.servico).subscribe(
       (sucesso) => {
@@ -117,7 +118,7 @@ export class ServicoCadastroComponent {
         this.servico = new Servico();
       },
       (erro) => {
-        Swal.fire('Erro', 'Erro ao cadastrar o serviço: ' + erro, 'error');
+        Swal.fire('Erro', erro.error.message, 'error');
       }
     );
   }

@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { createMask } from '@ngneat/input-mask';
+import { Component } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss']
 })
-export class AppComponent implements OnInit {
+export class MenuComponent {
   title = 'SistemaRegistroVerificacao';
   isDarkTheme: boolean;
 

@@ -1,4 +1,5 @@
 import { Afastamento } from './afastamento';
+import { Cargo } from './cargo';
 
 export class Usuario {
   id: number;
@@ -6,13 +7,11 @@ export class Usuario {
   cpf: string;
   telefone: string;
   dataNascimento: Date;
-  ctps: string;
-  nivelAcesso: string;
-  cargo: string;
-  matricula: string;
-  senha: string;
-  dataContratacao: Date;
-  statusUsuario: string;
-  afastamentos: Afastamento[];
+  email: string;
+  cargo: Cargo;
+  username: string;
+  password: string;
+  status: string;
+  motivoAfastamento: string;
   dataDesligamento: Date;
 }

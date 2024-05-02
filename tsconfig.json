@@ -3,7 +3,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./lib/cjs/",
+    "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
     "strict": true,
@@ -12,19 +13,19 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
+    "target": "es5",
+    "module": "commonjs",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "allowJs": true,
+    "lib": ["dom", "es2015"]
   },
+  "include": ["src/**/*.ts*"],
+  "exclude": ["node_modules", "dist", "lib"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

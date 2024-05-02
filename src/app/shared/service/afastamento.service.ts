@@ -7,7 +7,7 @@ import { AfastamentoSeletor } from '../model/seletor/afastamento.seletor';
   providedIn: 'root',
 })
 export class AfastamentoService {
-  private readonly API = 'http://localhost:8080/api/usuarios';
+  private readonly API = 'http://localhost:8080/api/afastamento';
 
   constructor(private httpClient: HttpClient) {}
   inserir(afastamento: Afastamento): Observable<Afastamento> {
@@ -31,5 +31,9 @@ export class AfastamentoService {
       this.API + '/filtro',
       seletor
     );
+  }
+
+  listarNatureza(): Observable<Array<string>> {
+    return this.httpClient.get<Array<string>>(this.API + '/natureza');
   }
 }

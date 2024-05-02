@@ -57,7 +57,42 @@
           </div>
         </div>
 
+        <div class="row mb-4">
+          <div class="col offset-1 fw-bold" style="color: #021925">
+            <label>Período do serviço: </label>
+          </div>
+        </div>
+
         <div class="row mb-2">
+          <div class="col col-1 col-sm-1 offset-sm-1 offset-1 d-flex align-items-center" style="color: #021925">
+            <label>De: </label>
+          </div>
+          <div class="col col-sm-1">
+            <input
+              class="form-control border border-0"
+              style="background: #dcf2fc; width: 90%;"
+              name="dataDesligamentoInicio"
+              type="datetime-local"
+              [(ngModel)]="seletor.menorDataHoraFim"
+            />
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col col-1 col-sm-1 offset-sm-1 offset-1 d-flex align-items-center" style="color: #021925">
+            <label>Até: </label>
+          </div>
+          <div class="col col-sm-1">
+            <input
+              class="form-control border border-0"
+              style="background: #dcf2fc; width: 90%;"
+              name="dataDesligamentoFim"
+              type="datetime-local"
+              [(ngModel)]="seletor.maiorDataHoraFim"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-2 mt-4">
           <div
             class="col col-sm-3 offset-sm-5 mb-4 d-flex justify-content-center"
           >
@@ -125,7 +160,8 @@
               </table>
             </td>
             <td class="text-center">
-              {{ servico.dataHoraFim | date : "dd/MM/yyyy" }}
+              {{ servico.dataHoraInicio | date : "HH:mm dd/MM/yyyy" }} <br>
+              {{ servico.dataHoraFim | date : "HH:mm dd/MM/yyyy" }}
             </td>
           </tr>
         </tbody>
@@ -186,24 +222,8 @@
   </div> -->
 
   <div class="row">
-    <div class="col col-3 col-sm-3 offset-sm-1 offset-1 justify-content-start">
-      <button
-        id="btn-exportar"
-        class="btn fw-semibold"
-        style="
-          background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-          color: #00314d;
-          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-        "
-        onclick="exportarUsuario()"
-        type="submit"
-      >
-        Exportar
-      </button>
-    </div>
-
     <div
-      class="col col-3 col-sm-3 offset-sm-4 offset-4 d-flex justify-content-end"
+      class="col col-4 col-sm-4 offset-sm-7 offset-7 d-flex justify-content-end"
     >
       <button
         id="btn-voltar"
