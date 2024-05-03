@@ -14,12 +14,13 @@ export class MenuComponent {
   isDarkTheme: boolean;
   isDropdownOpen = false;
 
-  toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
   nome: String = '';
   username: String;
   perfil: String;
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
   ngOnInit(): void {
     initFlowbite();
