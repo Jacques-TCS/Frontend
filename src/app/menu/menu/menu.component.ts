@@ -9,6 +9,11 @@ import { initFlowbite } from 'flowbite';
 export class MenuComponent {
   title = 'SistemaRegistroVerificacao';
   isDarkTheme: boolean;
+  isDropdownOpen = false;
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
   ngOnInit(): void {
     initFlowbite();

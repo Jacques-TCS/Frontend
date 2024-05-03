@@ -3,8 +3,8 @@
     <div class="container mx-auto">
       <form #ngForm="ngForm" novalidate class="max-w-4xl mx-auto">
         <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
-          <div class="text-blue-900 dark:text-blue-100">
-            <h3 class="sm:text-3xl text-2xl text-center">Edição de Usuário</h3>
+          <div class="text-gray-900 dark:text-blue-100">
+            <h3 class="sm:text-3xl text-2xl text-left font-bold">Edição de Usuário</h3>
           </div>
         </div>
         <!--NOME-->
@@ -129,12 +129,7 @@
       <div class="md:mx-auto md:w-1/2 flex justify-end">
         <button
           id="btn-salvar"
-          class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-          style="
-            background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-            color: #00314d;
-            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-          "
+          class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
           (click)="atualizarUsuario()"
           type="submit"
         >

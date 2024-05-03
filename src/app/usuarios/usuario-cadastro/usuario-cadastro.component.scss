@@ -1,1 +1,13 @@
+input[type="date"] {
+    display: flex;
+    flex-flow: row-reverse;
+    padding: 8px;
+    height: auto;
+    position: relative;
+}
 
+
+input::-webkit-datetime-edit-fields-wrapper {
+    position: relative;
+    left: 15px;
+}
