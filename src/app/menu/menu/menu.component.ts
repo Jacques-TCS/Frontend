@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { initFlowbite } from 'flowbite';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,6 +8,8 @@ import { initFlowbite } from 'flowbite';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
+  constructor(private authService: AuthService){}
+
   title = 'SistemaRegistroVerificacao';
   isDarkTheme: boolean;
 
@@ -20,6 +23,10 @@ export class MenuComponent {
     this.isDarkTheme = !this.isDarkTheme;
     localStorage.setItem('color-theme', this.isDarkTheme ? 'dark' : 'light');
     this.updateTheme();
+  }
+
+  handleLogout(): void {
+    this.authService.logout()
   }
 
   private updateTheme(): void {
