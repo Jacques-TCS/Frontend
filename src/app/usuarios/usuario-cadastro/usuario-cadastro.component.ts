@@ -19,7 +19,7 @@ import { CargoService } from 'src/app/shared/service/cargo.service';
 export class UsuarioCadastroComponent implements OnInit {
   @ViewChild('dateField') date!: ElementRef;
   public usuario: Usuario = new Usuario();
-  public cargos: string[] = [];
+  public cargos: Cargo[] = [];
   public niveis: string[] = [];
   public idUsuario: number;
   public cargo: Cargo = new Cargo();
@@ -34,9 +34,6 @@ export class UsuarioCadastroComponent implements OnInit {
   mascaraTelefone = createMask('(99) 99999-9999');
   telefone = new FormControl('');
 
-  mascaraCtps = createMask('9999999/9999');
-  ctps = new FormControl('');
-
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
@@ -47,7 +44,7 @@ export class UsuarioCadastroComponent implements OnInit {
   ngOnInit(): void {
     this.cargoService.listarTodos().subscribe(
       (resultado) => {
-        this.cargos = resultado.map((cargo) => cargo.cargo);
+        this.cargos = resultado.map((cargo) => cargo);
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar cargos', 'error');

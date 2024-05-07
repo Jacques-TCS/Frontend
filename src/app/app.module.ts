@@ -12,10 +12,10 @@ import { InputMaskModule } from '@ngneat/input-mask';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginModule } from './login/login.module';
 import { MenuModule } from './menu/menu.module';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { NgxMaskDirective, provideNgxMask  } from 'ngx-mask';
 
 @NgModule({
-  declarations: [AppComponent, SidebarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,10 +27,11 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
     InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
     ZXingScannerModule,
     LoginModule,
-    MenuModule
+    MenuModule,
+    NgxMaskDirective
     // Datepicker
   ],
-  providers: [],
+  providers: [provideNgxMask()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

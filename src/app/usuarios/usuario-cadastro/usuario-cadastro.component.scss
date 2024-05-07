@@ -1,13 +1,18 @@
 input[type="date"] {
-    display: flex;
-    flex-flow: row-reverse;
-    padding: 8px;
-    height: auto;
-    position: relative;
+  box-sizing: border-box;
+  padding: 8px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+  &::-webkit-datetime-edit-fields-wrapper {
+    padding-left: 30px;
+  }
 }
 
-
-input::-webkit-datetime-edit-fields-wrapper {
-    position: relative;
-    left: 15px;
+input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 8px;
 }

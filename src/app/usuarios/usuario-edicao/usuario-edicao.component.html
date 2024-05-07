@@ -89,7 +89,7 @@
             required
           >
             <option *ngFor="let cargo of cargos" [ngValue]="cargo">
-              {{ cargo }}
+              {{ cargo.cargo }}
             </option>
           </select>
           <div
@@ -115,7 +115,7 @@
             required
           >
             <option *ngFor="let status of statusUsuario" [ngValue]="statusUsuario">
-              {{ statusUsuario }}
+              {{ status.status }}
             </option>
           </select>
           <div
