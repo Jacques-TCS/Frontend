@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { createMask } from '@ngneat/input-mask';
 import { Cargo } from 'src/app/shared/model/cargo';
 import { Usuario } from 'src/app/shared/model/usuario';
 import { CargoService } from 'src/app/shared/service/cargo.service';
@@ -38,6 +39,22 @@ export class UsuarioEdicaoComponent {
   loading = true;
 
   ngOnInit(): void {
+    this.cargoService.listarTodos().subscribe(
+      (resultado) => {
+        this.cargos = resultado.map((cargo) => cargo);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar cargos', 'error');
+      }
+    );
+    this.statusUsuarioService.listarTodos().subscribe(
+      (resultado) => {
+        this.statusUsuario = resultado.map((StatusUsuario) => StatusUsuario);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar StatusUsuarios', 'error');
+      }
+    );
     this.route.params.subscribe(params => {
       this.idUsuario = params['id'];
       if(this.idUsuario){
