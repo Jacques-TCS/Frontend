@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ServicoOcorrenciaComponent } from './servico-ocorrencia/servico-ocorrencia.component';
-import { ServicoListagemGerenciaComponent } from './servico-listagem-gerencia/servico-listagem-gerencia.component';
+import { ServicoListagemComponent } from './servico-listagem/servico-listagem.component';
 
 const routes: Routes = [
-  { path: 'listagem/gerencia', component: ServicoListagemGerenciaComponent },
+  { path: 'listagem/servicos', component: ServicoListagemComponent },
   { path: 'ocorrencia', component: ServicoOcorrenciaComponent },
 ];
 
