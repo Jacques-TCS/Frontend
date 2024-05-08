@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,6 +13,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginModule } from './login/login.module';
 import { MenuModule } from './menu/menu.module';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { RequestInterceptor } from './shared/auth/request-interceptor';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent],
@@ -27,10 +28,11 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
     InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
     ZXingScannerModule,
     LoginModule,
-    MenuModule
+    MenuModule,
     // Datepicker
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
