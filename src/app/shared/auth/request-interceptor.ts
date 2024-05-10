@@ -1,22 +1,31 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
 providedIn: 'root',
 })
 export class RequestInterceptor implements HttpInterceptor {
 
-	constructor() {}
+	constructor(
+		private router: Router
+	) {}
 	
-	intercept(req: HttpRequest<any>, next: HttpHandler) {
+	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
 		if(!req.url.includes('login')){
-			// Get the auth token from the service.
 			var authToken = localStorage.getItem('id_token')
 		
 			const authReq = req.clone({ setHeaders: { 'Authorization': 'Bearer ' + authToken } });
 		
-			// send cloned request with header to the next handler.
-			return next.handle(authReq);
+			return next.handle(authReq).pipe(
+				catchError((error, caught) => {
+					if(error.status == 403){
+						this.router.navigate(['/login'])
+					}
+					return caught
+				})
+			);
 		}
 		return next.handle(req)
 	}
