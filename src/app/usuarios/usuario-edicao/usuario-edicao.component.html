@@ -74,7 +74,9 @@
               Telefone inválido!
             </div>
           </div>
+          <!-- ! TODO: Alterar tamanho -->
           <!--CARGO-->
+        <div *ngIf="!loading">
         <div class="mb-5 relative flex-1 sm:ml-2.5">
           <label for="cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo: </label>
           <select
@@ -85,6 +87,7 @@
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             name="cargo"
             [ngModelOptions]="{ standalone: true }"
+            [compareWith]="compareById"
             [(ngModel)]="usuario.cargo"
             required
           >
@@ -105,16 +108,17 @@
           <label for="statusUsuario" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status de Atuação: </label>
           <select
             :class="{
-              'border-red-500': !usuario.statusUsuario && ngForm.submitted,
-              'border-gray-200': usuario.statusUsuario && ngForm.submitted
+              'border-red-500': !usuario.status && ngForm.submitted,
+              'border-gray-200': usuario.status && ngForm.submitted
             }"
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             name="statusUsuario"
             [ngModelOptions]="{ standalone: true }"
+            [compareWith]="compareById"
             [(ngModel)]="usuario.status"
             required
           >
-            <option *ngFor="let status of statusUsuario" [ngValue]="statusUsuario">
+            <option *ngFor="let status of statusUsuario" [ngValue]="status">
               {{ status.status }}
             </option>
           </select>
@@ -122,9 +126,10 @@
             *ngIf="ngForm.submitted && !this.usuario.status"
             class="text-red-500"
           >
-            Selecione um cargo!
+            Selecione um status!
           </div>
         </div>
+      </div>
     <div class="mb-5 mt-5 sm:mt-20">
       <div class="md:mx-auto md:w-1/2 flex justify-end">
         <button

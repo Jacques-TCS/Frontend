@@ -102,11 +102,10 @@
           </div>
         </div>
       </div>
-
       <!--TABELA-->
       <div class="mb-5 justify-center">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 pl-20">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-900 dark:text-gray-400 pl-20">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-8 py-3">
@@ -168,6 +167,31 @@
           </table>
         </div>
       </div>
+      <!-- PAGINAS -->
+      <nav class="flex">
+        <div class="w-1/4">
+            <!-- Componente de quantidade de registros por página -->
+            <label for="quantidadeRegistros" class="block">Quantidade de registros por página:</label>
+            <select class="form-select" [(ngModel)]="seletor.limite" (change)="atualizarPaginacao()" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="40">40</option>
+            </select>
+        </div>
+        <div class="w-1/2">
+            <label for="quantidadeRegistros" class="block">&nbsp;</label>
+            <!-- Componente de paginação -->
+            <ul class="flex list-none space-x-2">
+                <li><button [disabled]="seletor.pagina == 1" class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200" (click)="voltarPagina()">Anterior</button></li>
+
+                <!-- Botões com as páginas construídos dinamicamente -->
+                <li *ngFor="let indice of criarArrayPaginas()" (click)="irParaPagina(indice)"><button class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200">{{indice}}</button></li>
+
+                <li><button [disabled]="seletor.pagina == totalPaginas" class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200" (click)="avancarPagina()">Próxima</button></li>
+            </ul>
+        </div>
+    </nav>
+
       <!--PAGINAÇÃO-->
       <!-- <div class="flex mb-4 justify-center">
         <nav aria-label="Navegação">

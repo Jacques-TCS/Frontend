@@ -47,6 +47,10 @@ export class UsuarioService {
   }
 
   listarComSeletor(seletor: UsuarioSeletor) {
-    return this.httpClient.post<Array<Usuario>>(this.API + '/filtro', seletor);
+    return this.httpClient.post<Array<Usuario>>(this.API + '/filtro', seletor, this.httpOptions);
+  }
+
+  contarPaginas(seletor: UsuarioSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/total-paginas', seletor, this.httpOptions);
   }
 }

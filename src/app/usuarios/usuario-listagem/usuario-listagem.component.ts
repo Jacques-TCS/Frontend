@@ -20,6 +20,8 @@ export class UsuarioListagemComponent implements OnInit {
   public seletor: UsuarioSeletor = new UsuarioSeletor();
   public cargos: string[];
   public status: string[];
+  public totalPaginas: number = 0;
+  public readonly TAMANHO_PAGINA: number = 10;
 
   public mostrar: boolean;
   public esconder: boolean;
@@ -39,10 +41,27 @@ export class UsuarioListagemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.seletor.limite = this.TAMANHO_PAGINA;
+    this.seletor.pagina = 1;
+    this.filtrarUsuario();
+    this.contarPaginas();
     // this.seletor.limite = 5;
     // this.seletor.pagina = ;
+  }
 
-    this.buscarTodos();
+  public contarPaginas() {
+    this.usuarioService.contarPaginas(this.seletor).subscribe(
+      resultado => {
+        this.totalPaginas = resultado;
+      },
+      erro => {
+        Swal.fire('Erro ao consultar total de páginas', erro.error.mensagem, 'error');
+      }
+    );
+  }
+
+  criarArrayPaginas(): any[] {
+    return Array(this.totalPaginas).fill(0).map((x, i) => i + 1);
   }
 
   buscarTodos() {
@@ -88,5 +107,25 @@ export class UsuarioListagemComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Planilha');
 
     XLSX.writeFile(wb, this.fileName);
+  }
+
+  atualizarPaginacao() {
+    this.contarPaginas();
+    this.filtrarUsuario();
+  }
+
+  avancarPagina() {
+    this.seletor.pagina++;
+    this.filtrarUsuario();
+  }
+
+  voltarPagina() {
+    this.seletor.pagina--;
+    this.filtrarUsuario();
+  }
+
+  irParaPagina(indicePagina: number) {
+    this.seletor.pagina = indicePagina;
+    this.filtrarUsuario();
   }
 }

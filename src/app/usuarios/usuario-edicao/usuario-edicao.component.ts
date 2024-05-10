@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { createMask } from '@ngneat/input-mask';
+import { forkJoin } from 'rxjs';
 import { Cargo } from 'src/app/shared/model/cargo';
 import { Usuario } from 'src/app/shared/model/usuario';
 import { CargoService } from 'src/app/shared/service/cargo.service';
@@ -18,8 +19,8 @@ import Swal from 'sweetalert2';
 export class UsuarioEdicaoComponent {
 
   public usuario: Usuario = new Usuario();
-  public cargos: Cargo[] = [];
-  public statusUsuario: StatusUsuario[] = [];
+  public cargos: Cargo[];
+  public statusUsuario: StatusUsuario[];
   public idUsuario: number;
 
   @ViewChild('ngForm')
@@ -36,28 +37,24 @@ export class UsuarioEdicaoComponent {
     private statusUsuarioService: StatusUsuarioService,
   ) {}
 
+  loading = true;
+
   ngOnInit(): void {
-    this.cargoService.listarTodos().subscribe(
-      (resultado) => {
-        this.cargos = resultado.map((cargo) => cargo);
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar cargos', 'error');
-      }
-    );
-    this.statusUsuarioService.listarTodos().subscribe(
-      (resultado) => {
-        this.statusUsuario = resultado.map((StatusUsuario) => StatusUsuario);
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar StatusUsuarios', 'error');
-      }
-    );
     this.route.params.subscribe(params => {
       this.idUsuario = params['id'];
-
       if(this.idUsuario){
         this.buscarUsuario();
+        forkJoin({
+        cargos: this.cargoService.listarTodos(),
+        statusUsuario: this.statusUsuarioService.listarTodos()
+      }).subscribe(({ cargos, statusUsuario }) => {
+        this.cargos = cargos;
+        this.statusUsuario = statusUsuario;
+        this.loading = false;
+      }, (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar dados', 'error');
+        this.loading = false;
+      });
       }
     });
   }
@@ -85,5 +82,9 @@ export class UsuarioEdicaoComponent {
                       + this.idUsuario + ") : " + erro, 'error');
       }
     );
+  }
+
+  public compareById(r1: any, r2: any): boolean {
+    return r1 && r2 ? r1.id === r2.id : r1 === r2;
   }
 }
