@@ -18,17 +18,23 @@ export class AuthService {
     return this.http.post<any>(this.API, {username: username, password: password}, this.httpOptions)
       .pipe(
         tap((response) => {
-          this.setSession(response.token)
+          this.setSession(response.token, response.nome, response.username, response.perfil)
         })
       );
   }
 
-  private setSession(token: string) {
+  private setSession(token: string, usuario: string, username: string, perfil: string) {
     localStorage.setItem('id_token', token);
+    localStorage.setItem('nome', usuario);
+    localStorage.setItem('username', username);
+    localStorage.setItem('perfil', perfil);
   }
 
   logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('nome');
+    localStorage.removeItem('username');
+    localStorage.removeItem('perfil');
   }
 
   public isLoggedIn() {
