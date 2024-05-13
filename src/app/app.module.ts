@@ -15,6 +15,7 @@ import { MenuModule } from './menu/menu.module';
 import { RequestInterceptor } from './shared/auth/request-interceptor';
 import { NgxMaskDirective, provideNgxMask  } from 'ngx-mask';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

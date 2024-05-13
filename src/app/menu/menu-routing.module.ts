@@ -13,6 +13,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('../usuarios/usuarios.module').then((m) => m.UsuariosModule),
           canActivate: [privateRouteGuard]
+
       },
       {
         path: 'servicos',
