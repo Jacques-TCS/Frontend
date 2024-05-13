@@ -4,7 +4,7 @@ import { ServicoOcorrenciaComponent } from './servico-ocorrencia/servico-ocorren
 import { ServicoListagemComponent } from './servico-listagem/servico-listagem.component';
 
 const routes: Routes = [
-  { path: 'listagem/servicos', component: ServicoListagemComponent },
+  { path: 'listagem', component: ServicoListagemComponent },
   { path: 'ocorrencia', component: ServicoOcorrenciaComponent },
 ];
 
