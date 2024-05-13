@@ -12,9 +12,15 @@ export class MenuComponent {
 
   title = 'SistemaRegistroVerificacao';
   isDarkTheme: boolean;
+  isDropdownOpen = false;
+
   nome: String = '';
   username: String;
   perfil: String;
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
   ngOnInit(): void {
     initFlowbite();

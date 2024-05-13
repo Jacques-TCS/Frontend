@@ -12,11 +12,12 @@ import { InputMaskModule } from '@ngneat/input-mask';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginModule } from './login/login.module';
 import { MenuModule } from './menu/menu.module';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { RequestInterceptor } from './shared/auth/request-interceptor';
+import { NgxMaskDirective, provideNgxMask  } from 'ngx-mask';
+
 
 @NgModule({
-  declarations: [AppComponent, SidebarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,10 +30,10 @@ import { RequestInterceptor } from './shared/auth/request-interceptor';
     ZXingScannerModule,
     LoginModule,
     MenuModule,
-    // Datepicker
+    NgxMaskDirective
   ],
   providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}],
+    provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}, provideNgxMask()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -12,17 +12,20 @@ const routes: Routes = [
         path: 'usuarios',
         loadChildren: () =>
           import('../usuarios/usuarios.module').then((m) => m.UsuariosModule),
-        canActivate: [privateRouteGuard]
+          canActivate: [privateRouteGuard]
+
       },
       {
         path: 'servicos',
         loadChildren: () =>
           import('../servicos/servicos.module').then((m) => m.ServicosModule),
+          canActivate: [privateRouteGuard]
       },
       {
         path: 'dashboard',
         loadChildren: () =>
           import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+          canActivate: [privateRouteGuard]
       },
     ],
   },

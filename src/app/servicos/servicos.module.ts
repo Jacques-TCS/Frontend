@@ -3,21 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ServicosRoutingModule } from './servicos-routing.module';
-import { ServicoCadastroComponent } from './servico-cadastro/servico-cadastro.component';
 import { ServicoOcorrenciaComponent } from './servico-ocorrencia/servico-ocorrencia.component';
-import { ServicoListagemGerenciaComponent } from './servico-listagem-gerencia/servico-listagem-gerencia.component';
-import { ServicoListagemFuncionarioComponent } from './servico-listagem-funcionario/servico-listagem-funcionario.component';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { QrCodeComponent } from './qr-code/qr-code.component';
+import { ServicoListagemComponent } from './servico-listagem/servico-listagem.component';
 
 @NgModule({
   declarations: [
-    ServicoCadastroComponent,
     ServicoOcorrenciaComponent,
-    ServicoListagemGerenciaComponent,
-    ServicoListagemFuncionarioComponent,
-    QrCodeComponent,
+    ServicoListagemComponent,
   ],
-  imports: [CommonModule, ServicosRoutingModule, FormsModule, ZXingScannerModule],
+  imports: [CommonModule, ServicosRoutingModule, FormsModule],
 })
 export class ServicosModule {}
