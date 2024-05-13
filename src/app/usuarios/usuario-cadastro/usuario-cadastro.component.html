@@ -55,13 +55,17 @@
           <!--DATA DE NASCIMENTO-->
           <div class="mb-5 relative flex-1 sm:ml-2.5">
             <label for="dataNascimento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de Nascimento: </label>
-            <input type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="dd/mm/aaaa"
-              minlength="8"
-              id="dataNascimento"
-              name="dataNascimento"
-              [(ngModel)]="usuario.dataNascimento"
-              required
+            <input type="date"
+            [class.date-input--has-value]="usuario.dataNascimento"
+            [(ngModel)]="usuario.dataNascimento"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            placeholder="dd/mm/aaaa"
+            minlength="8"
+            [max] = "dezoitoAnos"
+            [min] = "setentaAnos"
+            id="dataNascimento"
+            name="dataNascimento"
+            required
             />
             <div
               *ngIf="ngForm.submitted && !this.usuario.dataNascimento"
@@ -103,9 +107,11 @@
                 'border-gray-200': usuario.telefone && ngForm.submitted
               }"
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              [inputMask]="mascaraTelefone"
+              (input)="onInput($event)"
               [formControl]="telefone"
-              placeholder="(00) 00000-0000"
+              [placeholder]="usuario.telefone && usuario.telefone.length > 10 ? '(00) 00000-0000' : '(00) 0000-0000'"
+              maxlength="15"
+              minlength="14"
               name="telefone"
               [(ngModel)]="usuario.telefone"
               required
@@ -131,7 +137,7 @@
             [(ngModel)]="usuario.cargo"
             required
           >
-            <option *ngFor="let cargo of cargos" [ngValue]="cargo.id">
+            <option *ngFor="let cargo of cargos" [ngValue]="cargo">
               {{ cargo.cargo }}
             </option>
           </select>

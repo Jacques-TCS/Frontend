@@ -2,7 +2,6 @@ import { StatusUsuario } from './../../shared/model/status-usuario';
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { createMask } from '@ngneat/input-mask';
 import { forkJoin } from 'rxjs';
 import { Cargo } from 'src/app/shared/model/cargo';
 import { Usuario } from 'src/app/shared/model/usuario';
@@ -26,7 +25,6 @@ export class UsuarioEdicaoComponent {
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
-  mascaraTelefone = createMask('(99) 99999-9999');
   telefone = new FormControl('');
 
   constructor(
@@ -48,6 +46,9 @@ export class UsuarioEdicaoComponent {
         cargos: this.cargoService.listarTodos(),
         statusUsuario: this.statusUsuarioService.listarTodos()
       }).subscribe(({ cargos, statusUsuario }) => {
+        if (this.usuario && this.usuario.telefone) {
+          this.usuario.telefone = this.applyPhoneMask(this.usuario.telefone);
+        }
         this.cargos = cargos;
         this.statusUsuario = statusUsuario;
         this.loading = false;
@@ -82,6 +83,26 @@ export class UsuarioEdicaoComponent {
                       + this.idUsuario + ") : " + erro, 'error');
       }
     );
+  }
+
+  onInput(event: any) {
+    let value = event.target.value.replace(/\D/g, '');
+    if (value.length > 10) {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    } else {
+      value = value.replace(/^(\d{2})(\d{4})(\d{4}).*/, '($1) $2-$3');
+    }
+    event.target.value = value;
+  }
+
+  applyPhoneMask(telefone: string): string {
+    let value = telefone.replace(/\D/g, '');
+    if (value.length > 10) {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    } else {
+      value = value.replace(/^(\d{2})(\d{4})(\d{4}).*/, '($1) $2-$3');
+    }
+    return value;
   }
 
   public compareById(r1: any, r2: any): boolean {

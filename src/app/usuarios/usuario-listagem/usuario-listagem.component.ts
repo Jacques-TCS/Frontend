@@ -9,6 +9,10 @@ import * as XLSX from 'xlsx';
 import { Modal } from 'flowbite';
 import type { ModalOptions, ModalInterface } from 'flowbite';
 import type { InstanceOptions } from 'flowbite';
+import { Cargo } from 'src/app/shared/model/cargo';
+import { StatusUsuario } from 'src/app/shared/model/status-usuario';
+import { CargoService } from 'src/app/shared/service/cargo.service';
+import { StatusUsuarioService } from 'src/app/shared/service/statusUsuario.service';
 
 @Component({
   selector: 'app-usuario-listagem',
@@ -18,9 +22,9 @@ import type { InstanceOptions } from 'flowbite';
 export class UsuarioListagemComponent implements OnInit {
   public usuarios: Array<Usuario> = new Array();
   public seletor: UsuarioSeletor = new UsuarioSeletor();
-  public cargos: string[];
-  public status: string[];
-  public totalPaginas: number = 0;
+  public cargos: Cargo[];
+  public status: StatusUsuario[];
+  public totalPaginas: number = 1;
   public readonly TAMANHO_PAGINA: number = 10;
 
   public mostrar: boolean;
@@ -37,7 +41,9 @@ export class UsuarioListagemComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cargoService: CargoService,
+    private statusUsuarioService: StatusUsuarioService
   ) {}
 
   ngOnInit(): void {
@@ -45,8 +51,22 @@ export class UsuarioListagemComponent implements OnInit {
     this.seletor.pagina = 1;
     this.filtrarUsuario();
     this.contarPaginas();
-    // this.seletor.limite = 5;
-    // this.seletor.pagina = ;
+    this.cargoService.listarTodos().subscribe(
+      (resultado) => {
+        this.cargos = resultado.map((cargo) => cargo);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar cargos', 'error');
+      }
+    );
+    this.statusUsuarioService.listarTodos().subscribe(
+      (resultado) => {
+        this.status = resultado.map((status) => status);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar status', 'error');
+      }
+    );
   }
 
   public contarPaginas() {

@@ -50,34 +50,32 @@
             Informe um email válido
           </div>
         </div>
-        <div class="flex flex-col sm:flex-row justify-between">
-          <!--TELEFONE-->
-          <div class="mb-5 relative flex-1 sm:mr-2.5">
-            <label for="telefone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone: </label>
-            <input
-              :class="{
-                'border-red-500': !usuario.telefone && ngForm.submitted,
-                'border-gray-200': usuario.telefone && ngForm.submitted
-              }"
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              [inputMask]="mascaraTelefone"
-              [formControl]="telefone"
-              placeholder="(00) 00000-0000"
-              name="telefone"
-              [(ngModel)]="usuario.telefone"
-              required
-            />
-            <div
-              *ngIf="ngForm.submitted && !this.usuario.telefone"
-              class="text-red-500"
-            >
-              Telefone inválido!
-            </div>
+        <!--TELEFONE-->
+        <div class="mb-5">
+          <label for="telefone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone: </label>
+          <input
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            [class.border-red-500]="!usuario.telefone && ngForm.submitted"
+            [class.border-gray-200]="usuario.telefone && ngForm.submitted"
+            (input)="onInput($event)"
+            [formControl]="telefone"
+            [placeholder]="usuario.telefone && usuario.telefone.length > 10 ? '(00) 00000-0000' : '(00) 0000-0000'"
+            maxlength="15"
+            minlength="14"
+            name="telefone"
+            [(ngModel)]="usuario.telefone"
+            required
+          />
+          <div *ngIf="ngForm.submitted && !usuario.telefone" class="text-red-500">
+            Telefone inválido!
           </div>
-          <!-- ! TODO: Alterar tamanho -->
-          <!--CARGO-->
-        <div *ngIf="!loading">
-        <div class="mb-5 relative flex-1 sm:ml-2.5">
+        </div>
+
+      <!-- ! TODO: Alterar tamanho -->
+      <!--CARGO-->
+      <div *ngIf="!loading">
+      <div class="flex sm:flex-row flex-col justify-between">
+        <div class="mb-5 relative flex-1 sm:mr-2.5">
           <label for="cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo: </label>
           <select
             :class="{
@@ -102,9 +100,8 @@
             Selecione um cargo!
           </div>
         </div>
-      </div>
         <!-- ATUAÇÃO -->
-        <div class="mb-5">
+        <div class="mb-5 relative flex-1">
           <label for="statusUsuario" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status de Atuação: </label>
           <select
             :class="{
@@ -130,6 +127,7 @@
           </div>
         </div>
       </div>
+    </div>
     <div class="mb-5 mt-5 sm:mt-20">
       <div class="md:mx-auto md:w-1/2 flex justify-end">
         <button

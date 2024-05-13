@@ -3,11 +3,10 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/shared/model/usuario';
 import { UsuarioService } from './../../shared/service/usuario.service';
-import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
-import { createMask } from '@ngneat/input-mask';
 import { Cargo } from 'src/app/shared/model/cargo';
 import { CargoService } from 'src/app/shared/service/cargo.service';
+import Swal from 'sweetalert2';
 // import { Datepicker } from 'flowbite-datepicker'
 
 @Component({
@@ -28,11 +27,10 @@ export class UsuarioCadastroComponent implements OnInit {
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
-  mascaraCpf = createMask('999.999.999-99');
   cpf = new FormControl('');
-
-  mascaraTelefone = createMask('(99) 99999-9999');
   telefone = new FormControl('');
+  dezoitoAnos: string;
+  setentaAnos: string;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -57,6 +55,15 @@ export class UsuarioCadastroComponent implements OnInit {
         this.buscarUsuario();
       }
     });
+    const currentDate = new Date();
+
+    const date18YearsAgo = new Date(currentDate);
+    date18YearsAgo.setFullYear(currentDate.getFullYear() - 18);
+    this.dezoitoAnos = date18YearsAgo.toISOString().split('T')[0];
+
+    const date70YearsAgo = new Date(currentDate);
+    date70YearsAgo.setFullYear(currentDate.getFullYear() - 70);
+    this.setentaAnos = date70YearsAgo.toISOString().split('T')[0];
   }
 
   inserirUsuario(form: NgForm) {
@@ -83,5 +90,15 @@ export class UsuarioCadastroComponent implements OnInit {
                       + this.idUsuario + ") : " + erro, 'error');
       }
     );
+  }
+
+  onInput(event: any) {
+    let value = event.target.value.replace(/\D/g, '');
+    if (value.length > 10) {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    } else {
+      value = value.replace(/^(\d{2})(\d{4})(\d{4}).*/, '($1) $2-$3');
+    }
+    event.target.value = value;
   }
 }

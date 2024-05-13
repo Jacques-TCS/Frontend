@@ -7,7 +7,7 @@
         </div>
         <!--FILTRO-->
         <a class="flex items-center cursor-pointer filtro p-2" (click)="mostrarFiltros()">
-          <label class="mx-2 font-medium text-blue-900 dark:text-blue-100 cursor-pointer">Filtro</label>
+          <label class="mx-2 font-medium text-gray-900 dark:text-blue-100 cursor-pointer">Filtro</label>
             <i>
               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
@@ -45,7 +45,7 @@
             >
               <option></option>
               <option *ngFor="let cargo of cargos" [ngValue]="cargo">
-                {{ cargo }}
+                {{ cargo.cargo }}
               </option>
             </select>
           </div>
@@ -63,7 +63,7 @@
                 *ngFor="let statusUsuario of status"
                 [ngValue]="statusUsuario"
               >
-                {{ statusUsuario }}
+                {{ statusUsuario.status }}
               </option>
             </select>
           </div>
@@ -88,12 +88,7 @@
           <div class="mb-5 mt-7">
             <button
               id="btn-filtrar"
-              class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-48 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              style="
-                background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-                color: #00314d;
-                box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-              "
+              class="btn font-semibold shadow-sm text-sm rounded-lg block 2xl:w-48 lg:w-72 w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
               (click)="filtrarUsuario(); mostrarFiltros()"
               type="submit"
             >
@@ -168,91 +163,52 @@
         </div>
       </div>
       <!-- PAGINAS -->
-      <nav class="flex">
-        <div class="w-1/4">
-            <!-- Componente de quantidade de registros por página -->
-            <label for="quantidadeRegistros" class="block">Quantidade de registros por página:</label>
-            <select class="form-select" [(ngModel)]="seletor.limite" (change)="atualizarPaginacao()" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="40">40</option>
-            </select>
+      <nav aria-label="Navigation" class="sm:flex sm:justify-between flex-col sm:flex-row">
+        <div class="xl:w-1/12 lg:w-1/8 md:w-1/6 sm:w-1/4 w-full">
+          <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">Exibir registros:</label>
+          <select class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200" [(ngModel)]="seletor.limite" [ngModelOptions]="{ standalone: true }" (change)="atualizarPaginacao()">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="40">40</option>
+          </select>
         </div>
-        <div class="w-1/2">
-            <label for="quantidadeRegistros" class="block">&nbsp;</label>
-            <!-- Componente de paginação -->
-            <ul class="flex list-none space-x-2">
-                <li><button [disabled]="seletor.pagina == 1" class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200" (click)="voltarPagina()">Anterior</button></li>
-
-                <!-- Botões com as páginas construídos dinamicamente -->
-                <li *ngFor="let indice of criarArrayPaginas()" (click)="irParaPagina(indice)"><button class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200">{{indice}}</button></li>
-
-                <li><button [disabled]="seletor.pagina == totalPaginas" class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200" (click)="avancarPagina()">Próxima</button></li>
+        <div class="flex justify-center">
+        <div class="w-1/2 mb-4">
+          <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">&nbsp;</label>
+          <ul class="flex items-center justify-center -space-x-px h-10 text-base">
+            <li class="page-item">
+                <button [disabled]="seletor.pagina == 1" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="voltarPagina()">
+                  <span class="sr-only">Anterior</span>
+                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                    </svg>
+                  </button>
+                </li>
+                <li *ngFor="let indice of criarArrayPaginas()" (click)="irParaPagina(indice)">
+                  <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{indice}}</button>
+                </li>
+                <li>
+                  <button [disabled]="seletor.pagina == totalPaginas" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="avancarPagina()">
+                    <span class="sr-only">Próximo</span>
+                      <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                  </svg>
+                </button>
+              </li>
             </ul>
+          </div>
         </div>
-    </nav>
-
-      <!--PAGINAÇÃO-->
-      <!-- <div class="flex mb-4 justify-center">
-        <nav aria-label="Navegação">
-          <ul class="flex">
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-200 rounded-full text-blue-800"
-                aria-label="Anterior"
-              >
-                <span aria-hidden="true">&#9666;</span>
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-300 rounded-full text-blue-800"
-              >
-                1
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-200 rounded-full text-blue-800"
-              >
-                2
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-300 rounded-full text-blue-800"
-              >
-                3
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-200 rounded-full text-blue-800"
-                aria-label="Próximo"
-              >
-                <span aria-hidden="true">&#9656;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div> -->
-      <div class="flex mb-4">
-        <div class="w-full flex justify-end">
+        <div class="flex justify-end items-center">
           <button
             id="btn-exportar"
-            class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-48 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-            style="
-              background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-              color: #00314d;
-              box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-            "
+            class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
             (click)="exportarPlanilhaUsuario()"
             type="submit"
             >
             Exportar
           </button>
         </div>
-      </div>
+      </nav>
     </form>
   </div>
 </div>

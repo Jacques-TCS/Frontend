@@ -1,6 +1,6 @@
 input[type="date"] {
   box-sizing: border-box;
-  padding: 8px;
+  padding: 10px;
   width: 100%;
   height: auto;
   position: relative;
@@ -15,4 +15,20 @@ input[type="date"] {
 input::-webkit-calendar-picker-indicator {
   position: absolute;
   left: 8px;
+}
+
+/* placeholder text style */
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #888;
+}
+
+/* regular text style */
+input[type="date"].date-input--has-value::-webkit-datetime-edit-text,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-month-field,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-day-field,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-year-field {
+  color: #000;
 }
