@@ -166,7 +166,11 @@
       <nav aria-label="Navigation" class="sm:flex sm:justify-between flex-col sm:flex-row">
         <div class="xl:w-1/12 lg:w-1/8 md:w-1/6 sm:w-1/4 w-full">
           <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">Exibir registros:</label>
-          <select class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200" [(ngModel)]="seletor.limite" [ngModelOptions]="{ standalone: true }" (change)="atualizarPaginacao()">
+          <select
+            class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+            [(ngModel)]="seletor.limite"
+            [ngModelOptions]="{ standalone: true }"
+            (change)="atualizarPaginacao()">
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="40">40</option>
@@ -175,20 +179,20 @@
         <div class="flex justify-center">
         <div class="w-1/2 mb-4">
           <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">&nbsp;</label>
-          <ul class="flex items-center justify-center -space-x-px h-10 text-base">
-            <li class="page-item">
-                <button [disabled]="seletor.pagina == 1" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="voltarPagina()">
+           <ul class="pagination flex items-center justify-center -space-x-px h-10 text-base">
+              <li class="page-item">
+                <button [disabled]="seletor.pagina == 0" class="page-link flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="voltarPagina()">
                   <span class="sr-only">Anterior</span>
                     <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
                     </svg>
                   </button>
                 </li>
-                <li *ngFor="let indice of criarArrayPaginas()" (click)="irParaPagina(indice)">
-                  <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{indice}}</button>
+                <li class="page-item" *ngFor="let indice of criarArrayPaginas()" (click)="irParaPagina(indice-1)">
+                  <button class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{indice}}</button>
                 </li>
-                <li>
-                  <button [disabled]="seletor.pagina == totalPaginas" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="avancarPagina()">
+                <li class="page-item">
+                  <button [disabled]="seletor.pagina == totalPaginas-1" class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="avancarPagina()">
                     <span class="sr-only">Próximo</span>
                       <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>

@@ -6,9 +6,6 @@ import { UsuarioSeletor } from 'src/app/shared/model/seletor/usuario.seletor';
 import { Usuario } from 'src/app/shared/model/usuario';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { Modal } from 'flowbite';
-import type { ModalOptions, ModalInterface } from 'flowbite';
-import type { InstanceOptions } from 'flowbite';
 import { Cargo } from 'src/app/shared/model/cargo';
 import { StatusUsuario } from 'src/app/shared/model/status-usuario';
 import { CargoService } from 'src/app/shared/service/cargo.service';
@@ -24,7 +21,7 @@ export class UsuarioListagemComponent implements OnInit {
   public seletor: UsuarioSeletor = new UsuarioSeletor();
   public cargos: Cargo[];
   public status: StatusUsuario[];
-  public totalPaginas: number = 1;
+  public totalPaginas: number = 0;
   public readonly TAMANHO_PAGINA: number = 10;
 
   public mostrar: boolean;
@@ -48,7 +45,7 @@ export class UsuarioListagemComponent implements OnInit {
 
   ngOnInit(): void {
     this.seletor.limite = this.TAMANHO_PAGINA;
-    this.seletor.pagina = 1;
+    this.seletor.pagina = 0;
     this.filtrarUsuario();
     this.contarPaginas();
     this.cargoService.listarTodos().subscribe(
@@ -82,17 +79,6 @@ export class UsuarioListagemComponent implements OnInit {
 
   criarArrayPaginas(): any[] {
     return Array(this.totalPaginas).fill(0).map((x, i) => i + 1);
-  }
-
-  buscarTodos() {
-    this.usuarioService.listarTodos().subscribe(
-      (resultado) => {
-        this.usuarios = resultado;
-      },
-      (erro) => {
-        console.log('Erro ao buscar usuarios', erro);
-      }
-    );
   }
 
   filtrarUsuario() {
