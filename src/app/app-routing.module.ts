@@ -9,20 +9,17 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'menu',
-    redirectTo: 'menu',
   },
   {
     path: 'login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
     canActivate: [publicRouteGuard]
-    canActivate: [publicRouteGuard]
   },
   {
     path: 'menu',
     loadChildren: () =>
       import('./menu/menu.module').then((m) => m.MenuModule),
-    canActivate: [privateRouteGuard]
     canActivate: [privateRouteGuard]
   },
 ];
