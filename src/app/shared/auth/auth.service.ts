@@ -6,7 +6,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API = 'http://localhost:8080/api/usuario/login';
+  private readonly API = 'http://localhost:8080/api/usuario';
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(this.API, {username: username, password: password}, this.httpOptions)
+    return this.http.post<any>(this.API + '/login', {username: username, password: password}, this.httpOptions)
       .pipe(
         tap((response) => {
           this.setSession(response.token, response.nome, response.username, response.perfil)
@@ -39,5 +39,9 @@ export class AuthService {
 
   public isLoggedIn() {
     return localStorage.getItem('id_token') !== null;
+  }
+
+  recuperarSenha(email: string): Observable<any> {
+    return this.http.post<any>(this.API + '/recuperar-senha', {email}, this.httpOptions)
   }
 }

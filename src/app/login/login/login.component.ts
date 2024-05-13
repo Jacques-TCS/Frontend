@@ -37,6 +37,6 @@ export class LoginComponent {
   }
 
   esqueciMinhaSenha(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/recuperar-senha']);
   }
 }
