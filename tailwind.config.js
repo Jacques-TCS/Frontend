@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         'background': '#1a202c', // This sets the default background color.
+        'background-logo': '#011c39'
       },
     },
   },

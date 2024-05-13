@@ -29,16 +29,19 @@
 
             <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
               <span class="sr-only">Abrir menu de usuário</span>
-              <img class="w-10 h-10 rounded-full" src="../assets/image.png" alt="user photo">
+              <img class="w-10 h-10 rounded-full" src="../assets/userProfile.png" alt="user photo">
             </button>
           </div>
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
               <div class="px-4 py-3" role="none">
                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                  Geraldão da Ruiva
+                  {{nome}}
                 </p>
                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                  geraldao@jacques.com.br
+                  {{username}}
+                </p>
+                <p class="text-sm text-gray-900 dark:text-white" role="none">
+                  {{perfil}}
                 </p>
               </div>
               <ul class="py-1" role="none">

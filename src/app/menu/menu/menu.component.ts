@@ -12,11 +12,17 @@ export class MenuComponent {
 
   title = 'SistemaRegistroVerificacao';
   isDarkTheme: boolean;
+  nome: String = '';
+  username: String;
+  perfil: String;
 
   ngOnInit(): void {
     initFlowbite();
     this.isDarkTheme = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
     this.updateTheme();
+    this.nome = localStorage.getItem('nome') ?? '';
+    this.username = localStorage.getItem('username') ?? '';
+    this.perfil = localStorage.getItem('perfil') ?? '';
   }
 
   toggleTheme(): void {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
+import { privateRouteGuard } from '../servicos/guards/private-route.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
         path: 'usuarios',
         loadChildren: () =>
           import('../usuarios/usuarios.module').then((m) => m.UsuariosModule),
+        canActivate: [privateRouteGuard]
       },
       {
         path: 'servicos',
