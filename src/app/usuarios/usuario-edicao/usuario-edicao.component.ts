@@ -77,17 +77,19 @@ export class UsuarioEdicaoComponent {
     });
   }
 
-  atualizarUsuario() {
-    this.usuarioService.atualizar(this.usuario).subscribe(
-      (sucesso) => {
-        Swal.fire('Sucesso', 'Usuario atualizado!', 'success');
-      },
-      (erro) => {
-        Swal.fire(
-          'Erro', erro.error.message, 'error'
-        );
-      }
-    );
+  atualizarUsuario(ngForm: NgForm) {
+    if(!ngForm.invalid){
+      this.usuarioService.atualizar(this.usuario).subscribe(
+        (sucesso) => {
+          Swal.fire('Sucesso', 'Usuario atualizado!', 'success');
+        },
+        (erro) => {
+          Swal.fire(
+            'Erro', erro.error.message, 'error'
+          );
+        }
+      );
+    }
   }
 
   buscarUsuario(){

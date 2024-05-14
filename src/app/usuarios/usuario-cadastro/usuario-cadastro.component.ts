@@ -67,17 +67,19 @@ export class UsuarioCadastroComponent implements OnInit {
   }
 
   inserirUsuario(form: NgForm) {
-    this.usuarioService.inserir(this.usuario).subscribe(
-      (sucesso) => {
-        Swal.fire('Sucesso', 'Usuario cadastrado!', 'success');
-        this.usuario = new Usuario();
-      },
-      (erro) => {
-        Swal.fire(
-          'Erro', erro.error.message, 'error'
-        );
-      }
-    );
+    if(!form.invalid){
+      this.usuarioService.inserir(this.usuario).subscribe(
+        (sucesso) => {
+          Swal.fire('Sucesso', 'Usuario cadastrado!', 'success');
+          this.usuario = new Usuario();
+        },
+        (erro) => {
+          Swal.fire(
+            'Erro', erro.error.message, 'error'
+          );
+        }  
+      );
+    }
   }
 
   buscarUsuario(){
