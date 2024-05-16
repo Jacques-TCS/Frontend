@@ -1,0 +1,38 @@
+<div class="p-4">
+    <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+      <div class="container mx-auto">
+        <form #ngForm="ngForm" (ngSubmit)="recuperarSenha(ngForm)" class="max-w-4xl mx-auto flex flex-col items-center">
+          <div class="sm:mb-8 sm:mt-2 mb-8 mt-2 w-4/6">
+            <div class="bg-background-logo rounded-md flex justify-center">
+              <img src="../assets/logo.svg" class="me-3 h-44 left-1/2" alt="Jacques Logo" />
+            </div>          
+						<div class=" dark:text-blue-100 mt-7">
+							<h3 class="sm:text-3xl text-2xl text-center">Recuperação de senha</h3>
+						</div>
+          </div>
+          <div class="mb-10 w-4/6">
+            <label for="email" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail </label>
+            <input
+              type="text"
+              :class="{
+                'border-red-500': (!password) && ngForm.submitted,
+                'border-gray-200': !(!password) && ngForm.submitted
+              }"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              name="email"
+              minlength="1"
+              [(ngModel)]="email"
+              required
+            />
+            <div
+              *ngIf="ngForm.submitted && !this.email"
+              class="text-red-500"
+            >
+              O e-mail é obrigatório
+            </div>
+          </div>
+          <button type="submit" class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block p-4 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light">Solicitar nova senha</button>
+        </form>
+      </div>
+    </div>
+  </div>  

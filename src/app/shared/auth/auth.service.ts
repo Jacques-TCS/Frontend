@@ -1,33 +1,47 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API = 'http://localhost:8080/api/login';
+  private readonly API = 'http://localhost:8080/api/usuario';
+
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string) {
-    return this.http.post<{ token: string }>(`${this.API}/login`, { email, password })
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(this.API + '/login', {username: username, password: password}, this.httpOptions)
       .pipe(
-        tap((res: { token: string; }) => this.setSession(res.token)),
-        shareReplay()
+        tap((response) => {
+          this.setSession(response.token, response.nome, response.username, response.perfil)
+        })
       );
   }
 
-  private setSession(token: string) {
+  private setSession(token: string, usuario: string, username: string, perfil: string) {
     localStorage.setItem('id_token', token);
+    localStorage.setItem('nome', usuario);
+    localStorage.setItem('username', username);
+    localStorage.setItem('perfil', perfil);
   }
 
   logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('nome');
+    localStorage.removeItem('username');
+    localStorage.removeItem('perfil');
   }
 
   public isLoggedIn() {
     return localStorage.getItem('id_token') !== null;
+  }
+
+  recuperarSenha(email: string): Observable<any> {
+    return this.http.post<any>(this.API + '/recuperar-senha', {email}, this.httpOptions)
   }
 }

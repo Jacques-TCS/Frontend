@@ -3,8 +3,8 @@
     <div class="container mx-auto">
       <form #ngForm="ngForm" novalidate class="max-w-4xl mx-auto">
         <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
-          <div class="text-blue-900 dark:text-blue-100">
-            <h3 class="sm:text-3xl text-2xl text-center">Cadastro de Usuário</h3>
+          <div class="text-gray-900 dark:text-blue-100">
+            <h3 class="sm:text-3xl text-2xl text-left font-bold">Cadastro de Usuário</h3>
           </div>
         </div>
         <!--NOME-->
@@ -40,7 +40,7 @@
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               placeholder="000.000.000-00"
               name="cpf"
-              [inputMask]="mascaraCpf"
+              mask="000.000.000-00"
               [formControl]="cpf"
               [(ngModel)]="usuario.cpf"
               required
@@ -55,13 +55,17 @@
           <!--DATA DE NASCIMENTO-->
           <div class="mb-5 relative flex-1 sm:ml-2.5">
             <label for="dataNascimento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de Nascimento: </label>
-            <input datepicker datepicker-autohide type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="dd/mm/aaaa"
-              minlength="8"
-              id="dataNascimento"
-              name="dataNascimento"
-              [(ngModel)]="usuario.dataNascimento"
-              required
+            <input type="date"
+            [class.date-input--has-value]="usuario.dataNascimento"
+            [(ngModel)]="usuario.dataNascimento"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            placeholder="dd/mm/aaaa"
+            minlength="8"
+            [max] = "dezoitoAnos"
+            [min] = "setentaAnos"
+            id="dataNascimento"
+            name="dataNascimento"
+            required
             />
             <div
               *ngIf="ngForm.submitted && !this.usuario.dataNascimento"
@@ -103,9 +107,11 @@
                 'border-gray-200': usuario.telefone && ngForm.submitted
               }"
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              [inputMask]="mascaraTelefone"
+              (input)="onInput($event)"
               [formControl]="telefone"
-              placeholder="(00) 00000-0000"
+              [placeholder]="usuario.telefone && usuario.telefone.length > 10 ? '(00) 00000-0000' : '(00) 0000-0000'"
+              maxlength="15"
+              minlength="14"
               name="telefone"
               [(ngModel)]="usuario.telefone"
               required
@@ -128,11 +134,11 @@
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             name="cargo"
             [ngModelOptions]="{ standalone: true }"
-            [(ngModel)]="cargo.cargo"
+            [(ngModel)]="usuario.cargo"
             required
           >
             <option *ngFor="let cargo of cargos" [ngValue]="cargo">
-              {{ cargo }}
+              {{ cargo.cargo }}
             </option>
           </select>
           <div
@@ -147,12 +153,7 @@
       <div class="md:mx-auto md:w-1/2 flex justify-end">
         <button
           id="btn-salvar"
-          class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-          style="
-            background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-            color: #00314d;
-            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-          "
+          class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
           (click)="inserirUsuario(ngForm)"
           type="submit"
         >
