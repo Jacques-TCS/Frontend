@@ -16,7 +16,7 @@ export class ServicoService {
     return this.httpClient.post<Servico>(this.API, servico);
   }
 
-  pesquisarPorId(id: number): Observable<Servico> {
+  consultarPorId(id: number): Observable<Servico> {
     return this.httpClient.get<Servico>(this.API + '/' + id);
   }
 

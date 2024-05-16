@@ -62,7 +62,7 @@ export class ServicoOcorrenciaComponent implements OnInit {
   }
 
   editar(id: number) {
-    this.router.navigate(['/usuarios/edicao', id]);
+  //DESCOBRIR COMO FAZ PARA EDITAR O STATUS APENAS PELA TABELA, CLICANDO NO LÁPIS
   }
 
   fileName = 'ExcleSheet.xlsx';

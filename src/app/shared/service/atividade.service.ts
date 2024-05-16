@@ -19,7 +19,7 @@ export class AtividadeService {
     return this.httpClient.put<Atividade>(this.API, atividade);
   }
 
-  pesquisarPorId(id: number): Observable<Atividade> {
+  consultarPorId(id: number): Observable<Atividade> {
     return this.httpClient.get<Atividade>(this.API + '/' + id);
   }
 

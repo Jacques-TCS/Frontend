@@ -1,14 +1,13 @@
 import { Usuario } from './usuario';
-import { Sala } from './sala';
-import { Atividade } from './atividade';
-import { Ocorrencia } from './ocorrencia';
+import { Ambiente } from './ambiente';
+import { Cronograma } from './cronograma';
 
 export class Servico {
   id: number;
-  sala: Sala;
+  ambiente: Ambiente;
+  cronograma: Cronograma;
+  usuario: Usuario;
+  tipoDeLimpeza: number;
   dataHoraInicio: Date;
   dataHoraFim: Date;
-  usuario: Usuario;
-  atividades: Atividade[];
-  ocorrencia: Ocorrencia = new Ocorrencia();
 }

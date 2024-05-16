@@ -9,13 +9,13 @@ import { QrCodeComponent } from './qr-code/qr-code.component';
 const routes: Routes = [
   { path: 'qrcode', component: QrCodeComponent },
   { path: 'cadastro/:idSala', component: ServicoCadastroComponent },
-  { path: 'listagem/funcionario', component: ServicoListagemFuncionarioComponent },
+  { path: 'listagem/funcionario', component: ServicoListagemFuncionarioComponent},
   { path: 'listagem/gerencia', component: ServicoListagemGerenciaComponent },
   { path: 'ocorrencia', component: ServicoOcorrenciaComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ServicosRoutingModule { }
+export class ServicosRoutingModule {}

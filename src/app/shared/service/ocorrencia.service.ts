@@ -20,7 +20,7 @@ export class OcorrenciaService {
     return this.httpClient.put<Ocorrencia>(this.API, ocorrencia);
   }
 
-  pesquisarPorId(id: number): Observable<Ocorrencia> {
+  consultarPorId(id: number): Observable<Ocorrencia> {
     return this.httpClient.get<Ocorrencia>(this.API + '/' + id);
   }
 
