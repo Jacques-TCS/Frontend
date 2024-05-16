@@ -6,9 +6,10 @@ import { UsuarioSeletor } from 'src/app/shared/model/seletor/usuario.seletor';
 import { Usuario } from 'src/app/shared/model/usuario';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { Modal } from 'flowbite';
-import type { ModalOptions, ModalInterface } from 'flowbite';
-import type { InstanceOptions } from 'flowbite';
+import { Cargo } from 'src/app/shared/model/cargo';
+import { StatusUsuario } from 'src/app/shared/model/status-usuario';
+import { CargoService } from 'src/app/shared/service/cargo.service';
+import { StatusUsuarioService } from 'src/app/shared/service/statusUsuario.service';
 
 @Component({
   selector: 'app-usuario-listagem',
@@ -18,8 +19,10 @@ import type { InstanceOptions } from 'flowbite';
 export class UsuarioListagemComponent implements OnInit {
   public usuarios: Array<Usuario> = new Array();
   public seletor: UsuarioSeletor = new UsuarioSeletor();
-  public cargos: string[];
-  public status: string[];
+  public cargos: Cargo[];
+  public status: StatusUsuario[];
+  public totalPaginas: number = 0;
+  public readonly TAMANHO_PAGINA: number = 10;
 
   public mostrar: boolean;
   public esconder: boolean;
@@ -35,25 +38,47 @@ export class UsuarioListagemComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cargoService: CargoService,
+    private statusUsuarioService: StatusUsuarioService
   ) {}
 
   ngOnInit(): void {
-    // this.seletor.limite = 5;
-    // this.seletor.pagina = ;
-
-    this.buscarTodos();
-  }
-
-  buscarTodos() {
-    this.usuarioService.listarTodos().subscribe(
+    this.seletor.limite = this.TAMANHO_PAGINA;
+    this.seletor.pagina = 0;
+    this.filtrarUsuario();
+    this.contarPaginas();
+    this.cargoService.listarTodos().subscribe(
       (resultado) => {
-        this.usuarios = resultado;
+        this.cargos = resultado.map((cargo) => cargo);
       },
       (erro) => {
-        console.log('Erro ao buscar usuarios', erro);
+        Swal.fire('Erro', 'Erro ao buscar cargos', 'error');
       }
     );
+    this.statusUsuarioService.listarTodos().subscribe(
+      (resultado) => {
+        this.status = resultado.map((status) => status);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar status', 'error');
+      }
+    );
+  }
+
+  public contarPaginas() {
+    this.usuarioService.contarPaginas(this.seletor).subscribe(
+      resultado => {
+        this.totalPaginas = resultado;
+      },
+      erro => {
+        Swal.fire('Erro ao consultar total de páginas', erro.error.mensagem, 'error');
+      }
+    );
+  }
+
+  criarArrayPaginas(): any[] {
+    return Array(this.totalPaginas).fill(0).map((x, i) => i + 1);
   }
 
   filtrarUsuario() {
@@ -88,5 +113,25 @@ export class UsuarioListagemComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Planilha');
 
     XLSX.writeFile(wb, this.fileName);
+  }
+
+  atualizarPaginacao() {
+    this.contarPaginas();
+    this.filtrarUsuario();
+  }
+
+  avancarPagina() {
+    this.seletor.pagina++;
+    this.filtrarUsuario();
+  }
+
+  voltarPagina() {
+    this.seletor.pagina--;
+    this.filtrarUsuario();
+  }
+
+  irParaPagina(indicePagina: number) {
+    this.seletor.pagina = indicePagina;
+    this.filtrarUsuario();
   }
 }

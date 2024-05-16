@@ -9,6 +9,7 @@ import { UsuarioListagemComponent } from './usuario-listagem/usuario-listagem.co
 import { UsuarioEdicaoComponent } from './usuario-edicao/usuario-edicao.component';
 import { UsuarioAfastamentoComponent } from './usuario-afastamento/usuario-afastamento.component';
 import { InputMaskModule } from '@ngneat/input-mask';
+import { NgxMaskDirective } from 'ngx-mask';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     InputMaskModule,
     ReactiveFormsModule,
+    NgxMaskDirective,
   ],
 })
 export class UsuariosModule {}

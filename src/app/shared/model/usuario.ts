@@ -1,5 +1,5 @@
-import { Afastamento } from './afastamento';
 import { Cargo } from './cargo';
+import { StatusUsuario } from './status-usuario';
 
 export class Usuario {
   id: number;
@@ -11,7 +11,7 @@ export class Usuario {
   cargo: Cargo;
   username: string;
   password: string;
-  status: string;
+  status: StatusUsuario;
   motivoAfastamento: string;
   dataDesligamento: Date;
 }
