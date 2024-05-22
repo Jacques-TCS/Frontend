@@ -1,3 +1,4 @@
+import { Ocorrencia } from '../ocorrencia';
 import { BaseSeletor } from './base.seletor';
 
 export class ServicoSeletor extends BaseSeletor {
@@ -6,7 +7,7 @@ export class ServicoSeletor extends BaseSeletor {
   menorDataHoraFim: Date;
   maiorDataHoraInicio: Date;
   maiorDataHoraFim: Date;
-  idTipoOcorrencia: number;
+  ocorrencia: Ocorrencia;
   cargo: string;
   usuario: string;
   atividade: string;

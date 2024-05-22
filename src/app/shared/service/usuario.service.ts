@@ -51,7 +51,7 @@ export class UsuarioService {
   }
 
   contarTotalRegistros(seletor: UsuarioSeletor): Observable<number> {
-    return this.httpClient.post<number>(this.API + '/contar', seletor);
+    return this.httpClient.post<number>(this.API + '/contar', seletor, this.httpOptions);
   }
 
   contarPaginas(seletor: UsuarioSeletor): Observable<number> {
