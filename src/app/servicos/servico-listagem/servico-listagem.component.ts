@@ -25,7 +25,7 @@ export class ServicoListagemComponent implements OnInit {
   public ocorrencias: Ocorrencia[]
   public cargos: Cargo[];
   public status: StatusUsuario[];
-  public totalPaginas: number = 0;
+  public totalPaginas: number = 1;
   public readonly TAMANHO_PAGINA: number = 10;
 
   public mostrar: boolean;
@@ -50,7 +50,7 @@ export class ServicoListagemComponent implements OnInit {
   ngOnInit(): void {
     this.seletor.limite = this.TAMANHO_PAGINA;
     this.seletor.pagina = 0;
-    this.filtrarUsuario();
+    this.filtrarServico();
     this.contarPaginas();
     this.cargoService.listarTodos().subscribe(
       (resultado) => {
@@ -85,7 +85,7 @@ export class ServicoListagemComponent implements OnInit {
     return Array(this.totalPaginas).fill(0).map((x, i) => i + 1);
   }
 
-  filtrarUsuario() {
+  filtrarServico() {
     this.servicoService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.servicos = resultado;
@@ -96,20 +96,8 @@ export class ServicoListagemComponent implements OnInit {
     );
   }
 
-  voltarUsuario() {
-    this.router.navigate(['/dashboard/']);
-  }
-
-  editar(id: number){
-    this.router.navigate(['/usuarios/edicao', id]);
-  }
-
-  afastar(id: number){
-    this.router.navigate(['/usuarios/afastamento', id]);
-  }
-
   fileName = 'ExcleSheet.xlsx';
-  exportarPlanilhaUsuario() {
+  exportarPlanilhaServico() {
     let data = document.getElementById('tabela-usuarios');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(data);
 
@@ -122,21 +110,21 @@ export class ServicoListagemComponent implements OnInit {
   atualizarPaginacao() {
     this.contarPaginas();
     this.irParaPagina(0);
-    this.filtrarUsuario();
+    this.filtrarServico();
   }
 
   avancarPagina() {
     this.seletor.pagina++;
-    this.filtrarUsuario();
+    this.filtrarServico();
   }
 
   voltarPagina() {
     this.seletor.pagina--;
-    this.filtrarUsuario();
+    this.filtrarServico();
   }
 
   irParaPagina(indicePagina: number) {
     this.seletor.pagina = indicePagina;
-    this.filtrarUsuario();
+    this.filtrarServico();
   }
 }

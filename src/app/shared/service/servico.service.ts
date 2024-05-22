@@ -8,17 +8,13 @@ import { ServicoSeletor } from '../model/seletor/servico.seletor';
   providedIn: 'root',
 })
 export class ServicoService {
-  private readonly API = 'http://localhost:8080/api/servicoPrestado';
+  private readonly API = 'http://localhost:8080/api/servico';
 
   constructor(private httpClient: HttpClient) {}
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('id_token') })
   };
-
-  inserir(servico: Servico): Observable<Servico> {
-    return this.httpClient.post<Servico>(this.API, servico);
-  }
 
   pesquisarPorId(id: number): Observable<Servico> {
     return this.httpClient.get<Servico>(this.API + '/' + id);

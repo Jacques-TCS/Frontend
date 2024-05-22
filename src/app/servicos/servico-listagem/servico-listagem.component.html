@@ -35,10 +35,10 @@
           />
           </div>
           <div class="mb-5">
-            <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status: </label>
+            <label for="atividades" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividades: </label>
             <select
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              name="status"
+              name="atividades"
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="seletor.atividade"
               required
@@ -71,10 +71,10 @@
             />
           </div>
           <div class="mb-5">
-            <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status: </label>
+            <label for="ocorrencia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ocorrencia: </label>
             <select
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              name="status"
+              name="ocorrencia"
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="seletor.ocorrencia"
               required
@@ -92,7 +92,7 @@
             <button
               id="btn-filtrar"
               class="btn font-semibold shadow-sm text-sm rounded-lg block 2xl:w-48 lg:w-72 w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
-              (click)="filtrarUsuario(); mostrarFiltros()"
+              (click)="filtrarServico(); mostrarFiltros()"
               type="submit"
             >
               Filtrar
@@ -204,7 +204,7 @@
           <button
             id="btn-exportar"
             class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
-            (click)="exportarPlanilhaUsuario()"
+            (click)="exportarPlanilhaServico()"
             type="submit"
             >
             Exportar
