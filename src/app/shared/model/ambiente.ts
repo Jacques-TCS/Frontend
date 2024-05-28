@@ -1,10 +1,11 @@
-import { AmbienteTemAtividade } from './ambienteTemAtividade';
-import { Setor } from './setor';
+import { AmbienteTemAtividade } from "./ambiente-tem-atividade";
+import { Setor } from "./setor";
+import { TipoDeAmbiente } from "./tipo-de-ambiente";
 
 export class Ambiente {
   id: number;
   descricao: string;
   setor: Setor;
-  tipoDeAmbiente: number;
-  atividades: AmbienteTemAtividade[];
+  tipoDeAmbiente: TipoDeAmbiente
+  atividades: AmbienteTemAtividade[]
 }

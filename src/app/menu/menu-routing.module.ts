@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
-import { privateRouteGuard } from '../servicos/guards/private-route.guard';
+import { privateRouteGuard } from '../shared/service/guards/private-route.guard';
 
 const routes: Routes = [
   {

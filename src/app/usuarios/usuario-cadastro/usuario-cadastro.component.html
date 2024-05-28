@@ -1,7 +1,7 @@
 <div class="p-4 sm:ml-64">
   <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
     <div class="container mx-auto">
-      <form #ngForm="ngForm" novalidate class="max-w-4xl mx-auto">
+      <form #ngForm="ngForm" novalidate class="max-w-4xl mx-auto" (ngSubmit)="inserirUsuario(ngForm)">
         <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
           <div class="text-gray-900 dark:text-blue-100">
             <h3 class="sm:text-3xl text-2xl text-left font-bold">Cadastro de Usuário</h3>
@@ -154,7 +154,6 @@
         <button
           id="btn-salvar"
           class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
-          (click)="inserirUsuario(ngForm)"
           type="submit"
         >
           Cadastrar Usuário

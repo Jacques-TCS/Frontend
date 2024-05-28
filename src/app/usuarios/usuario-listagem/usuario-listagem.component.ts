@@ -117,6 +117,7 @@ export class UsuarioListagemComponent implements OnInit {
 
   atualizarPaginacao() {
     this.contarPaginas();
+    this.irParaPagina(0);
     this.filtrarUsuario();
   }
 
