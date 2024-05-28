@@ -31,7 +31,7 @@
             <input
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             name="ambiente"
-            [(ngModel)]="seletor.sala"
+            [(ngModel)]="seletor.ambiente"
           />
           </div>
           <div class="mb-5">
@@ -150,11 +150,19 @@
             </thead>
             <tbody>
               <tr *ngFor="let servico of servicos" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td class="px-8 py-4">{{ servico.usuario }}</td>
-                <td class="px-8 py-4">{{ servico.sala }}</td>
+                <td class="px-8 py-4">{{ servico.usuario.nome }}</td>
+                <td class="px-8 py-4">{{ servico.ambiente.descricao }}</td>
                 <td class="px-8 py-4">{{ servico.dataHoraFim | date : "dd/MM/yyyy - HH:mm" }}</td>
-                <td class="px-8 py-4">{{ servico.atividades }}</td>
-                <td class="px-8 py-4">{{ servico.ocorrencia.status }}</td>
+                <td class="px-8 py-4">
+                  <div *ngFor="let atividade of servico.atividades; let isLast=last">
+                    {{ atividade.descricao }}<span *ngIf="!isLast">, </span>
+                  </div>
+                </td>
+                <td class="px-8 py-4">
+                  <div *ngFor="let ocorrencia of servico.ocorrencia">
+                    {{ ocorrencia.descricao }}
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>

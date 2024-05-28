@@ -1,14 +1,14 @@
 import { Usuario } from './usuario';
-import { Sala } from './sala';
+import { Ambiente } from './ambiente';
 import { Atividade } from './atividade';
 import { Ocorrencia } from './ocorrencia';
 
 export class Servico {
   id: number;
-  sala: Sala;
+  ambiente: Ambiente;
   dataHoraInicio: Date;
   dataHoraFim: Date;
   usuario: Usuario;
   atividades: Atividade[];
-  ocorrencia: Ocorrencia = new Ocorrencia();
+  ocorrencia: Ocorrencia[];
 }

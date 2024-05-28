@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Sala } from '../model/sala';
+import { Sala } from '../model/ambiente';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
