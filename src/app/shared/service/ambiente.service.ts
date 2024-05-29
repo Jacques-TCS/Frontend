@@ -12,41 +12,23 @@ export class AmbienteService {
 
   constructor(private httpClient: HttpClient) {}
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem('id_token'),
-    }),
-  };
-
   inserir(ambiente: Ambiente): Observable<Ambiente> {
-    return this.httpClient.post<Ambiente>(this.API, ambiente, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('id_token'),
-      }),
-      //TODO responseType: 'text',
-    });
+    return this.httpClient.post<Ambiente>(this.API, ambiente);
   }
 
   atualizar(ambiente: Ambiente): Observable<Ambiente> {
-    return this.httpClient.put<Ambiente>(this.API, ambiente, this.httpOptions);
+    return this.httpClient.put<Ambiente>(this.API, ambiente);
   }
 
   consultarPorId(id: number): Observable<Ambiente> {
-    return this.httpClient.get<Ambiente>(this.API + '/' + id, this.httpOptions);
+    return this.httpClient.get<Ambiente>(this.API + '/' + id);
   }
 
   listarTodos(): Observable<Array<Ambiente>> {
-    return this.httpClient.get<Array<Ambiente>>(
-      this.API + '/todos',
-      this.httpOptions
-    );
+    return this.httpClient.get<Array<Ambiente>>(this.API + '/todos');
   }
 
   listarComSeletor(seletor: AmbienteSeletor) {
-    return this.httpClient.post<Array<Ambiente>>(
-      this.API + '/filtro',
-      seletor,
-      this.httpOptions
-    );
+    return this.httpClient.post<Array<Ambiente>>(this.API + '/filtro', seletor);
   }
 }

@@ -1,9 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CategoriaDeOcorrencia } from 'src/app/shared/model/categoriaDeOcorrencia';
 import { Ocorrencia } from 'src/app/shared/model/ocorrencia';
 import { OcorrenciaSeletor } from 'src/app/shared/model/seletor/ocorrencia.seletor';
+import { StatusOcorrencia } from 'src/app/shared/model/status-ocorrencia';
+import { CategoriaDeOcorrenciaService } from 'src/app/shared/service/categoriaDeOcorrencia.service';
 import { OcorrenciaService } from 'src/app/shared/service/ocorrencia.service';
+import { StatusOcorrenciaService } from 'src/app/shared/service/statusOcorrencia.service';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-servico-ocorrencia',
@@ -13,8 +18,10 @@ import * as XLSX from 'xlsx';
 export class ServicoOcorrenciaComponent implements OnInit {
   public ocorrencias: Array<Ocorrencia> = new Array();
   public seletor: OcorrenciaSeletor = new OcorrenciaSeletor();
-  public categorias: string[];
-  public status: string[];
+  public categorias: CategoriaDeOcorrencia[];
+  public status: StatusOcorrencia[];
+  public totalPaginas: number = 0;
+  public readonly TAMANHO_PAGINA: number = 10;
 
   public mostrar: boolean;
   public esconder: boolean;
@@ -29,14 +36,54 @@ export class ServicoOcorrenciaComponent implements OnInit {
 
   constructor(
     private ocorrenciaService: OcorrenciaService,
-    private router: Router
+    private router: Router,
+    private categoriaDeOcorrenciaService: CategoriaDeOcorrenciaService,
+    private statusOcorrenciaService: StatusOcorrenciaService
   ) {}
 
   ngOnInit(): void {
-    // this.seletor.limite = 5;
-    // this.seletor.pagina = ;
+    //  this.seletor.limite = this.TAMANHO_PAGINA;
+    //  this.seletor.pagina = 0;
+    // this.contarPaginas();
+    this.filtrarOcorrencia();
 
-    this.buscarTodos();
+    this.categoriaDeOcorrenciaService.listarTodos().subscribe(
+      (resultado) => {
+        this.categorias = resultado.map((categoria) => categoria);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar categorias', 'error');
+      }
+    );
+    this.statusOcorrenciaService.listarTodos().subscribe(
+      (resultado) => {
+        this.status = resultado.map((status) => status);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar status', 'error');
+      }
+    );
+  }
+
+  public contarPaginas() {
+    this.ocorrenciaService.contarPaginas(this.seletor).subscribe(
+      (resultado) => {
+        this.totalPaginas = resultado;
+      },
+      (erro) => {
+        Swal.fire(
+          'Erro ao consultar total de páginas',
+          erro.error.mensagem,
+          'error'
+        );
+      }
+    );
+  }
+
+  criarArrayPaginas(): any[] {
+    return Array(this.totalPaginas)
+      .fill(0)
+      .map((x, i) => i + 1);
   }
 
   buscarTodos() {
@@ -62,7 +109,7 @@ export class ServicoOcorrenciaComponent implements OnInit {
   }
 
   editar(id: number) {
-  //DESCOBRIR COMO FAZ PARA EDITAR O STATUS APENAS PELA TABELA, CLICANDO NO LÁPIS
+    this.router.navigate(['/ocorrencias/edicao', id]);
   }
 
   fileName = 'ExcleSheet.xlsx';
@@ -74,5 +121,26 @@ export class ServicoOcorrenciaComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Planilha');
 
     XLSX.writeFile(wb, this.fileName);
+  }
+
+  atualizarPaginacao() {
+    this.contarPaginas();
+    this.irParaPagina(0);
+    this.filtrarOcorrencia();
+  }
+
+  avancarPagina() {
+    this.seletor.pagina++;
+    this.filtrarOcorrencia();
+  }
+
+  voltarPagina() {
+    this.seletor.pagina--;
+    this.filtrarOcorrencia();
+  }
+
+  irParaPagina(indicePagina: number) {
+    this.seletor.pagina = indicePagina;
+    this.filtrarOcorrencia();
   }
 }
