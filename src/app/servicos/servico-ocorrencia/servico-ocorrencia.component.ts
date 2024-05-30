@@ -4,10 +4,8 @@ import { Router } from '@angular/router';
 import { CategoriaDeOcorrencia } from 'src/app/shared/model/categoriaDeOcorrencia';
 import { Ocorrencia } from 'src/app/shared/model/ocorrencia';
 import { OcorrenciaSeletor } from 'src/app/shared/model/seletor/ocorrencia.seletor';
-import { StatusOcorrencia } from 'src/app/shared/model/status-ocorrencia';
 import { CategoriaDeOcorrenciaService } from 'src/app/shared/service/categoriaDeOcorrencia.service';
 import { OcorrenciaService } from 'src/app/shared/service/ocorrencia.service';
-import { StatusOcorrenciaService } from 'src/app/shared/service/statusOcorrencia.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 @Component({
@@ -19,7 +17,10 @@ export class ServicoOcorrenciaComponent implements OnInit {
   public ocorrencias: Array<Ocorrencia> = new Array();
   public seletor: OcorrenciaSeletor = new OcorrenciaSeletor();
   public categorias: CategoriaDeOcorrencia[];
-  public status: StatusOcorrencia[];
+  public status: { valor: boolean, texto: string }[] = [
+    { valor: false, texto: 'Em andamento' },
+    { valor: true, texto: 'Concluída' }
+  ];
   public totalPaginas: number = 0;
   public readonly TAMANHO_PAGINA: number = 10;
 
@@ -38,7 +39,6 @@ export class ServicoOcorrenciaComponent implements OnInit {
     private ocorrenciaService: OcorrenciaService,
     private router: Router,
     private categoriaDeOcorrenciaService: CategoriaDeOcorrenciaService,
-    private statusOcorrenciaService: StatusOcorrenciaService
   ) {}
 
   ngOnInit(): void {
@@ -53,14 +53,6 @@ export class ServicoOcorrenciaComponent implements OnInit {
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar categorias', 'error');
-      }
-    );
-    this.statusOcorrenciaService.listarTodos().subscribe(
-      (resultado) => {
-        this.status = resultado.map((status) => status);
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar status', 'error');
       }
     );
   }
