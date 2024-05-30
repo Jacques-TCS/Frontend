@@ -32,7 +32,7 @@
               }"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 name="categoria" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.categoria" required>
-                <option></option>
+                <option [ngValue]="{}"></option>
                 <option *ngFor="let categoria of categorias" [ngValue]="categoria">
                   {{ categoria.categoria }}
                 </option>
@@ -41,13 +41,14 @@
 
             <!--AMBIENTE-->
             <div class="mb-5">
-              <label for="sala" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ambiente:
+              <label for="descricaoAmbiente"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ambiente:
               </label>
               <input :class="{
-              'border-red-500': (!ocorrencia.sala || (ocorrencia.sala && ocorrencia.sala.length < 3)) && ngForm.submitted,
-              'border-gray-200': !(!ocorrencia.sala || (ocorrencia.sala && ocorrencia.sala.length < 3)) && ngForm.submitted
+              'border-red-500': (!ocorrencia.descricaoAmbiente || (ocorrencia.descricaoAmbiente && ocorrencia.descricaoAmbiente.length < 3)) && ngForm.submitted,
+              'border-gray-200': !(!ocorrencia.descricaoAmbiente || (ocorrencia.descricaoAmbiente && ocorrencia.descricaoAmbiente.length < 3)) && ngForm.submitted
             }" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                name="sala" [(ngModel)]="seletor.sala" />
+                name="descricaoAmbiente" [(ngModel)]="seletor.descricaoAmbiente" />
             </div>
 
             <!--STATUS-->
@@ -155,7 +156,7 @@
               <tbody>
                 <tr *ngFor="let ocorrencia of ocorrencias"
                   class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <td class="px-8 py-4">{{ ocorrencia.descricao }}</td>
+                  <td class="px-8 py-4">{{ ocorrencia.categoriaDeOcorrencia.categoria }}</td>
                   <td class="px-8 py-4">
                     {{ ocorrencia.servico.ambiente.descricao }}
                   </td>
@@ -169,7 +170,7 @@
                     <ng-template #inProgress>Em andamento</ng-template>
                   </td>
                   <td class="px-8 py-4 text-right">
-                    <a (click)="editar(ocorrencia.id)"
+                    <a (click)="editar(ocorrencia)"
                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -189,7 +190,7 @@
           </div>
         </div>
         <!--PAGINAÇÃO-->
-        <!-- <nav aria-label="Navigation" class="sm:flex sm:justify-between flex-col sm:flex-row">
+        <nav aria-label="Navigation" class="sm:flex sm:justify-between flex-col sm:flex-row">
           <div class="xl:w-1/12 lg:w-1/8 md:w-1/6 sm:w-1/4 w-full">
             <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">Exibir registros:</label>
             <select
@@ -232,7 +233,7 @@
                 </li>
               </ul>
             </div>
-          </div> 
+          </div>
           <div class="flex justify-end items-center">
             <button id="btn-exportar"
               class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
@@ -240,7 +241,7 @@
               Exportar
             </button>
           </div>
-        </nav>-->
+        </nav>
       </form>
     </div>
   </div>

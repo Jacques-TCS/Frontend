@@ -1,8 +1,7 @@
 import { BaseSeletor } from './base.seletor';
 
 export class OcorrenciaSeletor extends BaseSeletor {
-  descricao: string;
-  sala: string;
+  descricaoAmbiente: string;
   categoria: string;
   status: boolean;
   dataInicio: Date;

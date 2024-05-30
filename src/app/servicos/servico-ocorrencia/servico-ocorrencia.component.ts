@@ -39,12 +39,12 @@ export class ServicoOcorrenciaComponent implements OnInit {
     private ocorrenciaService: OcorrenciaService,
     private router: Router,
     private categoriaDeOcorrenciaService: CategoriaDeOcorrenciaService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    //  this.seletor.limite = this.TAMANHO_PAGINA;
-    //  this.seletor.pagina = 0;
-    // this.contarPaginas();
+    this.seletor.limite = this.TAMANHO_PAGINA;
+    this.seletor.pagina = 0;
+    this.contarPaginas();
     this.filtrarOcorrencia();
 
     this.categoriaDeOcorrenciaService.listarTodos().subscribe(
@@ -100,8 +100,29 @@ export class ServicoOcorrenciaComponent implements OnInit {
     );
   }
 
-  editar(id: number) {
-    this.router.navigate(['/ocorrencias/edicao', id]);
+  editar(id: Ocorrencia) {
+    Swal.fire({
+      title: 'Tem certeza de que deseja alterar o status da ocorrência?',
+      showDenyButton: true,
+      confirmButtonText: `Sim`,
+      denyButtonText: `Não`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.alterarStatus(id);
+      }
+    })
+  }
+
+  alterarStatus(ocorrencia: Ocorrencia) {
+    ocorrencia.status = !ocorrencia.status;
+    this.ocorrenciaService.atualizar(ocorrencia).subscribe(
+      () => {
+        console.log('Status alterado com sucesso');
+      },
+      (erro) => {
+        console.log('Erro ao alterar status', erro);
+      }
+    );
   }
 
   fileName = 'ExcleSheet.xlsx';
