@@ -1,12 +1,8 @@
 <div class="p-4 sm:ml-64">
-  <div
-    class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14"
-  >
+  <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
     <div class="container mx-auto">
       <form>
-        <div
-          class="sm:mb-8 sm:mt-2 mb-8 mt-2 flex justify-between items-center space-x-10"
-        >
+        <div class="sm:mb-8 sm:mt-2 mb-8 mt-2 flex justify-between items-center space-x-10">
           <div class="text-blue-900 dark:text-blue-100">
             <h3 class="sm:text-3xl text-2xl text-left font-bold">
               Ambientes Criados
@@ -14,30 +10,13 @@
           </div>
 
           <!--FILTRO-->
-          <a
-            class="flex items-center cursor-pointer filtro p-2"
-            (click)="mostrarFiltros()"
-          >
-            <label
-              class="mx-2 font-medium text-blue-900 dark:text-blue-100 cursor-pointer"
-              >Filtro</label
-            >
+          <a class="flex items-center cursor-pointer filtro p-2" (click)="mostrarFiltros()">
+            <label class="mx-2 font-medium text-blue-900 dark:text-blue-100 cursor-pointer">Filtro</label>
             <i>
-              <svg
-                class="w-6 h-6 text-gray-800 dark:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"
-                />
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                  d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z" />
               </svg>
             </i>
           </a>
@@ -47,59 +26,53 @@
           <div class="flex flex-wrap justify-between flex-col lg:flex-row">
             <!--AMBIENTE-->
             <div class="mb-5">
-              <label
-                for="ambiente"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Ambiente:
+              <label for="ambiente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ambiente:
               </label>
               <input
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                name="descricao"
-                [(ngModel)]="seletor.descricao"
-              />
+                name="descricao" [(ngModel)]="seletor.descricao" />
             </div>
 
             <!--SETOR-->
             <div class="mb-5">
-              <label
-                for="setor"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Setor:
+              <label for="setor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Setor:
               </label>
-              <input
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                name="descricao"
-                [(ngModel)]="seletor.setor"
-              />
+              <select
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                name="setor" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.setor" required>
+                <option></option>
+                <option *ngFor="let setor of setores" [ngValue]="setor">
+                  {{ setor.nome }}
+                </option>
+              </select>
             </div>
 
             <!--ATIVIDADE-->
             <div class="mb-5">
-              <label
-                for="atividade"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Atividade:
+              <label for="atividade" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividade:
               </label>
-              <input
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                name="descricao"
-                [(ngModel)]="seletor.atividades"
-              />
+              <select :class="{
+                              'border-red-500': !ocorrencia.categoria && ngForm.submitted,
+                              'border-gray-200': ocorrencia.categoria && ngForm.submitted
+                            }"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                name="atividade" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.atividades" required>
+                <option></option>
+                <option *ngFor="let atividade of atividades" [ngValue]="atividade">
+                  {{ atividade.descricao }}
+                </option>
+              </select>
             </div>
 
             <!--BOTÃO FILTRAR-->
             <div class="mb-5 mt-7">
-              <button
-                id="btn-filtrar"
+              <button id="btn-filtrar"
                 class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-48 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 style="
                   background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
                   color: #00314d;
                   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-                "
-                (click)="filtrarOcorrencia(); mostrarFiltros()"
-                type="submit"
-              >
+                " (click)="filtrarAmbiente(); mostrarFiltros()" type="submit">
                 Filtrar
               </button>
             </div>
@@ -109,64 +82,39 @@
         <!--TABELA-->
         <div class="mb-5 justify-center">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table
-              class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-            >
-              <thead
-                class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-              >
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" class="px-8 py-3">
                     <div class="flex items-center">
                       AMBIENTE
-                      <a href="#"
-                        ><svg
-                          class="w-3 h-3 ms-1.5"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
+                      <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor" viewBox="0 0 24 24">
                           <path
-                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                          /></svg
-                      ></a>
+                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                        </svg></a>
                     </div>
                   </th>
 
                   <th scope="col" class="px-8 py-3">
                     <div class="flex items-center">
                       SETOR
-                      <a href="#"
-                        ><svg
-                          class="w-3 h-3 ms-1.5"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
+                      <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor" viewBox="0 0 24 24">
                           <path
-                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                          /></svg
-                      ></a>
+                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                        </svg></a>
                     </div>
                   </th>
 
                   <th scope="col" class="px-8 py-3">
                     <div class="flex items-center">
                       ATIVIDADES
-                      <a href="#"
-                        ><svg
-                          class="w-3 h-3 ms-1.5"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
+                      <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor" viewBox="0 0 24 24">
                           <path
-                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                          /></svg
-                      ></a>
+                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                        </svg></a>
                     </div>
                   </th>
 
@@ -176,23 +124,26 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  *ngFor="let ambiente of ambientes"
-                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr *ngFor="let ambiente of ambientes" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <td class="px-8 py-4">{{ ambiente.descricao }}</td>
                   <td class="px-8 py-4">
                     {{ ambiente.setor }}
                   </td>
                   <td class="px-8 py-4">{{ ambiente.atividades }}</td>
-
                   <td class="px-8 py-4 text-right">
-                    <a
-                      href="#"
-                      (click)="editar(ambiente.id)"
-                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                      >Editar</a
-                    >
+                    <a (click)="editar(ambiente.id)"
+                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                          d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                          clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                          d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -200,49 +151,59 @@
           </div>
         </div>
         <!--PAGINAÇÃO-->
-        <!-- <div class="flex mb-4 justify-center">
-        <nav aria-label="Navegação">
-          <ul class="flex">
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-200 rounded-full text-blue-800"
-                aria-label="Anterior"
-              >
-                <span aria-hidden="true">&#9666;</span>
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-300 rounded-full text-blue-800"
-              >
-                1
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-200 rounded-full text-blue-800"
-              >
-                2
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-300 rounded-full text-blue-800"
-              >
-                3
-              </a>
-            </li>
-            <li class="mx-1">
-              <a
-                class="flex items-center justify-center w-8 h-8 bg-blue-200 rounded-full text-blue-800"
-                aria-label="Próximo"
-              >
-                <span aria-hidden="true">&#9656;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div> -->
+        <!--PAGINAÇÃO-->
+        <!-- <nav aria-label="Navigation" class="sm:flex sm:justify-between flex-col sm:flex-row">
+                  <div class="xl:w-1/12 lg:w-1/8 md:w-1/6 sm:w-1/4 w-full">
+                    <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">Exibir registros:</label>
+                    <select
+                      class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                      [(ngModel)]="seletor.limite" [ngModelOptions]="{ standalone: true }" (change)="atualizarPaginacao()">
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="40">40</option>
+                    </select>
+                  </div>
+                  <div class="flex justify-center">
+                    <div class="w-1/2 mb-4">
+                      <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">&nbsp;</label>
+                      <ul class="pagination flex items-center justify-center -space-x-px h-10 text-base">
+                        <li class="page-item">
+                          <button [disabled]="seletor.pagina == 0"
+                            class="page-link flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            (click)="voltarPagina()">
+                            <span class="sr-only">Anterior</span>
+                            <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 1 1 5l4 4" />
+                            </svg>
+                          </button>
+                        </li>
+                        <li class="page-item" *ngFor="let indice of criarArrayPaginas()" (click)="irParaPagina(indice-1)">
+                          <button
+                            class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{indice}}</button>
+                        </li>
+                        <li class="page-item">
+                          <button [disabled]="seletor.pagina == totalPaginas-1"
+                            class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            (click)="avancarPagina()">
+                            <span class="sr-only">Próximo</span>
+                            <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 9 4-4-4-4" />
+                            </svg>
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div> 
+                  <div class="flex justify-end items-center">
+                    <button id="btn-exportar"
+                      class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                      (click)="exportarPlanilhaOcorrencia()" type="submit">
+                      Exportar
+                    </button>
+                  </div>
+                </nav>-->
       </form>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { SetorTemAtividade } from "./setor-tem-atividade";
+import { SetorTemAtividade } from "./setorTemAtividade";
 import { TipoDeAmbiente } from "./tipo-de-ambiente";
 
 export class Setor {

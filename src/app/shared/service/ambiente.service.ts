@@ -8,7 +8,7 @@ import { AmbienteSeletor } from '../model/seletor/ambiente.seletor';
   providedIn: 'root',
 })
 export class AmbienteService {
-  private readonly API = 'http://localhost:8080/api/atividade';
+  private readonly API = 'http://localhost:8080/api/ambiente';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -30,5 +30,13 @@ export class AmbienteService {
 
   listarComSeletor(seletor: AmbienteSeletor) {
     return this.httpClient.post<Array<Ambiente>>(this.API + '/filtro', seletor);
+  }
+
+  contarTotalRegistros(seletor: AmbienteSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/contar', seletor);
+  }
+
+  contarPaginas(seletor: AmbienteSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/total-paginas', seletor);
   }
 }

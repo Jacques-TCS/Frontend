@@ -1,4 +1,4 @@
-import { AmbienteTemAtividade } from "./ambiente-tem-atividade";
+import { AmbienteTemAtividade } from "./ambienteTemAtividade";
 import { Setor } from "./setor";
 import { TipoDeAmbiente } from "./tipo-de-ambiente";
 
