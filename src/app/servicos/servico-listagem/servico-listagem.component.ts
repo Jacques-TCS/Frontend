@@ -21,8 +21,11 @@ import { Ocorrencia } from 'src/app/shared/model/ocorrencia';
 export class ServicoListagemComponent implements OnInit {
   public servicos: Array<Servico> = new Array();
   public seletor: ServicoSeletor = new ServicoSeletor();
-  public atividades: Atividade[]
-  public ocorrencias: Ocorrencia[]
+  public atividades: Atividade[];
+  public statusOcorrencia: { valor: boolean, texto: string }[] = [
+    { valor: false, texto: 'Em andamento' },
+    { valor: true, texto: 'Concluída' }
+  ];
   public cargos: Cargo[];
   public status: StatusUsuario[];
   public totalPaginas: number = 1;
@@ -45,7 +48,7 @@ export class ServicoListagemComponent implements OnInit {
     private route: ActivatedRoute,
     private cargoService: CargoService,
     private statusUsuarioService: StatusUsuarioService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.seletor.limite = this.TAMANHO_PAGINA;
