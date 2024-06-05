@@ -29,6 +29,14 @@ export class AmbienteListagemComponent implements OnInit {
     this.esconder = !this.esconder;
   }
 
+  public mostrarAmbientes: boolean;
+  public esconderAmbientes: boolean;
+
+  public mostrarListagemDeAmbientes() {
+    this.mostrarAmbientes = !this.mostrarAmbientes;
+    this.esconderAmbientes = !this.esconderAmbientes;
+  }
+
   @ViewChild('ngForm')
   public ngForm: NgForm;
 

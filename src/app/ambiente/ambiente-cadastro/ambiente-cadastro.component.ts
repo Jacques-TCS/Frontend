@@ -15,6 +15,15 @@ import { AmbienteTemAtividade } from 'src/app/shared/model/ambienteTemAtividade'
   styleUrls: ['./ambiente-cadastro.component.scss']
 })
 export class AmbienteCadastroComponent implements OnInit {
+
+  public mostrar: boolean;
+  public esconder: boolean;
+
+  public mostrarCadastro() {
+    this.mostrar = !this.mostrar;
+    this.esconder = !this.esconder;
+  }
+
   @ViewChild('dateField') date!: ElementRef;
   public ambiente: Ambiente = new Ambiente();
   public setores: Setor[] = [];
