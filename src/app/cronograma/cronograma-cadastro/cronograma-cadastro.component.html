@@ -1,7 +1,43 @@
 <div class="p-4 sm:ml-64">
     <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
         <div class="container mx-auto">
-            <p>cronograma-cadastro works!</p>
+            <form>
+                <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
+                    <div class="text-gray-900 dark:text-blue-100 flex items-center">
+                        <h3 class="sm:text-3xl text-2xl text-left font-bold">Cadastro de Ambiente</h3>
+                        <a class="flex items-center cursor-pointer filtro pl-4" (click)="mostrarCadastro()">
+                            <i>
+                                <svg [ngClass]="{'rotate-180': mostrar}"
+                                    class="w-5 h-5 transform transition-transform duration-200" aria-hidden="true"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </i>
+                        </a>
+                    </div>
+                </div>
+                <!-- CADASTRO -->
+                <div>
+                    <div class="flex flex-row sm:flex-row justify-between items-center">
+                        <div class="flex mb-5 w-3/4 flex-grow">
+                            <div class="relative flex-1 sm:ml-0">
+                                <label for="cronogramaTerminal"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Criar
+                                    cronograma terminal</label>
+                                <!-- SELETOR DO MÊS, usar option -->
+                            </div>
+                        </div>
+
+                        <div class="flex w-1/4 mb-5 mt-7 pl-2 h-10 flex-grow">
+                            <button id="btn-salvar"
+                                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                                (click)="inserirCronograma(ngForm)" type="submit">
+                                gerar cronograma</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
