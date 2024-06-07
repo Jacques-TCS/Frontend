@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { CronogramaRoutingModule } from './cronograma-routing.module';
 import { CronogramaCadastroComponent } from './cronograma-cadastro/cronograma-cadastro.component';
-import { CronogramaListagemComponent } from './cronograma-listagem/cronograma-listagem.component';
-
+import { CronogramaListagemTerminalComponent } from './cronograma-listagem-terminal/cronograma-listagem-terminal.component';
+import { CronogramaListagemConcorrenteComponent } from './cronograma-listagem-concorrente/cronograma-listagem-concorrente.component';
 
 @NgModule({
   declarations: [
     CronogramaCadastroComponent,
-    CronogramaListagemComponent
+    CronogramaListagemTerminalComponent,
+    CronogramaListagemConcorrenteComponent,
   ],
   imports: [
     CommonModule,
