@@ -16,10 +16,12 @@ import { AmbienteTemAtividade } from 'src/app/shared/model/ambienteTemAtividade'
 })
 export class AmbienteCadastroComponent implements OnInit {
   public ambiente: Ambiente = new Ambiente();
+  public ambientes: Array<Ambiente> = new Array();
   public setores: Setor[] = [];
   public atividades: Atividade[] = [];
+  public ambienteTemAtividade: AmbienteTemAtividade = new AmbienteTemAtividade();
 
-  public mostrar: boolean;
+  public mostrar: boolean = true;
   public esconder: boolean;
 
   public mostrarCadastro() {
@@ -65,5 +67,8 @@ export class AmbienteCadastroComponent implements OnInit {
         }
       );
     }
+  }
+  editar(id: number) {
+    this.router.navigate(['/ambientes/edicao', id]);
   }
 }
