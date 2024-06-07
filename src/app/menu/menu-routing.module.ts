@@ -41,6 +41,12 @@ const routes: Routes = [
         canActivate: [privateRouteGuard],
       },
       {
+        path: 'atividade',
+        loadChildren: () =>
+          import('../atividade/atividade.module').then((m) => m.AtividadeModule),
+        canActivate: [privateRouteGuard],
+      },
+      {
         path: 'cronograma',
         loadChildren: () =>
           import('../cronograma/cronograma.module').then(
@@ -56,4 +62,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MenuRoutingModule {}
+export class MenuRoutingModule { }

@@ -24,16 +24,16 @@ export class AtividadeComponent implements OnInit {
     private router: Router,) { }
 
   ngOnInit(): void {
-    this.filtrarAtividade();
+    // this.filtrarAtividade();
 
-    this.atividadeService.listarTodos().subscribe(
-      (resultado) => {
-        this.atividades = resultado.map((atividade) => atividade);
-      },
-      (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
-      }
-    );
+    // this.atividadeService.listarTodos().subscribe(
+    //   (resultado) => {
+    //     this.atividades = resultado.map((atividade) => atividade);
+    //   },
+    //   (erro) => {
+    //     Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
+    //   }
+    // );
   }
 
   buscarTodos() {
