@@ -35,7 +35,6 @@ export class AmbienteCadastroComponent implements OnInit {
   constructor(
     private ambienteService: AmbienteService,
     private router: Router,
-    private route: ActivatedRoute,
     private setorService: SetorService
   ) { }
 
