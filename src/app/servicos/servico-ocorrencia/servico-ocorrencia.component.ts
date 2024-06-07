@@ -103,12 +103,16 @@ export class ServicoOcorrenciaComponent implements OnInit {
   editar(id: Ocorrencia) {
     Swal.fire({
       title: 'Tem certeza de que deseja alterar o status da ocorrência?',
+      icon: "warning",
       showDenyButton: true,
       confirmButtonText: `Sim`,
+      confirmButtonColor: "#3085d6",
       denyButtonText: `Não`,
+      denyButtonColor: "#d33",
     }).then((result) => {
       if (result.isConfirmed) {
         this.alterarStatus(id);
+        icon: "success";
       }
     })
   }
