@@ -5,6 +5,7 @@ import { CronogramaRoutingModule } from './cronograma-routing.module';
 import { CronogramaCadastroComponent } from './cronograma-cadastro/cronograma-cadastro.component';
 import { CronogramaListagemTerminalComponent } from './cronograma-listagem-terminal/cronograma-listagem-terminal.component';
 import { CronogramaListagemConcorrenteComponent } from './cronograma-listagem-concorrente/cronograma-listagem-concorrente.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CronogramaListagemConcorrenteComponent } from './cronograma-listagem-co
   ],
   imports: [
     CommonModule,
-    CronogramaRoutingModule
+    CronogramaRoutingModule,
+    FormsModule
   ]
 })
 export class CronogramaModule { }

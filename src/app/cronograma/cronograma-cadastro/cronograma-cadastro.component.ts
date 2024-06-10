@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { int } from '@zxing/library/esm/customTypings';
 import { Cronograma } from 'src/app/shared/model/cronograma';
 import { CronogramaService } from 'src/app/shared/service/cronograma.service';
 import Swal from 'sweetalert2';
@@ -11,7 +12,20 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cronograma-cadastro.component.scss']
 })
 export class CronogramaCadastroComponent implements OnInit {
-  cronograma: Cronograma = new Cronograma();
+  public cronograma: Cronograma = new Cronograma();
+  public meses: { valor: int, texto: string }[] =
+    [{ valor: 1, texto: 'Janeiro' },
+    { valor: 2, texto: 'Fevereiro' },
+    { valor: 3, texto: 'Março' },
+    { valor: 4, texto: 'Abril' },
+    { valor: 5, texto: 'Maio' },
+    { valor: 6, texto: 'Junho' },
+    { valor: 7, texto: 'Julho' },
+    { valor: 8, texto: 'Agosto' },
+    { valor: 9, texto: 'Setembro' },
+    { valor: 10, texto: 'Outubro' },
+    { valor: 11, texto: 'Novembro' },
+    { valor: 12, texto: 'Dezembro' }];
 
   public mostrar: boolean = true;
   public esconder: boolean;

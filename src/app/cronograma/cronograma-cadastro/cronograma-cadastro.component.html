@@ -2,10 +2,10 @@
     <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
         <div class="container mx-auto">
             <form>
-                <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
+                <div class="sm:mb-8 sm:mt-2 mt-2">
                     <div class="text-gray-900 dark:text-blue-100 flex items-center">
-                        <h3 class="sm:text-3xl text-2xl text-left font-bold">Cadastro de Ambiente</h3>
-                        <a class="flex items-center cursor-pointer filtro pl-4" (click)="mostrarCadastro()">
+                        <h3 class="sm:text-3xl text-2xl text-left font-bold">Cronograma</h3>
+                        <a class="flex items-center cursor-pointer pl-4" (click)="mostrarCadastro()">
                             <i>
                                 <svg [ngClass]="{'rotate-180': mostrar}"
                                     class="w-5 h-5 transform transition-transform duration-200" aria-hidden="true"
@@ -18,22 +18,59 @@
                     </div>
                 </div>
                 <!-- CADASTRO -->
-                <div>
-                    <div class="flex flex-row sm:flex-row justify-between items-center">
-                        <div class="flex mb-5 w-3/4 flex-grow">
+                <div div class="justify-between" *ngIf="this.mostrar">
+                    <div class="flex flex-row sm:flex-row justify-content-center items-center align-items-center">
+                        <div class="flex flex-grow mr-60">
                             <div class="relative flex-1 sm:ml-0">
                                 <label for="cronogramaTerminal"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Criar
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">Criar
                                     cronograma terminal</label>
-                                <!-- SELETOR DO MÊS, usar option -->
                             </div>
                         </div>
 
-                        <div class="flex w-1/4 mb-5 mt-7 pl-2 h-10 flex-grow">
+                        <div class="flex-grow mb-5 mt-5">
+                            <select
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="meses" [ngModelOptions]="{ standalone: true }" [(ngModel)]="cronograma.mes"
+                                required>
+                                <option [ngValue]="{}"></option>
+                                <option *ngFor="let meses of meses" [ngValue]="meses.valor">
+                                    {{ meses.texto }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="flex w-1/4 pl-2 h-10 flex-grow">
                             <button id="btn-salvar"
                                 class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
                                 (click)="inserirCronograma(ngForm)" type="submit">
-                                gerar cronograma</button>
+                                Gerar</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-row sm:flex-row justify-content-center items-center align-items-center">
+                        <div class="flex flex-grow mr-60">
+                            <div class="relative flex-1 sm:ml-0">
+                                <label for="cronogramaTerminal" class="block text-sm font-medium text-gray-900 dark:text-white">Criar
+                                    cronograma concorrente</label>
+                            </div>
+                        </div>
+                    
+                        <div class="flex-grow mb-5 mt-5">
+                            <select
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="meses" [ngModelOptions]="{ standalone: true }" [(ngModel)]="cronograma.mes" required>
+                                <option [ngValue]="{}"></option>
+                                <option *ngFor="let meses of meses" [ngValue]="meses.valor">
+                                    {{ meses.texto }}
+                                </option>
+                            </select>
+                        </div>
+                    
+                        <div class="flex w-1/4 pl-2 h-10 flex-grow">
+                            <button id="btn-salvar"
+                                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                                (click)="inserirCronograma(ngForm)" type="submit">
+                                Gerar</button>
                         </div>
                     </div>
                 </div>
