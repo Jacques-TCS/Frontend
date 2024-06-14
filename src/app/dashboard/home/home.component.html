@@ -1,38 +1,155 @@
 <div class="p-4 sm:ml-64">
-  <div class="p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-14">
-     <div class="grid grid-cols-2 gap-4 mb-4">
-        <div class="flex items-center justify-center h-96 rounded bg-gray-50 dark:bg-gray-800">
-          <p class="text-2xl text-gray-400 dark:text-gray-500 flex items-center justify-center gap-2">
-            <svg class="w-10 h-10 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-            </svg>
-            Em Desenvolvimento
-          </p>
+  <div class="p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-8">
+    <div class="text-gray-900 dark:text-blue-100 pb-4">
+      <h3 class="sm:text-3xl text-2xl text-left font-bold">Dashboard</h3>
+    </div>
+    <div class="grid grid-cols-4 gap-4 mb-4">
+      <!-- PROGRESSO DE LIMPEZA -->
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-6 h-[600px] overflow-hidden">
+        <div class="flex justify-between mb-3">
+          <div class="flex items-center">
+            <div class="flex justify-center items-center">
+              <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Progresso de limpeza</h5>
+            </div>
+          </div>
         </div>
-        <div class="flex items-center justify-center h-96 rounded bg-gray-50 dark:bg-gray-800">
-          <p class="text-2xl text-gray-400 dark:text-gray-500 flex items-center justify-center gap-2">
-              <svg class="w-10 h-10 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-              </svg>
-              Em Desenvolvimento
-           </p>
+        <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+          <div class="grid grid-cols-3 gap-3 mb-2">
+            <dl class="bg-orange-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1">
+                12</dt>
+              <dd class="text-orange-600 dark:text-orange-300 text-sm font-medium">A Fazer</dd>
+            </dl>
+            <dl class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1">
+                23</dt>
+              <dd class="text-teal-600 dark:text-teal-300 text-sm font-medium">Em progresso</dd>
+            </dl>
+            <dl class="bg-blue-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-blue-100 dark:bg-gray-500 text-blue-600 dark:text-blue-300 text-sm font-medium flex items-center justify-center mb-1">
+                64</dt>
+              <dd class="text-blue-600 dark:text-blue-300 text-sm font-medium">Concluídos</dd>
+            </dl>
+          </div>
         </div>
-     </div>
-     <div class="flex items-center justify-center h-96 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-        <p class="text-2xl text-gray-400 dark:text-gray-500 flex items-center justify-center gap-2">
-          <svg class="w-10 h-10 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-          </svg>
-          Em Desenvolvimento
-        </p>
-     </div>
-     <div class="flex items-center justify-center h-96 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-        <p class="text-2xl text-gray-400 dark:text-gray-500 flex items-center justify-center gap-2">
-          <svg class="w-10 h-10 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-          </svg>
-          Em Desenvolvimento
-        </p>
-     </div>
+        <div class="py-6" id="chart">
+          <apx-chart [series]="chartOptions.series || []" [chart]="chartOptions.chart || { type: 'line' }"
+            [plotOptions]="chartOptions.plotOptions || {}" [labels]="chartOptions.labels || []"></apx-chart>
+        </div>
+      </div>
+
+      <!-- ULTIMAS OCORRENCIAS -->
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-6 h-[600px] overflow-hidden">
+        <div class="flex justify-between mb-3">
+          <div class="flex items-center">
+            <div class="flex justify-center items-center">
+              <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Últimas ocorrências</h5>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+          <div class="grid grid-cols-3 gap-3 mb-2">
+            <dl class="bg-orange-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1">
+                12</dt>
+              <dd class="text-orange-600 dark:text-orange-300 text-sm font-medium">A Fazer</dd>
+            </dl>
+            <dl class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1">
+                23</dt>
+              <dd class="text-teal-600 dark:text-teal-300 text-sm font-medium">Em progresso</dd>
+            </dl>
+            <dl class="bg-blue-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-blue-100 dark:bg-gray-500 text-blue-600 dark:text-blue-300 text-sm font-medium flex items-center justify-center mb-1">
+                64</dt>
+              <dd class="text-blue-600 dark:text-blue-300 text-sm font-medium">Concluídos</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="py-6" id="chart">
+          <apx-chart [series]="chartOptions.series || []" [chart]="chartOptions.chart || { type: 'line' }"
+            [plotOptions]="chartOptions.plotOptions || {}" [labels]="chartOptions.labels || []"></apx-chart>
+        </div>
+      </div>
+
+      <!-- OUTRO GRAFICO -->
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-6 h-[600px] overflow-hidden">
+        <div class="flex justify-between mb-3">
+          <div class="flex items-center">
+            <div class="flex justify-center items-center">
+              <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Progresso de limpeza</h5>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+          <div class="grid grid-cols-3 gap-3 mb-2">
+            <dl class="bg-orange-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1">
+                12</dt>
+              <dd class="text-orange-600 dark:text-orange-300 text-sm font-medium">A Fazer</dd>
+            </dl>
+            <dl class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1">
+                23</dt>
+              <dd class="text-teal-600 dark:text-teal-300 text-sm font-medium">Em progresso</dd>
+            </dl>
+            <dl class="bg-blue-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-blue-100 dark:bg-gray-500 text-blue-600 dark:text-blue-300 text-sm font-medium flex items-center justify-center mb-1">
+                64</dt>
+              <dd class="text-blue-600 dark:text-blue-300 text-sm font-medium">Concluídos</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="py-6" id="chart">
+          <apx-chart [series]="chartOptions.series || []" [chart]="chartOptions.chart || { type: 'line' }"
+            [plotOptions]="chartOptions.plotOptions || {}" [labels]="chartOptions.labels || []"></apx-chart>
+        </div>
+      </div>
+
+      <!-- OUTRO GRAFICO -->
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-6 h-[600px] overflow-hidden">
+        <div class="flex justify-between mb-3">
+          <div class="flex items-center">
+            <div class="flex justify-center items-center">
+              <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Progresso de limpeza</h5>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+          <div class="grid grid-cols-3 gap-3 mb-2">
+            <dl class="bg-orange-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1">
+                12</dt>
+              <dd class="text-orange-600 dark:text-orange-300 text-sm font-medium">A Fazer</dd>
+            </dl>
+            <dl class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1">
+                23</dt>
+              <dd class="text-teal-600 dark:text-teal-300 text-sm font-medium">Em progresso</dd>
+            </dl>
+            <dl class="bg-blue-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+              <dt
+                class="w-8 h-8 rounded-full bg-blue-100 dark:bg-gray-500 text-blue-600 dark:text-blue-300 text-sm font-medium flex items-center justify-center mb-1">
+                64</dt>
+              <dd class="text-blue-600 dark:text-blue-300 text-sm font-medium">Concluídos</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="py-6" id="chart">
+          <apx-chart [series]="chartOptions.series || []" [chart]="chartOptions.chart || { type: 'line' }"
+            [plotOptions]="chartOptions.plotOptions || {}" [labels]="chartOptions.labels || []"></apx-chart>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
