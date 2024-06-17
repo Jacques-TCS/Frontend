@@ -5,7 +5,5 @@ export class Setor {
   id: number;
   nome: string;
   sigla: string;
-  internacao: boolean
-  tipoDeAmbiente: TipoDeAmbiente
   atividades: SetorTemAtividade[]
 }

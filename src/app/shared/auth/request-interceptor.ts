@@ -5,24 +5,25 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
-providedIn: 'root',
+	providedIn: 'root',
 })
 export class RequestInterceptor implements HttpInterceptor {
 
 	constructor(
 		private router: Router,
-    private authService: AuthService
-	) {}
-	
-	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-		if(!req.url.includes('login') && !req.url.includes('recuperar-senha')){
+		private authService: AuthService
+	) { }
+
+	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		if (!req.url.includes('login') && !req.url.includes('recuperar-senha')) {
 			var authToken = localStorage.getItem('id_token')
-		
+
 			const authReq = req.clone({ setHeaders: { 'Authorization': 'Bearer ' + authToken } });
-		
+
 			return next.handle(authReq).pipe(
 				catchError((error: HttpErrorResponse) => {
-					if(error.status == 403){
+					if (error.status == 403) {
+						console.log(error);
 						this.authService.logout();
 						this.router.navigate(['/login']);
 					}
