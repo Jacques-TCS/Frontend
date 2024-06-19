@@ -1,15 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoriaDeOcorrencia } from '../model/categoriaDeOcorrencia';
+import { Categoria } from '../model/categoria';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriaDeOcorrenciaService {
+export class CategoriaService {
   private readonly API = 'http://localhost:8080/api/categoria-de-ocorrencia';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -17,12 +17,12 @@ export class CategoriaDeOcorrenciaService {
     }),
   };
 
-  pesquisarPorId(id: number): Observable<CategoriaDeOcorrencia> {
-    return this.httpClient.get<CategoriaDeOcorrencia>(this.API + '/' + id);
+  pesquisarPorId(id: number): Observable<Categoria> {
+    return this.httpClient.get<Categoria>(this.API + '/' + id);
   }
 
-  listarTodos(): Observable<Array<CategoriaDeOcorrencia>> {
-    return this.httpClient.get<Array<CategoriaDeOcorrencia>>(
+  listarTodos(): Observable<Array<Categoria>> {
+    return this.httpClient.get<Array<Categoria>>(
       this.API + '/todos',
       this.httpOptions
     );

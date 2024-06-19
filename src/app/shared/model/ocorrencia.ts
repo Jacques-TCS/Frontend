@@ -1,9 +1,10 @@
-import { CategoriaDeOcorrencia } from './categoriaDeOcorrencia';
+import { Categoria } from './categoria';
 import { Servico } from './servico';
 
 export class Ocorrencia {
   id: number;
-  categoriaDeOcorrencia: CategoriaDeOcorrencia;
+  categoria: Categoria;
+  descricao: string;
   servico: Servico;
   status: boolean;
   dataOcorrencia: Date;
