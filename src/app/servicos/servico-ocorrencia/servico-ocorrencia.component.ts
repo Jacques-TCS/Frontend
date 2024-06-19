@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CategoriaDeOcorrencia } from 'src/app/shared/model/categoriaDeOcorrencia';
+import { Categoria } from 'src/app/shared/model/categoria';
 import { Ocorrencia } from 'src/app/shared/model/ocorrencia';
 import { OcorrenciaSeletor } from 'src/app/shared/model/seletor/ocorrencia.seletor';
-import { CategoriaDeOcorrenciaService } from 'src/app/shared/service/categoriaDeOcorrencia.service';
+import { CategoriaService } from 'src/app/shared/service/categoria.service';
 import { OcorrenciaService } from 'src/app/shared/service/ocorrencia.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
@@ -16,7 +16,7 @@ import * as XLSX from 'xlsx';
 export class ServicoOcorrenciaComponent implements OnInit {
   public ocorrencias: Array<Ocorrencia> = new Array();
   public seletor: OcorrenciaSeletor = new OcorrenciaSeletor();
-  public categorias: CategoriaDeOcorrencia[];
+  public categorias: Categoria[];
   public status: { valor: boolean, texto: string }[] = [
     { valor: false, texto: 'Em andamento' },
     { valor: true, texto: 'Concluída' }
@@ -38,7 +38,7 @@ export class ServicoOcorrenciaComponent implements OnInit {
   constructor(
     private ocorrenciaService: OcorrenciaService,
     private router: Router,
-    private categoriaDeOcorrenciaService: CategoriaDeOcorrenciaService,
+    private categoriaService: CategoriaService,
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class ServicoOcorrenciaComponent implements OnInit {
     this.contarPaginas();
     this.filtrarOcorrencia();
 
-    this.categoriaDeOcorrenciaService.listarTodos().subscribe(
+    this.categoriaService.listarTodos().subscribe(
       (resultado) => {
         this.categorias = resultado.map((categoria) => categoria);
       },
