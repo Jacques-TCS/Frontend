@@ -1,67 +1,52 @@
-<div class="p-4">
-  <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-    <div class="container mx-auto">
-      <form #ngForm="ngForm" (ngSubmit)="autenticar(ngForm)" class="max-w-4xl mx-auto flex flex-col items-center">
-        <div class="sm:mb-8 sm:mt-2 mb-8 mt-2 w-4/6">
-          <div class="bg-background-logo rounded-md flex justify-center">
-            <img src="../assets/logo.svg" class="me-3 h-44 left-1/2" alt="Jacques Logo" />
-          </div>
-        </div>
-        <!--USERNAME-->
-        <div class="mb-5  w-4/6">
-          <label for="username" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuário </label>
+<div class="min-h-screen flex items-center justify-center bg-dark-dark-blue lg:flex-row">
+  <div class="hidden lg:block lg:w-3/4 h-screen bg-cover bg-dark-dark-blue bg-no-repeat bg-center" style="background-image: url('../../../assets/bg-luminosity.png');">
+    <div class="h-full w-full bg-opacity-50"></div>
+  </div>
+  <div class="lg:w-1/2 w-full flex items-center justify-center lg:bg-dark-dark-blue">
+    <div class="w-full max-w-md px-4 lg:px-8 py-8 space-y-6">
+      <div class="text-center">
+        <img src="../assets/logo.svg" alt="Jacques Logo" class="h-48 lg:h-64 mx-auto">
+      </div>
+      <form #ngForm="ngForm" (ngSubmit)="autenticar(ngForm)" class="space-y-6">
+        <div>
+          <label for="username" class="block text-md font-medium pb-2 lg:pb-4 text-gray-200">Usuário</label>
           <input
-            :class="{
-              'border-red-500': (!username) && ngForm.submitted,
-              'border-gray-200': !(!username) && ngForm.submitted
-            }"
-            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            class="w-full px-3 py-2 bg-dark-dark-blue text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
             name="username"
             minlength="1"
             [(ngModel)]="username"
             required
           />
-          <div
-            *ngIf="ngForm.submitted && !this.username"
-            class="text-red-500"
-          >
+          <div *ngIf="ngForm.submitted && !this.username" class="text-red-500 mt-2">
             O usuário é obrigatório
           </div>
         </div>
-        <!--PASSWORD-->
-        <div class="mb-10 w-4/6">
-          <label for="nome" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha </label>
+        <div>
+          <label for="password" class="block text-md font-medium pb-2 lg:pb-4 text-gray-200">Senha</label>
           <input
             type="password"
-            :class="{
-              'border-red-500': (!password) && ngForm.submitted,
-              'border-gray-200': !(!password) && ngForm.submitted
-            }"
-            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            class="w-full px-3 py-2 bg-dark-dark-blue text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
             name="password"
             minlength="1"
             [(ngModel)]="password"
             required
           />
-          <div
-            *ngIf="ngForm.submitted && !this.password"
-            class="text-red-500"
-          >
+          <div *ngIf="ngForm.submitted && !this.password" class="text-red-500 mt-2">
             A senha é obrigatória
           </div>
         </div>
-        <div
-          *ngIf="ngForm.submitted && this.isLoginFailed"
-          class="text-red-500"
-        >
+        <div *ngIf="ngForm.submitted && this.isLoginFailed" class="text-red-500 mt-2">
           Usuário ou senha inválidos
         </div>
-        <div class="mb-7 text-center text-gray-900 dark:text-white">
-          <input type="button" (click)="esqueciMinhaSenha()" value="Esqueci minha senha"/>
+        <div class="text-center text-gray-100 pt-4">
+          <button type="button" (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
         </div>
-        <button type="submit" class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block p-4 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light">Acessar</button>
+        <div class="pt-4">
+          <button type="submit" class="w-full py-2 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text font-medium rounded-lg">
+            Acessar
+          </button>
+        </div>
       </form>
     </div>
   </div>
 </div>
-
