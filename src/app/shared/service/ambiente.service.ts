@@ -8,7 +8,7 @@ import { AmbienteSeletor } from '../model/seletor/ambiente.seletor';
   providedIn: 'root',
 })
 export class AmbienteService {
-  private readonly API = 'http://localhost:8080/api/atividade';
+  private readonly API = 'http://144.22.190.101:8080/api/atividade';
 
   constructor(private httpClient: HttpClient) {}
 

@@ -6,7 +6,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API = 'http://localhost:8080/api/usuario';
+  private readonly API = 'http://144.22.190.101:8080/api/usuario';
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

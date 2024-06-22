@@ -8,7 +8,7 @@ import { OcorrenciaSeletor } from '../model/seletor/ocorrencia.seletor';
   providedIn: 'root',
 })
 export class OcorrenciaService {
-  private readonly API = 'http://localhost:8080/api/ocorrencia';
+  private readonly API = 'http://144.22.190.101:8080/api/ocorrencia';
 
   constructor(private httpClient: HttpClient) {}
 
