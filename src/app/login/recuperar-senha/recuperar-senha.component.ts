@@ -34,7 +34,7 @@ export class RecuperarSenhaComponent {
   }
 
   recuperarSenha(ngForm: NgForm): void {
-    if (!ngForm.invalid) {
+    if(!ngForm.invalid){
       this.authService.recuperarSenha(this.email).subscribe({
         next: data => {
           Swal.fire('Sucesso', 'Verifique a caixa de entrada do seu e-mail!', 'success')
