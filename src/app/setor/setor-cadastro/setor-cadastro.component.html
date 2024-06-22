@@ -1,0 +1,213 @@
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <div class="container mx-auto">
+            <form #ngForm="ngForm" novalidate class="max-w" (ngSubmit)="inserirSetor(ngForm)">
+                <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
+                    <div class="text-gray-900 dark:text-blue-100 flex items-center">
+                        <h3 class="sm:text-3xl text-2xl text-left font-bold">Cadastro de Setor</h3>
+                        <a class="flex items-center cursor-pointer pl-4" (click)="mostrarCadastro()">
+                            <i>
+                                <svg [ngClass]="{'rotate-180': mostrar}"
+                                    class="w-5 h-5 transform transition-transform duration-200" aria-hidden="true"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="justify-between" *ngIf="this.mostrar">
+                    <div class="flex flex-col sm:flex-row justify-between">
+                        <!-- NOME -->
+                        <div class="mb-5 relative flex-1 pr-2">
+                            <label for="nome"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome:</label>
+                            <input
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="nome" minlength="3" [(ngModel)]="setor.nome" required />
+                            <div *ngIf="isDisplayed && !this.setor.nome" class="text-red-500">
+                                Informe um nome com no mínimo 2 caracteres
+                            </div>
+                        </div>
+                        <!-- SIGLA -->
+                        <div class="mb-5 relative flex-1 pr-2">
+                            <label for="sigla"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sigla:
+                            </label>
+                            <input
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="sigla" minlength="2" [(ngModel)]="setor.sigla" required />
+                            <div *ngIf="isDisplayed && !this.setor.nome" class="text-red-500">
+                                Informe uma sigla com no mínimo 2 caracteres
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ATIVIDADE -->
+                    <div class="flex flex-col sm:flex-row">
+                        <div class="mb-5 relative flex-1 pr-2">
+                            <label for="atividade"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividade:
+                            </label>
+                            <select id="atividadeSelected"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="atividade" [ngModelOptions]="{ standalone: true }" [(ngModel)]="atividadeSelected"
+                                required>
+                                <option [ngValue]="{}"></option>
+                                <option *ngFor="let atividade of atividades" [ngValue]="atividade">
+                                    {{ atividade.descricao }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-5 relative flex-1  flex flex-col justify-end pr-2">
+                            <input (click)="selecionarAtividade()" type="button"
+                                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                                value="Selecionar atividade" />
+                        </div>
+                    </div>
+                    <!-- LISTAGEM AmbienteTemAtividade -->
+                    <div class="mb-5 justify-center">
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="px-8 py-3" colspan="1">
+                                        </th>
+                                        <th scope="col" class="px-8 py-3" colspan="3">
+                                            <div class="flex items-center justify-center">
+                                                LIMPEZA CONCORRENTE
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="p-0" colspan="2">
+                                            <div class="flex items-center">
+                                                LIMPEZA TERMINAL
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                ATIVIDADE
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ. MATUTINO
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ. VESPERTINO
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ. NOTURNO
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ.
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex justify-center items-center">
+                                                EXCLUIR
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- TODO As frequencias estão sendo alteradas quando trazidas para edição -->
+                                    <tr *ngFor="let atividadeDoSetor of setor.atividades"
+                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.atividade.descricao }}</td>
+                                        <td class="px-8 py-4">
+                                            <select [(ngModel)]="atividadeDoSetor.frequenciaManha"
+                                                name="frequenciaManha"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                                <!-- <option [ngValue]=""></option> -->
+                                                <option
+                                                    *ngFor="let opcao of frequenciaDeLimpezasConcorrente"
+                                                    [value]="opcao">
+                                                    {{ opcao }}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td class="px-8 py-4">
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.frequenciaTarde }}
+                                            <!-- <select [(ngModel)]="atividadeDoSetor.frequenciaTarde"
+                                                name="frequenciaTarde"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                                >
+                                                <option [ngValue]=""></option>
+                                                <option *ngFor="let opcao of frequenciaDeLimpezasConcorrente"
+                                                    [value]="opcao">
+                                                    {{ opcao }}
+                                                </option>
+                                            </select> -->
+                                        </td>
+                                        <td class="px-8 py-4">
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.frequenciaNoite }}
+                                            <!-- <select [(ngModel)]="atividadeDoSetor.frequenciaNoite"
+                                                name="frequenciaNoite"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                                >
+                                                <option [ngValue]=""></option>
+                                                <option *ngFor="let opcao of frequenciaDeLimpezasConcorrente"
+                                                    [value]="opcao">
+                                                    {{ opcao }}
+                                                </option>
+                                            </select> -->
+                                        </td>
+                                        <td class="px-8 py-4">
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.frequenciaTerminal }}
+                                            <!-- <select [(ngModel)]="atividadeDoSetor.frequenciaTerminal"
+                                                name="frequenciaTerminal"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                                >
+                                                <option [ngValue]=""></option>
+                                                 <option *ngFor="let opcao of frequenciaDeLimpezasTerminal"
+                                                    [value]="opcao">
+                                                    {{ opcao }}
+                                                </option> 
+                                            </select> -->
+                                        </td>
+                                        <td class="flex justify-center items-center px-8 py-4">
+                                            <a (click)="excluir(atividadeDoSetor)"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- BOTÃO CADASTRO -->
+                    <div class="mb-5 mt-5 sm:mt-20">
+                        <div class="md:mx-auto md:w-1/4 flex justify-end">
+                            <button id="btn-salvar"
+                                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                                type="submit">
+                                Cadastrar Setor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Chamada da tela de listagem de ambientes -->
+<app-setor-listagem (editarSetor)="editar($event)"></app-setor-listagem>

@@ -7,7 +7,6 @@ import { UsuarioCadastroComponent } from './usuario-cadastro/usuario-cadastro.co
 import { UsuarioPerfilComponent } from './usuario-perfil/usuario-perfil.component';
 import { UsuarioListagemComponent } from './usuario-listagem/usuario-listagem.component';
 import { UsuarioEdicaoComponent } from './usuario-edicao/usuario-edicao.component';
-import { UsuarioAfastamentoComponent } from './usuario-afastamento/usuario-afastamento.component';
 import { InputMaskModule } from '@ngneat/input-mask';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +17,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     UsuarioPerfilComponent,
     UsuarioListagemComponent,
     UsuarioEdicaoComponent,
-    UsuarioAfastamentoComponent,
   ],
   imports: [
     CommonModule,
@@ -29,4 +27,4 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgxMaskDirective,
   ],
 })
-export class UsuariosModule {}
+export class UsuariosModule { }

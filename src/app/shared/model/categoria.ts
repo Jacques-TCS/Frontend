@@ -1,4 +1,4 @@
-export class CategoriaDeOcorrencia {
+export class Categoria {
     id: number;
     categoria: string;
 }

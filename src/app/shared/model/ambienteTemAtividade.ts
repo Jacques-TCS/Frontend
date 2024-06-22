@@ -1,6 +1,7 @@
+import { Ambiente } from './ambiente';
 import { Atividade } from './atividade';
 
-export class SetorTemAtividade {
+export class AmbienteTemAtividade {
   atividade: Atividade;
   frequenciaManha: string;
   frequenciaTarde: string;

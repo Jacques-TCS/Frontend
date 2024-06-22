@@ -2,6 +2,7 @@ import { Atividade } from './../model/atividade';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AtividadeSeletor } from '../model/seletor/atividade.seletor';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class AtividadeService {
   private readonly API = 'http://144.22.190.101:8080/api/atividade';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   inserir(atividade: Atividade): Observable<Atividade> {
     return this.httpClient.post<Atividade>(this.API, atividade);
@@ -27,7 +28,19 @@ export class AtividadeService {
     return this.httpClient.get<Array<Atividade>>(this.API + '/todos');
   }
 
+  listarComSeletor(seletor: AtividadeSeletor) {
+    return this.httpClient.post<Array<Atividade>>(this.API + '/filtro', seletor);
+  }
+
   excluir(id: number): Observable<Atividade> {
     return this.httpClient.delete<Atividade>(this.API + '/' + id);
+  }
+
+  contarTotalRegistros(seletor: AtividadeSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/contar', seletor);
+  }
+
+  contarPaginas(seletor: AtividadeSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/total-paginas', seletor);
   }
 }

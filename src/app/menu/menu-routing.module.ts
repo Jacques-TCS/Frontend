@@ -12,20 +12,47 @@ const routes: Routes = [
         path: 'usuarios',
         loadChildren: () =>
           import('../usuarios/usuarios.module').then((m) => m.UsuariosModule),
-          canActivate: [privateRouteGuard]
-
+        canActivate: [privateRouteGuard],
       },
       {
         path: 'servicos',
         loadChildren: () =>
           import('../servicos/servicos.module').then((m) => m.ServicosModule),
-          canActivate: [privateRouteGuard]
+        canActivate: [privateRouteGuard],
       },
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
-          canActivate: [privateRouteGuard]
+          import('../dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+        canActivate: [privateRouteGuard],
+      },
+      {
+        path: 'setor',
+        loadChildren: () =>
+          import('../setor/setor.module').then((m) => m.SetorModule),
+        canActivate: [privateRouteGuard],
+      },
+      {
+        path: 'ambiente',
+        loadChildren: () =>
+          import('../ambiente/ambiente.module').then((m) => m.AmbienteModule),
+        canActivate: [privateRouteGuard],
+      },
+      {
+        path: 'atividade',
+        loadChildren: () =>
+          import('../atividade/atividade.module').then((m) => m.AtividadeModule),
+        canActivate: [privateRouteGuard],
+      },
+      {
+        path: 'cronograma',
+        loadChildren: () =>
+          import('../cronograma/cronograma.module').then(
+            (m) => m.CronogramaModule
+          ),
+        canActivate: [privateRouteGuard],
       },
     ],
   },
@@ -33,6 +60,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class MenuRoutingModule { }

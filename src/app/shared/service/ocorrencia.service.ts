@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Ocorrencia } from './../model/ocorrencia';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -10,11 +10,7 @@ import { OcorrenciaSeletor } from '../model/seletor/ocorrencia.seletor';
 export class OcorrenciaService {
   private readonly API = 'http://144.22.190.101:8080/api/ocorrencia';
 
-  constructor(private httpClient: HttpClient) {}
-
-  inserir(ocorrencia: Ocorrencia): Observable<Ocorrencia> {
-    return this.httpClient.post<Ocorrencia>(this.API, ocorrencia);
-  }
+  constructor(private httpClient: HttpClient) { }
 
   atualizar(ocorrencia: Ocorrencia): Observable<Ocorrencia> {
     return this.httpClient.put<Ocorrencia>(this.API, ocorrencia);
@@ -33,5 +29,13 @@ export class OcorrenciaService {
       this.API + '/filtro',
       seletor
     );
+  }
+
+  contarTotalRegistros(seletor: OcorrenciaSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/contar', seletor);
+  }
+
+  contarPaginas(seletor: OcorrenciaSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/total-paginas', seletor);
   }
 }

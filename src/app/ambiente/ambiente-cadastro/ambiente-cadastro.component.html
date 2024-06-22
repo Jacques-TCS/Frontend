@@ -1,0 +1,178 @@
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <div class="container mx-auto">
+            <form>
+                <div class="sm:mb-8 sm:mt-2 mb-8 mt-2">
+                    <div class="text-gray-900 dark:text-blue-100 flex items-center">
+                        <h3 class="sm:text-3xl text-2xl text-left font-bold">Cadastro de Ambiente</h3>
+                        <a class="flex items-center cursor-pointer pl-4" (click)="mostrarCadastro()">
+                            <i>
+                                <svg [ngClass]="{'rotate-180': mostrar}"
+                                    class="w-5 h-5 transform transition-transform duration-200" aria-hidden="true"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="justify-between" *ngIf="this.mostrar">
+                    <div class="flex flex-col sm:flex-row justify-between">
+                        <!-- NOME OU NÚMERO -->
+                        <div class="mb-5 relative flex-1 pr-2">
+                            <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome
+                                ou
+                                número:
+                            </label>
+                            <input
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="nome" minlength="3" [(ngModel)]="ambiente.descricao" required />
+                            <!-- TODO para o seletor de setores mostrar algo é necessário comentar este ngIf, não seu pq -->
+                            <!-- <div *ngIf="isDisplayed && !this.ambiente.descricao" class="text-red-500">
+                                Informe um nome com no mínimo 2 caracteres
+                            </div> -->
+                        </div>
+
+                        <!-- TODO A listagem de setores e atividades não aparece no select -->
+                        <!-- SETOR -->
+                        <div class="mb-5 relative flex-1 pr-2">
+                            <label for="setor"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Setor:
+                            </label>
+                            <select
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="ambiente-setor" [(ngModel)]="ambiente.setor" required>
+                                <option [ngValue]=""></option>
+                                <option *ngFor="let setor of setores" [value]="setor.nome">
+                                    {{ setor.nome }}
+                                </option>
+                            </select>
+                            <!-- <span>aqui{{this.setores[0].nome}}</span> -->
+                            <div *ngIf="isDisplayed && !this.ambiente.setor " class="text-red-500">
+                                Selecione um setor!
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ATIVIDADES -->
+                    <div class="flex flex-col sm:flex-row">
+                        <div class="mb-5 relative flex-1 pr-2">
+                            <label for="atividades"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividades:</label>
+                            <select id="atividadeSelected"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="atividades" [ngModelOptions]="{ standalone: true }"
+                                [(ngModel)]="atividadeSelected" required>
+                                <option [ngValue]=""></option>
+                                <option *ngFor="let atividade of atividades" [ngValue]="atividade.descricao">
+                                    {{atividade.descricao}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-5 relative flex-1  flex flex-col justify-end pr-2">
+                            <input (click)="selecionarAtividade()" type="button"
+                                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                                value="Selecionar atividade" />
+                        </div>
+                    </div>
+
+                    <!-- LISTAGEM AmbienteTemAtividade -->
+                    <div class="mb-5 justify-center">
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="px-8 py-3" colspan="1">
+                                        </th>
+                                        <th scope="col" class="px-8 py-3" colspan="3">
+                                            <div class="flex items-center justify-center">
+                                                LIMPEZA CONCORRENTE
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="p-0" colspan="2">
+                                            <div class="flex items-center">
+                                                LIMPEZA TERMINAL
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                ATIVIDADE
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ. MATUTINO
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ. VESPERTINO
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ. NOTURNO
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                FREQ.
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="px-8 py-3">
+                                            <div class="flex items-center">
+                                                EDITAR
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let ambiente of ambientes "
+                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.atividade }}</td>
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaManha }}</td>
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaTarde }}</td>
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaNoite }}</td>
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaTerminal }}</td>
+                                        <td class="px-8 py-4 text-right">
+                                            <a (click)="editar(ambiente.id)"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                    width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd"
+                                                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                                                        clip-rule="evenodd" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- BOTÃO CADASTRO -->
+                    <div class="mb-5 mt-5 sm:mt-20">
+                        <div class="md:mx-auto md:w-1/4 flex justify-end">
+                            <button id="btn-salvar"
+                                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                                type="submit">
+                                Cadastrar Ambiente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<app-ambiente-listagem></app-ambiente-listagem>
