@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class SetorService {
-    private readonly API = 'http://localhost:8080/api/setor';
+    private readonly API = 'http://144.22.190.101:8080/api/setor';
 
     constructor(private httpClient: HttpClient) { }
 

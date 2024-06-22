@@ -15,6 +15,11 @@ export class AtividadeComponent implements OnInit {
   public atividade: Atividade = new Atividade();
   public seletor: AtividadeSeletor = new AtividadeSeletor();
   public atividades: Array<Atividade> = new Array();
+  public atividadeId: number | null = null;
+  public isDisplayed: boolean = false;
+
+  public totalPaginas: number = 0;
+  public readonly TAMANHO_PAGINA: number = 10;
 
   @ViewChild('ngForm')
   public ngForm: NgForm;
@@ -24,40 +29,61 @@ export class AtividadeComponent implements OnInit {
     private router: Router,) { }
 
   ngOnInit(): void {
-    // this.filtrarAtividade();
+    this.seletor.limite = this.TAMANHO_PAGINA;
+    this.seletor.pagina = 0;
+    this.filtrarAtividade();
 
-    // this.atividadeService.listarTodos().subscribe(
-    //   (resultado) => {
-    //     this.atividades = resultado.map((atividade) => atividade);
-    //   },
-    //   (erro) => {
-    //     Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
-    //   }
-    // );
+    this.hideAnimatedDiv();
   }
 
-  buscarTodos() {
-    this.atividadeService.listarTodos().subscribe(
+  hideAnimatedDiv() {
+    setTimeout(() => {
+      this.isDisplayed = false;
+    }, 5000);
+  }
+
+  public contarPaginas() {
+    this.atividadeService.contarPaginas(this.seletor).subscribe(
       (resultado) => {
-        this.atividades = resultado;
+        this.totalPaginas = resultado;
       },
       (erro) => {
-        console.log('Erro ao buscar atividades', erro);
+        Swal.fire(
+          'Erro ao consultar total de páginas',
+          erro.error.mensagem,
+          'error'
+        );
       }
     );
   }
 
   inserirAtividade(form: NgForm) {
     if (!form.invalid) {
-      this.atividadeService.inserir(this.atividade).subscribe(
-        (sucesso) => {
-          Swal.fire('Sucesso', 'atividade cadastrada!', 'success');
-          this.atividade = new Atividade();
-        },
-        (erro) => {
-          Swal.fire('Erro', 'error');
-        }
-      );
+      if (this.atividadeId !== null) {
+        this.atividade.id = this.atividadeId;
+        this.atividadeService.atualizar(this.atividade).subscribe(
+          (sucesso) => {
+            Swal.fire('Sucesso', 'atividade atualizada!', 'success');
+          },
+          (erro) => {
+            Swal.fire('Erro', 'Erro ao atualizar atividade', 'error');
+            console.error('Erro ao atualizar atividade:', erro);
+          }
+        );
+      } else {
+        this.atividadeService.inserir(this.atividade).subscribe(
+          (sucesso) => {
+            Swal.fire('Sucesso', 'atividade cadastrada!', 'success');
+            this.atividade = new Atividade();
+          },
+          (erro) => {
+            Swal.fire('Erro', 'Erro ao cadastrar atividade', 'error');
+          }
+        );
+      }
+    } else {
+      this.isDisplayed = true;
+      this.hideAnimatedDiv();
     }
   }
 
@@ -72,35 +98,41 @@ export class AtividadeComponent implements OnInit {
     );
   }
 
-  editar(id: Atividade) {
+  editar(atividade: Atividade) {
     Swal.fire({
       title: 'Tem certeza de que deseja alterar o nome da atividade?',
       showDenyButton: true,
       confirmButtonText: `Sim`,
       denyButtonText: `Não`,
     }).then((result) => {
-      if (result.isConfirmed) { }
+      if (result.isConfirmed) {
+        this.atividade = { ...atividade };
+        this.atividadeId = atividade.id;
+      }
     })
   }
-  
-  excluir(id: Atividade) {
+
+  excluir(atividade: Atividade) {
     Swal.fire({
-      title: 'Tem certeza de que deseja excluir?',
+      title: 'Tem certeza de que deseja inativar essa atividade?',
       showDenyButton: true,
       confirmButtonText: `Sim`,
       denyButtonText: `Não`,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.atividadeService.excluir(this.atividade.id).subscribe(
+        atividade.status = false;
+        this.atividadeService.atualizar(atividade).subscribe(
           (sucesso) => {
-            Swal.fire('Sucesso', 'atividade excluída!', 'success');
-            this.atividade = new Atividade();
+            Swal.fire('Sucesso', 'Atividade inativada!', 'success');
+            this.filtrarAtividade();
           },
           (erro) => {
-            Swal.fire('Erro', 'error');
+            Swal.fire('Erro', 'Erro ao inativar atividade', 'error');
+            console.error('Erro ao inativar atividade:', erro);
           }
         );
       }
-    })
+    });
   }
 }
+

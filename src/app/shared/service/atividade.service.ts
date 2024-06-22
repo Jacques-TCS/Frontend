@@ -8,7 +8,7 @@ import { AtividadeSeletor } from '../model/seletor/atividade.seletor';
   providedIn: 'root',
 })
 export class AtividadeService {
-  private readonly API = 'http://localhost:8080/api/atividade';
+  private readonly API = 'http://144.22.190.101:8080/api/atividade';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -34,5 +34,13 @@ export class AtividadeService {
 
   excluir(id: number): Observable<Atividade> {
     return this.httpClient.delete<Atividade>(this.API + '/' + id);
+  }
+
+  contarTotalRegistros(seletor: AtividadeSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/contar', seletor);
+  }
+
+  contarPaginas(seletor: AtividadeSeletor): Observable<number> {
+    return this.httpClient.post<number>(this.API + '/total-paginas', seletor);
   }
 }

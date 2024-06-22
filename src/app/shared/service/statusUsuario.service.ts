@@ -7,7 +7,7 @@ import { StatusUsuario } from './../model/status-usuario';
   providedIn: 'root',
 })
 export class StatusUsuarioService {
-  private readonly API = 'http://localhost:8080/api/status-usuario';
+  private readonly API = 'http://144.22.190.101:8080/api/status-usuario';
 
   constructor(
     private httpClient: HttpClient

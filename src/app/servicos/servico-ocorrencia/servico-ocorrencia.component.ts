@@ -37,7 +37,6 @@ export class ServicoOcorrenciaComponent implements OnInit {
 
   constructor(
     private ocorrenciaService: OcorrenciaService,
-    private router: Router,
     private categoriaService: CategoriaService,
   ) { }
 

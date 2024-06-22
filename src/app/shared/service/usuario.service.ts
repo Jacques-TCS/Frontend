@@ -8,7 +8,7 @@ import { UsuarioSeletor } from '../model/seletor/usuario.seletor';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private readonly API = 'http://localhost:8080/api/usuario';
+  private readonly API = 'http://144.22.190.101:8080/api/usuario';
 
   constructor(
     private httpClient: HttpClient

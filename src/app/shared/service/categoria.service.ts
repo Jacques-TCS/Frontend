@@ -7,7 +7,7 @@ import { Categoria } from '../model/categoria';
   providedIn: 'root',
 })
 export class CategoriaService {
-  private readonly API = 'http://localhost:8080/api/categoria-de-ocorrencia';
+  private readonly API = 'http://144.22.190.101:8080/api/categoria-de-ocorrencia';
 
   constructor(private httpClient: HttpClient) { }
 

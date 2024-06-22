@@ -7,7 +7,7 @@ import { AfastamentoSeletor } from '../model/seletor/afastamento.seletor';
   providedIn: 'root',
 })
 export class AfastamentoService {
-  private readonly API = 'http://localhost:8080/api/afastamento';
+  private readonly API = 'http://144.22.190.101:8080/api/afastamento';
 
   constructor(private httpClient: HttpClient) {}
   inserir(afastamento: Afastamento): Observable<Afastamento> {

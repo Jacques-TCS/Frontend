@@ -8,7 +8,7 @@ import { CronogramaSeletor } from '../model/seletor/cronograma.seletor';
     providedIn: 'root',
 })
 export class CronogramaService {
-    private readonly API = 'http://localhost:8080/api/cronograma';
+    private readonly API = 'http://144.22.190.101:8080/api/cronograma';
 
     constructor(private httpClient: HttpClient) { }
 
