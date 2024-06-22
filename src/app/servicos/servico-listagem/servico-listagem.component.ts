@@ -1,17 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Atividade } from 'src/app/shared/model/atividade';
+import { CategoriaDeOcorrencia } from 'src/app/shared/model/categoriaDeOcorrencia';
+import { ServicoSeletor } from 'src/app/shared/model/seletor/servico.seletor';
+import { Servico } from 'src/app/shared/model/servico';
+import { StatusUsuario } from 'src/app/shared/model/status-usuario';
+import { AtividadeService } from 'src/app/shared/service/atividade.service';
+import { CategoriaDeOcorrenciaService } from 'src/app/shared/service/categoria-ocorrencia.service';
+import { OcorrenciaService } from 'src/app/shared/service/ocorrencia.service';
+import { ServicoService } from 'src/app/shared/service/servico.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { Cargo } from 'src/app/shared/model/cargo';
-import { StatusUsuario } from 'src/app/shared/model/status-usuario';
-import { CargoService } from 'src/app/shared/service/cargo.service';
-import { StatusUsuarioService } from 'src/app/shared/service/statusUsuario.service';
-import { Servico } from 'src/app/shared/model/servico';
-import { ServicoService } from 'src/app/shared/service/servico.service';
-import { ServicoSeletor } from 'src/app/shared/model/seletor/servico.seletor';
-import { Atividade } from 'src/app/shared/model/atividade';
-import { Ocorrencia } from 'src/app/shared/model/ocorrencia';
 
 @Component({
   selector: 'app-servico-listagem',
@@ -22,8 +21,7 @@ export class ServicoListagemComponent implements OnInit {
   public servicos: Array<Servico> = new Array();
   public seletor: ServicoSeletor = new ServicoSeletor();
   public atividades: Atividade[]
-  public ocorrencias: Ocorrencia[]
-  public cargos: Cargo[];
+  public categoriaOcorrencias: CategoriaDeOcorrencia[]
   public status: StatusUsuario[];
   public totalPaginas: number = 1;
   public readonly TAMANHO_PAGINA: number = 10;
@@ -41,10 +39,8 @@ export class ServicoListagemComponent implements OnInit {
 
   constructor(
     private servicoService: ServicoService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private cargoService: CargoService,
-    private statusUsuarioService: StatusUsuarioService
+    private atividadeService: AtividadeService,
+    private categoriaOcorrenciaService: CategoriaDeOcorrenciaService,
   ) {}
 
   ngOnInit(): void {
@@ -52,20 +48,20 @@ export class ServicoListagemComponent implements OnInit {
     this.seletor.pagina = 0;
     this.filtrarServico();
     this.contarPaginas();
-    this.cargoService.listarTodos().subscribe(
+    this.atividadeService.listarTodos().subscribe(
       (resultado) => {
-        this.cargos = resultado.map((cargo) => cargo);
+        this.atividades = resultado.map((atividade) => atividade);
       },
       (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar cargos', 'error');
+        Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
       }
     );
-    this.statusUsuarioService.listarTodos().subscribe(
+    this.categoriaOcorrenciaService.listarTodos().subscribe(
       (resultado) => {
-        this.status = resultado.map((status) => status);
+        this.categoriaOcorrencias = resultado.map((categoriaOcorrencias) => categoriaOcorrencias);
       },
       (erro) => {
-        Swal.fire('Erro', 'Erro ao buscar status', 'error');
+        Swal.fire('Erro', 'Erro ao buscar ocorrencias', 'error');
       }
     );
   }
