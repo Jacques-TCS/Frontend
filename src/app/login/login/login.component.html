@@ -1,8 +1,8 @@
-<div class="min-h-screen flex items-center justify-center bg-dark-dark-blue lg:flex-row">
-  <div class="hidden lg:block lg:w-3/4 h-screen bg-cover bg-dark-dark-blue bg-no-repeat bg-center" style="background-image: url('../../../assets/bg-luminosity.png');">
+<div class="min-h-screen flex items-center justify-center bg-background-logo lg:flex-row">
+  <div class="hidden lg:block lg:w-3/4 h-screen bg-cover bg-background-logo bg-no-repeat bg-center" style="background-image: url('../../../assets/bg-luminosity.png');">
     <div class="h-full w-full bg-opacity-50"></div>
   </div>
-  <div class="lg:w-1/2 w-full flex items-center justify-center lg:bg-dark-dark-blue">
+  <div class="lg:w-1/2 w-full flex items-center justify-center lg:bg-background-logo">
     <div class="w-full max-w-md px-4 lg:px-8 py-8 space-y-6">
       <div class="text-center">
         <img src="../assets/logo.svg" alt="Jacques Logo" class="h-48 lg:h-64 mx-auto">
@@ -11,31 +11,47 @@
         <div>
           <label for="username" class="block text-md font-medium pb-2 lg:pb-4 text-gray-200">Usuário</label>
           <input
-            class="w-full px-3 py-2 bg-dark-dark-blue text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
+            class="w-full px-3 py-2 bg-background-logo text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
             name="username"
             minlength="1"
             [(ngModel)]="username"
             required
           />
-          <div *ngIf="ngForm.submitted && !this.username" class="text-red-500 mt-2">
+          <div *ngIf="isDisplayed && !this.username" class="text-red-500 mt-2">
             O usuário é obrigatório
           </div>
         </div>
-        <div>
+        <div class="relative mb-5">
           <label for="password" class="block text-md font-medium pb-2 lg:pb-4 text-gray-200">Senha</label>
-          <input
-            type="password"
-            class="w-full px-3 py-2 bg-dark-dark-blue text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
-            name="password"
-            minlength="1"
-            [(ngModel)]="password"
-            required
-          />
-          <div *ngIf="ngForm.submitted && !this.password" class="text-red-500 mt-2">
-            A senha é obrigatória
+            <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              class="w-full px-3 py-2 bg-background-logo text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
+              name="password"
+              [(ngModel)]="password"
+              required
+            />
+            <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 px-3 flex items-center justify-center">
+              <ng-container *ngIf="!showPassword; else showPasswordIcon">
+                <svg class="w-6 h-6 text-dark-light-blue dark:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/>
+                </svg>
+              </ng-container>
+              <ng-template #showPasswordIcon>
+                <svg class="w-6 h-6 text-dark-light-blue dark:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="m4 15.6 3.055-3.056A4.913 4.913 0 0 1 7 12.012a5.006 5.006 0 0 1 5-5c.178.009.356.027.532.054l1.744-1.744A8.973 8.973 0 0 0 12 5.012c-5.388 0-10 5.336-10 7A6.49 6.49 0 0 0 4 15.6Z"/>
+                  <path d="m14.7 10.726 4.995-5.007A.998.998 0 0 0 18.99 4a1 1 0 0 0-.71.305l-4.995 5.007a2.98 2.98 0 0 0-.588-.21l-.035-.01a2.981 2.981 0 0 0-3.584 3.583c0 .012.008.022.01.033.05.204.12.402.211.59l-4.995 4.983a1 1 0 1 0 1.414 1.414l4.995-4.983c.189.091.386.162.59.211.011 0 .021.007.033.01a2.982 2.982 0 0 0 3.584-3.584c0-.012-.008-.023-.011-.035a3.05 3.05 0 0 0-.21-.588Z"/>
+                  <path d="m19.821 8.605-2.857 2.857a4.952 4.952 0 0 1-5.514 5.514l-1.785 1.785c.767.166 1.55.25 2.335.251 6.453 0 10-5.258 10-7 0-1.166-1.637-2.874-2.179-3.407Z"/>
+                </svg>
+              </ng-template>
+            </button>
           </div>
         </div>
-        <div *ngIf="ngForm.submitted && this.isLoginFailed" class="text-red-500 mt-2">
+        <div *ngIf="isDisplayed && !this.password" class="text-red-500 mt-2">
+          A senha é obrigatória
+        </div>
+        <div *ngIf="isDisplayed && this.isLoginFailed" class="text-red-500 mt-2">
           Usuário ou senha inválidos
         </div>
         <div class="text-center text-gray-100 pt-4">

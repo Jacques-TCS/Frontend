@@ -1,5 +1,5 @@
 <div class="p-4 sm:ml-64">
-  <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+  <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-600 mt-14">
     <form>
       <div class="sm:mb-8 sm:mt-2 mb-8 mt-2 flex justify-between items-center space-x-10">
         <div class="text-gray-900 dark:text-blue-100">
@@ -16,12 +16,13 @@
         </a>
       </div>
 
-      <div class="justify-between" *ngIf="this.mostrar">
-        <div class="flex flex-wrap justify-between flex-col lg:flex-row">
+      <div *ngIf="this.mostrar">
+        <div class="flex flex-wrap lg:flex-row">
+          <div class="flex flex-col mb-5 w-1/2 px-2">
           <div class="mb-5">
             <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Funcionário: </label>
             <input
-            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
             name="nome"
             [(ngModel)]="seletor.usuario"
           />
@@ -29,7 +30,7 @@
           <div class="mb-5">
             <label for="ambiente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ambiente: </label>
             <input
-            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
             name="ambiente"
             [(ngModel)]="seletor.ambiente"
           />
@@ -37,13 +38,13 @@
           <div class="mb-5">
             <label for="atividades" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividades: </label>
             <select
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
               name="atividades"
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="seletor.atividade"
               required
             >
-              <option></option>
+              <option>&nbsp;&nbsp;</option>
               <option
                 *ngFor="let atividade of atividades"
                 [ngValue]="atividade"
@@ -52,46 +53,48 @@
               </option>
             </select>
           </div>
-          <div class="mb-5">
-            <label for="menorDataHoraFim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">De: </label>
-            <input
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-48 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              name="menorDataHoraFim"
-              type="datetime-local"
-              [(ngModel)]="seletor.menorDataHoraFim"
-            />
-          </div>
-          <div class="mb-5">
-            <label for="maiorDataHoraFim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Até: </label>
-            <input
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-48 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-              name="maiorDataHoraFim"
-              type="datetime-local"
-              [(ngModel)]="seletor.maiorDataHoraFim"
-            />
-          </div>
+        </div>
+          <div class="flex flex-col mb-5 w-1/2 px-2">
           <div class="mb-5">
             <label for="ocorrencia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ocorrencia: </label>
             <select
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
               name="ocorrencia"
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="seletor.ocorrencia"
               required
             >
-              <option></option>
+              <option>&nbsp;&nbsp;</option>
               <option
-                *ngFor="let ocorrencia of ocorrencias"
-                [ngValue]="ocorrencia.status"
+                *ngFor="let ocorrencia of categoriaOcorrencias"
+                [ngValue]="ocorrencia.categoria"
               >
-                {{ ocorrencia.status }}
+                {{ ocorrencia.categoria }}
               </option>
             </select>
           </div>
-          <div class="mb-5 mt-7">
+          <div class="mb-5">
+            <label for="menorDataHoraFim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">De: </label>
+            <input
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-72 lg:w-72 w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
+              name="menorDataHoraFim"
+              type="datetime-local"
+              [(ngModel)]="seletor.menorDataHoraFim"
+            />
+          </div>
+          <div class="mb-5 mt-1">
+            <label for="maiorDataHoraFim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Até: </label>
+            <input
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-72 lg:w-72 w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
+              name="maiorDataHoraFim"
+              type="datetime-local"
+              [(ngModel)]="seletor.maiorDataHoraFim"
+            />
+          </div>
+          <div class="mb-5 mt-7 flex justify-end">
             <button
               id="btn-filtrar"
-              class="btn font-semibold shadow-sm text-sm rounded-lg block 2xl:w-48 lg:w-72 w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+              class="btn font-semibold shadow-sm text-sm rounded-lg block 2xl:w-48 lg:w-72 w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-dark"
               (click)="filtrarServico(); mostrarFiltros()"
               type="submit"
             >
@@ -99,59 +102,69 @@
             </button>
           </div>
         </div>
+        </div>
       </div>
       <!--TABELA-->
       <div class="mb-5 justify-center">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table class="w-full text-sm text-left rtl:text-right text-gray-900 dark:text-gray-400 pl-20">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-600 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-8 py-3">
                   <div class="flex items-center">
                     Nome
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                    </svg></a>
+                    </svg></a> -->
                   </div>
                 </th>
                 <th scope="col" class="px-8 py-3">
                   <div class="flex items-center">
                     Ambiente
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                    </svg></a>
+                    </svg></a> -->
                   </div>
                 </th>
                 <th scope="col" class="px-8 py-3">
                   <div class="flex items-center">
-                    Data
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                    Data Programada
+                    <!-- <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                    </svg></a>
+                    </svg></a> -->
+                  </div>
+                </th>
+                <th scope="col" class="px-8 py-3">
+                  <div class="flex items-center">
+                    Data de Conclusão
+                    <!-- <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                    </svg></a> -->
                   </div>
                 </th>
                 <th scope="col" class="px-8 py-3">
                   <div class="flex items-center">
                     Atividades
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                    </svg></a>
+                    </svg></a> -->
                   </div>
                 </th>
                 <th scope="col" class="px-8 py-3">
                   <div class="flex items-center">
                     Ocorrência
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                    </svg></a>
+                    </svg></a> -->
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let servico of servicos" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <tr *ngFor="let servico of servicos" class="bg-white border-b dark:bg-gray-700 dark:border-gray-600">
                 <td class="px-8 py-4">{{ servico.usuario.nome }}</td>
                 <td class="px-8 py-4">{{ servico.ambiente.descricao }}</td>
+                <td class="px-8 py-4">{{ servico.dataProgramada | date : "dd/MM/yyyy" }}</td>
                 <td class="px-8 py-4">{{ servico.dataHoraFim | date : "dd/MM/yyyy - HH:mm" }}</td>
                 <td class="px-8 py-4">
                   <div *ngFor="let atividade of servico.atividades; let isLast=last">
@@ -173,7 +186,7 @@
         <div class="xl:w-1/12 lg:w-1/8 md:w-1/6 sm:w-1/4 w-full">
           <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">Exibir registros:</label>
           <select
-            class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+            class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
             [(ngModel)]="seletor.limite"
             [ngModelOptions]="{ standalone: true }"
             (change)="atualizarPaginacao()">
@@ -187,7 +200,7 @@
           <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">&nbsp;</label>
            <ul class="pagination flex items-center justify-center -space-x-px h-10 text-base">
               <li class="page-item">
-                <button [disabled]="seletor.pagina == 0" class="page-link flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="voltarPagina()">
+                <button [disabled]="seletor.pagina == 0" class="page-link flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="voltarPagina()">
                   <span class="sr-only">Anterior</span>
                     <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
@@ -195,10 +208,10 @@
                   </button>
                 </li>
                 <li class="page-item" *ngFor="let indice of criarArrayPaginas()" (click)="irParaPagina(indice-1)">
-                  <button class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{indice}}</button>
+                  <button class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{indice}}</button>
                 </li>
                 <li class="page-item">
-                  <button [disabled]="seletor.pagina == totalPaginas-1" class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="avancarPagina()">
+                  <button [disabled]="seletor.pagina == totalPaginas-1" class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" (click)="avancarPagina()">
                     <span class="sr-only">Próximo</span>
                       <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
@@ -208,10 +221,10 @@
             </ul>
           </div>
         </div>
-        <div class="flex justify-end items-center">
+        <div class="flex justify-end items-center w-1/6">
           <button
             id="btn-exportar"
-            class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+            class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-dark"
             (click)="exportarPlanilhaServico()"
             type="submit"
             >

@@ -1,8 +1,8 @@
-<div class="min-h-screen flex items-center justify-center bg-dark-dark-blue lg:flex-row">
-  <div class="hidden lg:block lg:w-3/4 h-screen bg-cover bg-dark-dark-blue bg-no-repeat bg-center" style="background-image: url('../../../assets/bg-luminosity.png');">
+<div class="min-h-screen flex items-center justify-center bg-background-logo lg:flex-row">
+  <div class="hidden lg:block lg:w-3/4 h-screen bg-cover bg-background-logo bg-no-repeat bg-center" style="background-image: url('../../../assets/bg-luminosity.png');">
     <div class="h-full w-full bg-opacity-50"></div>
   </div>
-  <div class="lg:w-1/2 w-full flex items-center justify-center lg:bg-dark-dark-blue">
+  <div class="lg:w-1/2 w-full flex items-center justify-center lg:bg-background-logo">
     <div class="w-full max-w-md px-4 lg:px-8 py-8 space-y-6">
       <div class="text-center">
         <img src="../assets/logo.svg" alt="Jacques Logo" class="h-48 lg:h-64 mx-auto">
@@ -15,14 +15,14 @@
           <label for="email" class="block text-md font-medium pb-2 lg:pb-4 text-gray-200">E-mail</label>
           <input
             type="text"
-            class="w-full px-3 py-2 bg-dark-dark-blue text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
+            class="w-full px-3 py-2 bg-background-logo text-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-light-dark-blue"
             name="email"
             minlength="1"
             [(ngModel)]="email"
             required
           />
-          <div *ngIf="ngForm.submitted && !this.email" class="text-red-500 mt-2">
-            O e-mail é obrigatório
+          <div *ngIf="isDisplayed && !this.email" class="text-red-500 mt-2">
+            Informe seu e-mail!
           </div>
         </div>
         <div class="pt-6">
