@@ -19,56 +19,66 @@
                 </div>
 
                 <div class="justify-between" *ngIf="this.mostrar">
-                    <!-- NOME OU NÚMERO -->
                     <div class="flex flex-col sm:flex-row justify-between">
-                        <div class="mb-5 relative flex-1 sm:ml-0">
+                        <!-- NOME OU NÚMERO -->
+                        <div class="mb-5 relative flex-1 pr-2">
                             <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome
                                 ou
                                 número:
                             </label>
-                            <input :class="{
-                            'border-red-500': (!ambiente.descricao || (ambiente.descricao && ambiente.descricao.length < 3)) && ngForm.submitted,
-                            'border-gray-200': !(!ambiente.descricao || (ambiente.descricao && ambiente.descricao.length < 3)) && ngForm.submitted
-                        }" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                            <input
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                                 name="nome" minlength="3" [(ngModel)]="ambiente.descricao" required />
-                            <div *ngIf="ngForm.submitted && !this.ambiente.descricao" class="text-red-500">
+                            <!-- TODO para o seletor de setores mostrar algo é necessário comentar este ngIf, não seu pq -->
+                            <!-- <div *ngIf="isDisplayed && !this.ambiente.descricao" class="text-red-500">
                                 Informe um nome com no mínimo 2 caracteres
-                            </div>
+                            </div> -->
                         </div>
-                    </div>
-                    <!-- SETOR -->
-                    <div class="flex flex-col sm:flex-row justify-between">
-                        <div class="mb-5 relative flex-1 sm:ml-0">
+
+                        <!-- TODO A listagem de setores e atividades não aparece no select -->
+                        <!-- SETOR -->
+                        <div class="mb-5 relative flex-1 pr-2">
                             <label for="setor"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Setor:
                             </label>
-                            <select :class="{
-                            'border-red-500': !ambiente.setor && ngForm.submitted,
-                            'border-gray-200': ambiente.setor && ngForm.submitted
-                            }" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                name="setor" [ngModelOptions]="{ standalone: true }" [(ngModel)]="ambiente.setor "
-                                required>
-                                <option *ngFor="let setor of setores" [ngValue]="setor">
+                            <select
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="ambiente-setor" [(ngModel)]="ambiente.setor" required>
+                                <option [ngValue]=""></option>
+                                <option *ngFor="let setor of setores" [value]="setor.nome">
                                     {{ setor.nome }}
                                 </option>
                             </select>
-                            <div *ngIf="ngForm.submitted && !this.ambiente.setor " class="text-red-500">
+                            <!-- <span>aqui{{this.setores[0].nome}}</span> -->
+                            <div *ngIf="isDisplayed && !this.ambiente.setor " class="text-red-500">
                                 Selecione um setor!
                             </div>
                         </div>
                     </div>
+
                     <!-- ATIVIDADES -->
-                    <div class="flex flex-col sm:flex-row justify-between">
-                        <div class="mb-5 relative flex-1 sm:ml-0">
+                    <div class="flex flex-col sm:flex-row">
+                        <div class="mb-5 relative flex-1 pr-2">
                             <label for="atividades"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividades:</label>
-                            <select [(ngModel)]="atividades" name="atividades" multiple
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                                <option *ngFor="let atividade of atividades" [value]="atividade">{{atividade}}
+                            <select id="atividadeSelected"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                name="atividades" [ngModelOptions]="{ standalone: true }"
+                                [(ngModel)]="atividadeSelected" required>
+                                <option [ngValue]=""></option>
+                                <option *ngFor="let atividade of atividades" [ngValue]="atividade.descricao">
+                                    {{atividade.descricao}}
                                 </option>
                             </select>
                         </div>
+
+                        <div class="mb-5 relative flex-1  flex flex-col justify-end pr-2">
+                            <input (click)="selecionarAtividade()" type="button"
+                                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                                value="Selecionar atividade" />
+                        </div>
                     </div>
+
                     <!-- LISTAGEM AmbienteTemAtividade -->
                     <div class="mb-5 justify-center">
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -125,9 +135,10 @@
                                     <tr *ngFor="let ambiente of ambientes "
                                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-8 py-4">{{ ambienteTemAtividade.atividade }}</td>
-                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequencia }}</td>
-
-
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaManha }}</td>
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaTarde }}</td>
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaNoite }}</td>
+                                        <td class="px-8 py-4">{{ ambienteTemAtividade.frequenciaTerminal }}</td>
                                         <td class="px-8 py-4 text-right">
                                             <a (click)="editar(ambiente.id)"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -163,5 +174,5 @@
         </div>
     </div>
 </div>
-<!-- Chamada da tela de listagem de ambientes -->
+
 <app-ambiente-listagem></app-ambiente-listagem>

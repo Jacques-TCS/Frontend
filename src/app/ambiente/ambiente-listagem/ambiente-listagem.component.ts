@@ -18,7 +18,7 @@ export class AmbienteListagemComponent implements OnInit {
   public seletor: AmbienteSeletor = new AmbienteSeletor();
   public atividades: Atividade[];
   public setores: Setor[];
-  //  public totalPaginas: number = 0;
+  public totalPaginas: number = 0;
   public readonly TAMANHO_PAGINA: number = 10;
 
   public mostrar: boolean;
@@ -48,30 +48,30 @@ export class AmbienteListagemComponent implements OnInit {
   ngOnInit(): void {
     this.seletor.limite = this.TAMANHO_PAGINA;
     this.seletor.pagina = 0;
-    //this.contarPaginas();
-    // this.filtrarAmbiente();
+    this.contarPaginas();
+    this.filtrarAmbiente();
   }
 
-  // public contarPaginas() {
-  //   this.ambienteService.contarPaginas(this.seletor).subscribe(
-  //     (resultado) => {
-  //       this.totalPaginas = resultado;
-  //     },
-  //     (erro) => {
-  //       Swal.fire(
-  //         'Erro ao consultar total de páginas',
-  //         erro.error.mensagem,
-  //         'error'
-  //       );
-  //     }
-  //   );
-  // }
+  public contarPaginas() {
+    this.ambienteService.contarPaginas(this.seletor).subscribe(
+      (resultado) => {
+        this.totalPaginas = resultado;
+      },
+      (erro) => {
+        Swal.fire(
+          'Erro ao consultar total de páginas',
+          erro.error.mensagem,
+          'error'
+        );
+      }
+    );
+  }
 
-  // criarArrayPaginas(): any[] {
-  //   return Array(this.totalPaginas)
-  //     .fill(0)
-  //     .map((x, i) => i + 1);
-  // }
+  criarArrayPaginas(): any[] {
+    return Array(this.totalPaginas)
+      .fill(0)
+      .map((x, i) => i + 1);
+  }
 
   buscarTodos() {
     this.ambienteService.listarTodos().subscribe(
@@ -100,7 +100,7 @@ export class AmbienteListagemComponent implements OnInit {
   }
 
   atualizarPaginacao() {
-    //this.contarPaginas();
+    this.contarPaginas();
     this.irParaPagina(0);
     this.filtrarAmbiente();
   }

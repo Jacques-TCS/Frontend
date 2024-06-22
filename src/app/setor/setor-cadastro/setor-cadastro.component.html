@@ -27,7 +27,7 @@
                             <input
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                                 name="nome" minlength="3" [(ngModel)]="setor.nome" required />
-                            <div *ngIf="ngForm.submitted && !this.setor.nome" class="text-red-500">
+                            <div *ngIf="isDisplayed && !this.setor.nome" class="text-red-500">
                                 Informe um nome com no mínimo 2 caracteres
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                             <input
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                                 name="sigla" minlength="2" [(ngModel)]="setor.sigla" required />
-                            <div *ngIf="ngForm.submitted && !this.setor.nome" class="text-red-500">
+                            <div *ngIf="isDisplayed && !this.setor.nome" class="text-red-500">
                                 Informe uma sigla com no mínimo 2 caracteres
                             </div>
                         </div>
@@ -121,22 +121,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let setorTemAtividade of setor.atividades"
+                                    <!-- TODO As frequencias estão sendo alteradas quando trazidas para edição -->
+                                    <tr *ngFor="let atividadeDoSetor of setor.atividades"
                                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-8 py-4">{{ setorTemAtividade.atividade.descricao }}</td>
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.atividade.descricao }}</td>
                                         <td class="px-8 py-4">
-                                            <select [(ngModel)]="setorTemAtividade.frequenciaManha"
+                                            <select [(ngModel)]="atividadeDoSetor.frequenciaManha"
                                                 name="frequenciaManha"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                                                <option [ngValue]=""></option>
-                                                <option *ngFor="let opcao of frequenciaDeLimpezasConcorrente"
+                                                <!-- <option [ngValue]=""></option> -->
+                                                <option
+                                                    *ngFor="let opcao of frequenciaDeLimpezasConcorrente"
                                                     [value]="opcao">
                                                     {{ opcao }}
                                                 </option>
                                             </select>
                                         </td>
                                         <td class="px-8 py-4">
-                                            <select [(ngModel)]="setorTemAtividade.frequenciaTarde"
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.frequenciaTarde }}
+                                            <!-- <select [(ngModel)]="atividadeDoSetor.frequenciaTarde"
                                                 name="frequenciaTarde"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                                                 >
@@ -145,10 +148,11 @@
                                                     [value]="opcao">
                                                     {{ opcao }}
                                                 </option>
-                                            </select>
+                                            </select> -->
                                         </td>
                                         <td class="px-8 py-4">
-                                            <select [(ngModel)]="setorTemAtividade.frequenciaNoite"
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.frequenciaNoite }}
+                                            <!-- <select [(ngModel)]="atividadeDoSetor.frequenciaNoite"
                                                 name="frequenciaNoite"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                                                 >
@@ -157,22 +161,23 @@
                                                     [value]="opcao">
                                                     {{ opcao }}
                                                 </option>
-                                            </select>
+                                            </select> -->
                                         </td>
                                         <td class="px-8 py-4">
-                                            <select [(ngModel)]="setorTemAtividade.frequenciaTerminal"
+                                        <td class="px-8 py-4">{{ atividadeDoSetor.frequenciaTerminal }}
+                                            <!-- <select [(ngModel)]="atividadeDoSetor.frequenciaTerminal"
                                                 name="frequenciaTerminal"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                                                 >
                                                 <option [ngValue]=""></option>
-                                                <option *ngFor="let opcao of frequenciaDeLimpezasTerminal"
+                                                 <option *ngFor="let opcao of frequenciaDeLimpezasTerminal"
                                                     [value]="opcao">
                                                     {{ opcao }}
-                                                </option>
-                                            </select>
+                                                </option> 
+                                            </select> -->
                                         </td>
                                         <td class="flex justify-center items-center px-8 py-4">
-                                            <a (click)="excluir(setorTemAtividade)"
+                                            <a (click)="excluir(atividadeDoSetor)"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"

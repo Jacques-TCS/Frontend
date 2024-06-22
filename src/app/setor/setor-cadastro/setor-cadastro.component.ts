@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Atividade } from 'src/app/shared/model/atividade';
 import { Setor } from 'src/app/shared/model/setor';
 import { SetorTemAtividade } from 'src/app/shared/model/setorTemAtividade';
@@ -23,6 +22,7 @@ export class SetorCadastroComponent implements OnInit {
   public frequenciaDeLimpezasConcorrente: string[] = ['1x ao dia', '2x ao dia', '3x ao dia'];
   public frequenciaDeLimpezasTerminal: string[] = ['Semanal', 'Quinzenal'];
   public id: number | null = null;
+  public isDisplayed: boolean = false;
 
   public mostrar: boolean = true;
   public esconder: boolean;
@@ -37,14 +37,9 @@ export class SetorCadastroComponent implements OnInit {
   constructor(
     private setorService: SetorService,
     private atividadeService: AtividadeService,
-    private router: Router,
-    private route: ActivatedRoute,
-
   ) { }
 
   ngOnInit(): void {
-    this.setor.atividades = [];
-
     this.atividadeService.listarTodos().subscribe(
       (resultado) => {
         this.atividades = resultado.map((atividade) => atividade);
@@ -57,6 +52,14 @@ export class SetorCadastroComponent implements OnInit {
     if (this.id != null) {
       console.log(this.id);
     }
+
+    this.hideAnimatedDiv();
+  }
+
+  hideAnimatedDiv() {
+    setTimeout(() => {
+      this.isDisplayed = false;
+    }, 5000);
   }
 
   inserirSetor(form: NgForm) {
@@ -86,6 +89,9 @@ export class SetorCadastroComponent implements OnInit {
           );
         }
       );
+    } else {
+      this.isDisplayed = true;
+      this.hideAnimatedDiv();
     }
   }
 
@@ -96,6 +102,7 @@ export class SetorCadastroComponent implements OnInit {
   editar(id: number) {
     this.setorService.consultarPorId(id).subscribe(
       (resultado) => {
+        this.id = id;
         this.setor = resultado;
       },
       (erro) => {
@@ -104,10 +111,8 @@ export class SetorCadastroComponent implements OnInit {
     );
   }
 
-  //TODO Fazer validação para que quando o id do setor for diferente de null, o array não seja sobrescrito
-  //TODO Fazer validação para que não seja possível adicionar atividades nulas
   selecionarAtividade() {
-    if (this.atividadeSelected.id == null || Object.keys(this.atividadeSelected).length != 0) {
+    if (this.atividadeSelected.id != null && Object.keys(this.atividadeSelected).length != 0) {
       const atividadesDuplicadas = this.setor.atividades.filter((atividade) => atividade.atividade.id == this.atividadeSelected.id);
       if (atividadesDuplicadas.length > 0) {
         Swal.fire('Erro', 'Atividade já cadastrada', 'error');
@@ -123,5 +128,4 @@ export class SetorCadastroComponent implements OnInit {
       }
     }
   }
-
 }

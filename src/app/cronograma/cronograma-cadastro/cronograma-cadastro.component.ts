@@ -46,6 +46,9 @@ export class CronogramaCadastroComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Ver qual foi selecionado (terminal ou concorrente) e associar esse valor 
+  // ao atributo tipoDeLimpeza do objeto cronograma
+  // this.cronograma.tipoDeLiMpeza = tipoDeLimpeza;
   inserirCronograma(form: NgForm) {
     if (!form.invalid) {
       this.cronogramaService.inserir(this.cronograma).subscribe(
