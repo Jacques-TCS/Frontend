@@ -20,6 +20,12 @@
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               required
             />
+            <div
+              *ngIf="isDisplayed && !password"
+              class="absolute text-red-500"
+            >
+              Digite uma senha
+            </div>
             <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 px-3 flex items-center justify-center">
               <ng-container *ngIf="!showPassword; else showPasswordIcon">
                 <svg class="w-6 h-6 text-gray-300 dark:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
@@ -38,7 +44,7 @@
         </div>
 
         <!-- Confirm Password Field -->
-        <div class="relative mb-5">
+        <div class="relative mb-5 pt-5">
           <label for="confirmPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar Senha: </label>
           <div class="relative">
             <input
@@ -49,6 +55,12 @@
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               required
             />
+            <div
+              *ngIf="isDisplayed && !confirmPassword"
+              class="absolute text-red-500"
+            >
+              Confirme sua senha
+            </div>
             <button type="button" (click)="toggleConfirmPasswordVisibility()" class="absolute inset-y-0 right-0 px-3 flex items-center justify-center">
               <ng-container *ngIf="!showConfirmPassword; else showConfirmPasswordIcon">
                 <svg class="w-6 h-6 text-gray-300 dark:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">

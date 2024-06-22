@@ -22,6 +22,7 @@ export class UsuarioCadastroComponent implements OnInit {
   public niveis: string[] = [];
   public idUsuario: number;
   public cargo: Cargo = new Cargo();
+  public isDisplayed: boolean = false;
   // public isEdit: boolean = true;
 
   @ViewChild('ngForm')
@@ -40,6 +41,7 @@ export class UsuarioCadastroComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.hideAnimatedDiv();
     this.cargoService.listarTodos().subscribe(
       (resultado) => {
         this.cargos = resultado.map((cargo) => cargo);
@@ -66,19 +68,29 @@ export class UsuarioCadastroComponent implements OnInit {
     this.setentaAnos = date70YearsAgo.toISOString().split('T')[0];
   }
 
+  hideAnimatedDiv() {
+    setTimeout(() => {
+      this.isDisplayed = false;
+    }, 5000);
+  }
+
   inserirUsuario(form: NgForm) {
     if(!form.invalid){
       this.usuarioService.inserir(this.usuario).subscribe(
         (sucesso) => {
           Swal.fire('Sucesso', 'Usuario cadastrado!', 'success');
           this.usuario = new Usuario();
+          this.isDisplayed = false;
         },
         (erro) => {
           Swal.fire(
             'Erro', erro.error.message, 'error'
           );
-        }  
+        }
       );
+    } else {
+      this.isDisplayed = true;
+      this.hideAnimatedDiv();
     }
   }
 
