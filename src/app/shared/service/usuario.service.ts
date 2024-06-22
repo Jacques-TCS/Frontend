@@ -26,8 +26,8 @@ export class UsuarioService {
     return this.httpClient.put<Usuario>(this.API, usuario, this.httpOptions);
   }
 
-  redefinirSenha(usuario: Usuario): Observable<Usuario> {
-    return this.httpClient.post<Usuario>(this.API, usuario.password);
+  redefinirSenha(password: string): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.API + '/redefinir-senha', {password: password});
   }
 
   recuperarSenha(usuario: Usuario): Observable<Usuario> {

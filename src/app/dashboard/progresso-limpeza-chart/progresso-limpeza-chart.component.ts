@@ -8,22 +8,31 @@ export type ChartOptions = {
   plotOptions: ApexPlotOptions;
 };
 
+
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-progresso-limpeza-chart',
+  templateUrl: './progresso-limpeza-chart.component.html',
+  styleUrls: ['./progresso-limpeza-chart.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ProgressoLimpezaChartComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public progressoLimpezaChart: Partial<ChartOptions>;
+  private observer: MutationObserver;
+
+  constructor() {}
 
   ngOnInit() {
     this.initializeChartOptions();
+    this.setupThemeObserver();
   }
 
-  private initializeChartOptions() {
-    const prefersDarkMode = localStorage.getItem('color-theme') === 'dark' ||
-                             (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  ngOnDestroy() {
+    this.observer.disconnect();
+  }
+
+  initializeChartOptions() {
+    const isDarkMode = document.documentElement.classList.contains('dark'); // Check if dark mode is enabled on <html> element
+    const prefersDarkMode = isDarkMode ? '#4B5563' : '#F9FAFB'; // Choose text color based on theme
 
     const numbers = {
       toDo: 12,
@@ -42,7 +51,7 @@ export class HomeComponent implements OnInit {
       plotOptions: {
         radialBar: {
           track: {
-            background: prefersDarkMode ? '#1f2937' : '#f2f2f2',
+            background: prefersDarkMode,
           },
           dataLabels: {
             name: {
@@ -63,5 +72,19 @@ export class HomeComponent implements OnInit {
       },
       labels: ["A Fazer", "Em progresso", "Concluídos"]
     };
+  }
+
+  setupThemeObserver() {
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          this.initializeChartOptions();
+        }
+      });
+    });
+
+    this.observer.observe(document.documentElement, {
+      attributes: true
+    });
   }
 }

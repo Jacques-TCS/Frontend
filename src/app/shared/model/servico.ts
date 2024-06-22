@@ -10,6 +10,7 @@ export class Servico {
   cronograma: Cronograma;
   usuario: Usuario;
   tipoDeLimpeza: number;
+  dataProgramada: Date
   dataHoraInicio: Date;
   dataHoraFim: Date;
   atividades: Atividade[]

@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'listagem', component: UsuarioListagemComponent },
   { path: 'perfil', component: UsuarioPerfilComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'redefinir-senha', component: UsuarioPerfilComponent },
 ];
 
 @NgModule({

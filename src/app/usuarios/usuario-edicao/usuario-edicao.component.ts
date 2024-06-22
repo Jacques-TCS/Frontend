@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { createMask } from '@ngneat/input-mask';
 import { Cargo } from 'src/app/shared/model/cargo';
 import { Usuario } from 'src/app/shared/model/usuario';
 import { CargoService } from 'src/app/shared/service/cargo.service';
@@ -22,6 +21,7 @@ export class UsuarioEdicaoComponent {
   public cargos: Cargo[];
   public statusUsuario: StatusUsuario[];
   public idUsuario: number;
+  public isDisplayed: boolean = false;
 
   @ViewChild('ngForm')
   public ngForm: NgForm;
@@ -39,6 +39,7 @@ export class UsuarioEdicaoComponent {
   loading = true;
 
   ngOnInit(): void {
+    this.hideAnimatedDiv();
     this.cargoService.listarTodos().subscribe(
       (resultado) => {
         this.cargos = resultado.map((cargo) => cargo);
@@ -77,11 +78,18 @@ export class UsuarioEdicaoComponent {
     });
   }
 
+  hideAnimatedDiv() {
+    setTimeout(() => {
+      this.isDisplayed = false;
+    }, 5000);
+  }
+
   atualizarUsuario(ngForm: NgForm) {
     if(!ngForm.invalid){
       this.usuarioService.atualizar(this.usuario).subscribe(
         (sucesso) => {
           Swal.fire('Sucesso', 'Usuario atualizado!', 'success');
+          this.isDisplayed = false;
         },
         (erro) => {
           Swal.fire(
@@ -89,6 +97,9 @@ export class UsuarioEdicaoComponent {
           );
         }
       );
+    } else {
+      this.isDisplayed = true;
+      this.hideAnimatedDiv();
     }
   }
 

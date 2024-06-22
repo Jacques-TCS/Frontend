@@ -16,11 +16,22 @@ export class RecuperarSenhaComponent {
 
   public email: string;
   public error: boolean = false
+  public isDisplayed: boolean = false;
 
   constructor(
     private router: Router,
     private authService: AuthService
   ){}
+
+  ngOnInit() {
+    this.hideAnimatedDiv();
+  }
+
+  hideAnimatedDiv() {
+    setTimeout(() => {
+      this.isDisplayed = false;
+    }, 5000);
+  }
 
   recuperarSenha(ngForm: NgForm): void {
     if (!ngForm.invalid) {
@@ -35,6 +46,9 @@ export class RecuperarSenhaComponent {
           Swal.fire('Erro', 'Ocorreu algum erro ao solicitar a recuperação da senha. Tente novamente mais tarde. Se o erro persistir, entre em contato com o administrador do sistema.', 'error');
         }
       })
+    } else {
+      this.isDisplayed = true;
+      this.hideAnimatedDiv();
     }
   }
 }
