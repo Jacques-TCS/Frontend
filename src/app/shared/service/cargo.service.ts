@@ -7,7 +7,7 @@ import { Cargo } from '../model/cargo';
   providedIn: 'root',
 })
 export class CargoService {
-  private readonly API = 'http://localhost:8080/api/cargo';
+  private readonly API = 'http://144.22.190.101:8080/api/cargo';
 
   constructor(
     private httpClient: HttpClient

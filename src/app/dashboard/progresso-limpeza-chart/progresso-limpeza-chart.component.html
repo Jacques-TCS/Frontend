@@ -1,0 +1,36 @@
+<!-- PROGRESSO DE LIMPEZA -->
+<div class="w-full bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-6 h-[600px] overflow-hidden">
+  <div class="flex justify-between mb-3">
+    <div class="flex items-center">
+      <div class="flex justify-center items-center">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Progresso de limpeza do dia</h5>
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+    <div class="grid grid-cols-3 gap-3 mb-2">
+      <dl class="bg-orange-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+        <dt
+          class="w-8 h-8 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1">
+          12</dt>
+        <dd class="text-orange-600 dark:text-orange-300 text-sm font-medium">A Fazer</dd>
+      </dl>
+      <dl class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+        <dt
+          class="w-8 h-8 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1">
+          23</dt>
+        <dd class="text-teal-600 dark:text-teal-300 text-sm font-medium">Em progresso</dd>
+      </dl>
+      <dl class="bg-blue-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+        <dt
+          class="w-8 h-8 rounded-full bg-blue-100 dark:bg-gray-500 text-blue-600 dark:text-blue-300 text-sm font-medium flex items-center justify-center mb-1">
+          64</dt>
+        <dd class="text-blue-600 dark:text-blue-300 text-sm font-medium">Concluídos</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="py-6" id="chart">
+    <apx-chart [series]="progressoLimpezaChart.series || []" [chart]="progressoLimpezaChart.chart || { type: 'line' }"
+      [plotOptions]="progressoLimpezaChart.plotOptions || {}" [labels]="progressoLimpezaChart.labels || []"></apx-chart>
+  </div>
+</div>

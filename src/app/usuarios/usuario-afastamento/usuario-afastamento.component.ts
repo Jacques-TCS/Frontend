@@ -10,7 +10,7 @@ import { AfastamentoSeletor } from 'src/app/shared/model/seletor/afastamento.sel
 @Component({
   selector: 'app-usuario-afastamento',
   templateUrl: './usuario-afastamento.component.html',
-  styleUrls: ['./usuario-afastamento.component.scss']
+  styleUrls: ['./usuario-afastamento.component.scss'],
 })
 export class UsuarioAfastamentoComponent {
   public seletor: AfastamentoSeletor = new AfastamentoSeletor();
@@ -48,10 +48,10 @@ export class UsuarioAfastamentoComponent {
       }
     );
 
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.idUsuario = params['id'];
 
-      if(this.idUsuario){
+      if (this.idUsuario) {
         this.buscarUsuario();
       }
     });
@@ -71,11 +71,10 @@ export class UsuarioAfastamentoComponent {
   }
 
   registrarAfastamento() {
-
     this.afastamentoService.inserir(this.afastamento).subscribe(
       (resultado) => {
         this.afastamento = resultado;
-        Swal.fire("Sucesso", "Afastamento registrado com sucesso" , 'success');
+        Swal.fire('Sucesso', 'Afastamento registrado com sucesso', 'success');
         this.buscarAfastamentosDoUsuario();
       },
       (erro) => {
@@ -88,15 +87,18 @@ export class UsuarioAfastamentoComponent {
     this.router.navigate(['/usuarios/listagem']);
   }
 
-  buscarUsuario(){
+  buscarUsuario() {
     this.usuarioService.pesquisarPorId(this.idUsuario).subscribe(
-      resultado => {
+      (resultado) => {
         this.afastamento.usuario = resultado;
         this.buscarAfastamentosDoUsuario();
       },
-      erro => {
-        Swal.fire("Erro", "Erro ao buscar o usuário com id ("
-                      + this.idUsuario + ") : " + erro, 'error');
+      (erro) => {
+        Swal.fire(
+          'Erro',
+          'Erro ao buscar o usuário com id (' + this.idUsuario + ') : ' + erro,
+          'error'
+        );
       }
     );
   }

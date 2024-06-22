@@ -8,7 +8,7 @@ import { UsuarioSeletor } from '../model/seletor/usuario.seletor';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private readonly API = 'http://localhost:8080/api/usuario';
+  private readonly API = 'http://144.22.190.101:8080/api/usuario';
 
   constructor(
     private httpClient: HttpClient
@@ -26,8 +26,8 @@ export class UsuarioService {
     return this.httpClient.put<Usuario>(this.API, usuario, this.httpOptions);
   }
 
-  redefinirSenha(usuario: Usuario): Observable<Usuario> {
-    return this.httpClient.post<Usuario>(this.API, usuario.password);
+  redefinirSenha(password: string): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.API + '/redefinir-senha', {password: password});
   }
 
   recuperarSenha(usuario: Usuario): Observable<Usuario> {
@@ -51,7 +51,7 @@ export class UsuarioService {
   }
 
   contarTotalRegistros(seletor: UsuarioSeletor): Observable<number> {
-    return this.httpClient.post<number>(this.API + '/contar', seletor);
+    return this.httpClient.post<number>(this.API + '/contar', seletor, this.httpOptions);
   }
 
   contarPaginas(seletor: UsuarioSeletor): Observable<number> {

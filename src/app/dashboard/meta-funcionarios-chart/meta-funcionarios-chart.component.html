@@ -1,0 +1,22 @@
+<!-- META FUNCIONÁRIOS CHART -->
+<div class="max-w-4xl w-full bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-6 h-[600px] overflow-hidden">
+  <div class="flex justify-between mb-3">
+    <div class="flex items-center">
+      <div class="flex justify-center items-center">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Meta Funcionários</h5>
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray-50 dark:bg-dark-chart-gray p-3 rounded-lg">
+    <div class="py-6" id="chart">
+      <apx-chart
+        [series]="chartOptions.series || []"
+        [chart]="chartOptions.chart!"
+        [legend]="chartOptions.legend || {}"
+        [dataLabels]="chartOptions.dataLabels || {}"
+        [colors]="chartOptions.colors!"
+        [plotOptions]="chartOptions.plotOptions || {}"
+      ></apx-chart>
+    </div>
+  </div>
+</div>

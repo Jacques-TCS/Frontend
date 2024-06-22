@@ -1,0 +1,28 @@
+<!-- HISTÓRICO DE OCORRÊNCIA CHART -->
+<div class="max-w-4xl w-full bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-6 h-[600px] overflow-hidden">
+  <div class="flex justify-between mb-3">
+    <div class="flex items-center">
+      <div class="flex justify-center items-center">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Histórico de Ocorrência</h5>
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray-50 dark:bg-dark-chart-gray p-3 rounded-lg">
+    <div class="py-6" id="chart">
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [markers]="chartOptions.markers!"
+        [xaxis]="chartOptions.xaxis!"
+        [yaxis]="chartOptions.yaxis!"
+        [stroke]="chartOptions.stroke!"
+        [title]="chartOptions.title!"
+        [colors]="chartOptions.colors!"
+        [fill]="chartOptions.fill!"
+        [forecastDataPoints]="chartOptions.forecastDataPoints!"
+        [legend]="chartOptions.legend!"
+      ></apx-chart>
+    </div>
+  </div>
+</div>

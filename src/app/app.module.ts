@@ -14,6 +14,7 @@ import { LoginModule } from './login/login.module';
 import { MenuModule } from './menu/menu.module';
 import { RequestInterceptor } from './shared/auth/request-interceptor';
 import { NgxMaskDirective, provideNgxMask  } from 'ngx-mask';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { NgxMaskDirective, provideNgxMask  } from 'ngx-mask';
     ZXingScannerModule,
     LoginModule,
     MenuModule,
-    NgxMaskDirective
+    NgxMaskDirective,
+    NgApexchartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}, provideNgxMask()],

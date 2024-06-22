@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AtividadeService {
-  private readonly API = 'http://localhost:8080/api/atividade';
+  private readonly API = 'http://144.22.190.101:8080/api/atividade';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class AtividadeService {
     return this.httpClient.put<Atividade>(this.API, atividade);
   }
 
-  pesquisarPorId(id: number): Observable<Atividade> {
+  consultarPorId(id: number): Observable<Atividade> {
     return this.httpClient.get<Atividade>(this.API + '/' + id);
   }
 

@@ -16,11 +16,27 @@ export class LoginComponent {
   public username: string;
   public password: string;
   public isLoginFailed: boolean = false
+  showPassword: boolean = false;
+  public isDisplayed: boolean = false;
 
   constructor(
     private router: Router,
     private authService: AuthService
   ) {}
+
+  ngOnInit() {
+    this.hideAnimatedDiv();
+  }
+
+  hideAnimatedDiv() {
+    setTimeout(() => {
+      this.isDisplayed = false;
+    }, 5000);
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   autenticar(ngForm: NgForm): void {
     if(!ngForm.invalid){
@@ -32,8 +48,10 @@ export class LoginComponent {
           this.isLoginFailed = true
         }
       })
+    } else {
+      this.isDisplayed = true;
+      this.hideAnimatedDiv();
     }
-    // this.router.navigate(['/dashboard']);
   }
 
   esqueciMinhaSenha(): void {

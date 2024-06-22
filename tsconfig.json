@@ -18,11 +18,11 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es5",
+    "target": "ES2022",
     "module": "commonjs",
     "useDefineForClassFields": false,
     "allowJs": true,
-    "lib": ["dom", "es2015"]
+    "lib": ["dom", "ES2022"]
   },
   "include": ["src/**/*.ts*"],
   "exclude": ["node_modules", "dist", "lib"],
