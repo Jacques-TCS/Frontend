@@ -13,7 +13,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginModule } from './login/login.module';
 import { MenuModule } from './menu/menu.module';
 import { RequestInterceptor } from './shared/auth/request-interceptor';
-import { NgxMaskDirective, provideNgxMask  } from 'ngx-mask';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 
@@ -35,7 +35,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     NgApexchartsModule
   ],
   providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}, provideNgxMask()],
+    provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true
+  }, provideNgxMask()],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
