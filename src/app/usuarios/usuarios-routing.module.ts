@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'perfil', component: UsuarioPerfilComponent },
   { path: 'home', component: HomeComponent },
   { path: 'afastamento/:id', component: UsuarioAfastamentoComponent },
+  { path: 'redefinir-senha', component: UsuarioPerfilComponent },
 ];
 
 @NgModule({
