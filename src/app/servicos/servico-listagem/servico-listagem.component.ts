@@ -78,13 +78,52 @@ export class ServicoListagemComponent implements OnInit {
   }
 
   criarArrayPaginas(): any[] {
-    return Array(this.totalPaginas).fill(0).map((x, i) => i + 1);
+    const totalPages = this.totalPaginas;
+    const currentPage = this.seletor.pagina + 1;
+    const maxPagesToShow = 9;
+
+    if (totalPages <= maxPagesToShow) {
+      return Array(totalPages).fill(0).map((x, i) => i + 1);
+    }
+
+    const pages = [];
+    pages.push(1);
+    pages.push(2);
+
+    if (currentPage > 4) {
+      pages.push('...');
+    }
+
+    let startPage = Math.max(3, currentPage - 1);
+    let endPage = Math.min(totalPages - 2, currentPage + 1);
+
+    if (currentPage <= 4) {
+      endPage = 5;
+    } else if (currentPage >= totalPages - 3) {
+      startPage = totalPages - 5;
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    if (currentPage < totalPages - 3) {
+      pages.push('...');
+    }
+
+    pages.push(totalPages - 1);
+    pages.push(totalPages);
+
+    return pages;
   }
+
 
   filtrarServico() {
     this.servicoService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.servicos = resultado;
+        this.contarPaginas();
+        this.criarArrayPaginas();
       },
       (erro) => {
         console.log('Erro ao buscar serviços', erro);
