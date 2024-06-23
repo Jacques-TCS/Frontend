@@ -1,13 +1,14 @@
 <div class="p-4 sm:ml-64">
   <div class="p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-14">
     <div class="text-gray-900 dark:text-blue-100 pb-4">
-      <h3 class="sm:text-3xl text-2xl text-left font-bold">Dashboard</h3>
+      <h3 class="sm:text-3xl text-2xl font-poppins text-left font-bold">Dashboard</h3>
     </div>
-    <div class="flex flex-col md:grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4 mb-4">
+    <div class="flex flex-col gap-4 mb-4 md:grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-[auto-fit_min(300px,_1fr)]">
+      <app-progresso-limpeza-funcionario-chart></app-progresso-limpeza-funcionario-chart>
+    </div>
+    <div class="flex flex-col md:grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-4 mb-4">
       <app-progresso-limpeza-chart></app-progresso-limpeza-chart>
       <!-- ULTIMAS OCORRENCIAS -->
       <app-historico-ocorrencia-chart></app-historico-ocorrencia-chart>
-      <!-- META DOS FUNCIONÁRIOS -->
-      <app-meta-funcionarios-chart></app-meta-funcionarios-chart>
     </div>
   </div>
