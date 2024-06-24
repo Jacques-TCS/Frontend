@@ -79,41 +79,21 @@ export class UsuarioListagemComponent implements OnInit {
 
   criarArrayPaginas(): any[] {
     const totalPages = this.totalPaginas;
-    const currentPage = this.seletor.pagina;
-    const maxPagesToShow = 9;
-
-    if (totalPages <= maxPagesToShow) {
-      return Array(totalPages).fill(0).map((x, i) => i + 1);
-    }
-
+    const currentPage = this.seletor.pagina + 1;
+    const maxPagesToShow = 4;
     const pages = [];
-    pages.push(1);
-    pages.push(2);
-
-    if (currentPage > 4) {
-      pages.push('...');
+    if (totalPages <= maxPagesToShow) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
-
-    let startPage = Math.max(3, currentPage - 1);
-    let endPage = Math.min(totalPages - 2, currentPage + 1);
-
-    if (currentPage <= 4) {
-      endPage = 5;
-    } else if (currentPage >= totalPages - 3) {
-      startPage = totalPages - 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = startPage + maxPagesToShow - 1;
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
     }
-
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
-
-    if (currentPage < totalPages - 3) {
-      pages.push('...');
-    }
-
-    pages.push(totalPages - 1);
-    pages.push(totalPages);
-
     return pages;
   }
 
