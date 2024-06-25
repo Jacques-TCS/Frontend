@@ -3,6 +3,7 @@ import { Ambiente } from './ambiente';
 import { Cronograma } from './cronograma';
 import { Ocorrencia } from './ocorrencia';
 import { Atividade } from './atividade';
+import { Turno } from './turno';
 
 export class Servico {
   id: number;
@@ -13,6 +14,7 @@ export class Servico {
   dataProgramada: Date
   dataHoraInicio: Date;
   dataHoraFim: Date;
-  atividades: Atividade[]
+  atividades: Atividade[];
   ocorrencia: Ocorrencia[];
+  turno: Turno;
 }
