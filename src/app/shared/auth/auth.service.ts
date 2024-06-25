@@ -18,6 +18,9 @@ export class AuthService {
     return this.http.post<any>(this.API + '/login', {username: username, password: password}, this.httpOptions)
       .pipe(
         tap((response) => {
+          if(response.perfil != 'Gerente') {
+            throw new Error('Usuário sem permissão de acesso.')
+          }
           this.setSession(response.token, response.nome, response.username, response.perfil)
         })
       );

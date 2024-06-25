@@ -46,10 +46,14 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
         },
         error: err => {
+          let message = 'Usuário ou senha inválidos.';
+          if(err.message === 'Usuário sem permissão de acesso.') {
+            message = err.message;
+          }
           this.isLoginFailed = true
-            Swal.fire('Erro', 'Usuário ou senha inválidos.', 'error');
-            this.username = '';
-            this.password = '';
+          Swal.fire('Erro', message, 'error');
+          this.username = '';
+          this.password = '';
         }
       })
     } else {
