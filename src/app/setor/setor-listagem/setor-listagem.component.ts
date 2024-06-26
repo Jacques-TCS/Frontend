@@ -79,9 +79,23 @@ export class SetorListagemComponent implements OnInit {
   }
 
   criarArrayPaginas(): any[] {
-    return Array(this.totalPaginas)
-      .fill(0)
-      .map((x, i) => i + 1);
+    const totalPages = this.totalPaginas;
+    const currentPage = this.seletor.pagina + 1;
+    const maxPagesToShow = 4;
+    const pages = [];
+    if (totalPages <= maxPagesToShow) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = startPage + maxPagesToShow - 1;
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 
   filtrarSetor() {
