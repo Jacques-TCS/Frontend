@@ -1,0 +1,31 @@
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <div class="container mx-auto">
+            <form #ngForm="ngForm">
+                <div class="sm:mb-8 sm:mt-2 mt-2">
+                    <div class="text-gray-900 mb-5 dark:text-blue-100 flex items-center">
+                        <h3 class="sm:text-3xl text-2xl font-poppins text-left font-bold">Cronograma</h3>
+                        <a class="flex items-center cursor-pointer pl-4" (click)="mostrarCadastro()">
+                            <i>
+                                <svg [ngClass]="{'rotate-180': mostrar}"
+                                    class="w-5 h-5 transform transition-transform duration-200" aria-hidden="true"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </i>
+                        </a>
+                    </div>
+                </div>
+                <!-- CADASTRO -->
+                <div *ngIf="this.mostrar">
+                    <app-cronograma-cadastro-terminal></app-cronograma-cadastro-terminal>
+                    <app-cronograma-cadastro-concorrente></app-cronograma-cadastro-concorrente>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- LISTAGEM -->
+<!-- <app-cronograma-listagem-terminal></app-cronograma-listagem-terminal> -->
+<app-cronograma-listagem-concorrente></app-cronograma-listagem-concorrente>
