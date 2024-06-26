@@ -1,24 +1,23 @@
-<!-- PROGRESSO DE LIMPEZA -->
 <div class="max-w-sm mx-auto bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl overflow-hidden">
   <div class="flex justify-between mb-3">
     <div class="flex items-center">
       <div class="flex justify-center items-center">
-        <h5 class="text-lg font-bold leading-none font-roboto text-gray-900 dark:text-white pe-1">Progresso de Limpeza de: (nome)</h5>
+        <h5 class="text-lg font-bold leading-none font-roboto text-gray-900 dark:text-white pe-1">Progresso de Limpeza de: {{ nome }}</h5>
       </div>
     </div>
   </div>
   <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
     <div class="grid grid-cols-3 gap-3 mb-2">
       <dl class="bg-orange-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[58px]">
-        <dt class="w-6 h-6 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1">12</dt>
+        <dt class="w-6 h-6 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1">{{ toDo }}</dt>
         <dd class="text-orange-600 dark:text-orange-300 text-xs font-medium">A Fazer</dd>
       </dl>
       <dl class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[58px]">
-        <dt class="w-6 h-6 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1">23</dt>
+        <dt class="w-6 h-6 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1">{{ inProgress }}</dt>
         <dd class="text-teal-600 dark:text-teal-300 text-xs font-medium">Em progresso</dd>
       </dl>
       <dl class="bg-blue-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[58px]">
-        <dt class="w-6 h-6 rounded-full bg-blue-100 dark:bg-gray-500 text-blue-600 dark:text-blue-300 text-sm font-medium flex items-center justify-center mb-1">64</dt>
+        <dt class="w-6 h-6 rounded-full bg-blue-100 dark:bg-gray-500 text-blue-600 dark:text-blue-300 text-sm font-medium flex items-center justify-center mb-1">{{ completed }}</dt>
         <dd class="text-blue-600 dark:text-blue-300 text-xs font-medium">Concluídos</dd>
       </dl>
     </div>

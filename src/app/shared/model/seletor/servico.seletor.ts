@@ -9,6 +9,8 @@ export class ServicoSeletor extends BaseSeletor {
   ambiente: Ambiente;
   dataEncerramentoInicio: Date;
   dataEncerramentoFim: Date;
+  dataProgramadaInicio: Date;
+  dataProgramadaFim: Date;
   ocorrencia: Ocorrencia;
   cargo: Cargo;
   usuario: Usuario;
