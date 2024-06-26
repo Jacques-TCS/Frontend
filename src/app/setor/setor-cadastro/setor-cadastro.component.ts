@@ -43,6 +43,7 @@ export class SetorCadastroComponent implements OnInit {
     this.atividadeService.listarTodos().subscribe(
       (resultado) => {
         this.atividades = resultado.map((atividade) => atividade);
+        this.setor.atividades = [];
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
@@ -111,21 +112,25 @@ export class SetorCadastroComponent implements OnInit {
     );
   }
 
+  associarAtividade() {
+    const novaAtividade: SetorTemAtividade = new SetorTemAtividade();
+    novaAtividade.atividade = this.atividadeSelected;
+    novaAtividade.frequenciaManha = '';
+    novaAtividade.frequenciaTarde = '';
+    novaAtividade.frequenciaNoite = '';
+    novaAtividade.frequenciaTerminal = '';
+    this.setor.atividades.push(novaAtividade);
+  }
+
   selecionarAtividade() {
-    if (this.atividadeSelected.id != null && Object.keys(this.atividadeSelected).length != 0) {
-      const atividadesDuplicadas = this.setor.atividades.filter((atividade) => atividade.atividade.id == this.atividadeSelected.id);
-      if (atividadesDuplicadas.length > 0) {
-        Swal.fire('Erro', 'Atividade já cadastrada', 'error');
-      } else {
-        const novaAtividade: SetorTemAtividade = new SetorTemAtividade();
-        novaAtividade.atividade = this.atividadeSelected;
-        novaAtividade.frequenciaManha = '';
-        novaAtividade.frequenciaTarde = '';
-        novaAtividade.frequenciaNoite = '';
-        novaAtividade.frequenciaTerminal = '';
-        this.setor.atividades.push(novaAtividade);
-        console.log(this.setor.atividades);
-      }
+    if (this.atividadeSelected.id == null || Object.keys(this.atividadeSelected).length == 0) {
+      Swal.fire('Erro', 'Selecione uma atividade', 'error');
+    } else if (this.setor.atividades.length == 0) {
+      this.associarAtividade();
+    } else if (this.setor.atividades.filter((atividade) => atividade.atividade.id == this.atividadeSelected.id).length == 0) {
+      this.associarAtividade();
+    } else {
+      Swal.fire('Erro', 'Atividade já cadastrada', 'error');
     }
   }
 }
