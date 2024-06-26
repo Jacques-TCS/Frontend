@@ -52,10 +52,8 @@ export class HistoricoOcorrenciaChartComponent {
   }
 
   initializeChartOptions() {
-    const isDarkMode = document.documentElement.classList.contains('dark'); // Check if dark mode is enabled on <html> element
-    const textColor = isDarkMode ? '#FFFFFF' : '#000000'; // Choose text color based on theme
-    const goalStrokeColor = isDarkMode ? '#FFFFFF' : '#775DD0'; // Adjust based on your preference
-    const backgroundColor = isDarkMode ? '#4B5563' : '#F9FAFB'; // Adjust based on your preference
+    const isDarkMode = document.documentElement.classList.contains('dark'); 
+    const textColor = isDarkMode ? '#FFFFFF' : '#000000';
 
     this.chartOptions = {
       series: [
@@ -258,9 +256,6 @@ export class HistoricoOcorrenciaChartComponent {
         show: true,
         customLegendItems: ["Mal cheiro", "Superfície contaminada"],
         inverseOrder: true
-      },
-      title: {
-        text: "Histórico de ocorrências"
       },
       markers: {
         hover: {

@@ -7,10 +7,10 @@ import { BaseSeletor } from './base.seletor';
 
 export class ServicoSeletor extends BaseSeletor {
   ambiente: Ambiente;
-  menorDataHoraInicio: Date;
-  menorDataHoraFim: Date;
-  maiorDataHoraInicio: Date;
-  maiorDataHoraFim: Date;
+  dataEncerramentoInicio: Date;
+  dataEncerramentoFim: Date;
+  dataProgramadaInicio: Date;
+  dataProgramadaFim: Date;
   ocorrencia: Ocorrencia;
   cargo: Cargo;
   usuario: Usuario;

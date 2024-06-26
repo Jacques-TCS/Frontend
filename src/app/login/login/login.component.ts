@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,14 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
         },
         error: err => {
+          let message = 'Usuário ou senha inválidos.';
+          if(err.message === 'Usuário sem permissão de acesso.') {
+            message = err.message;
+          }
           this.isLoginFailed = true
+          Swal.fire('Erro', message, 'error');
+          this.username = '';
+          this.password = '';
         }
       })
     } else {

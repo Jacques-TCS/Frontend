@@ -1,13 +1,35 @@
 <div class="p-4 sm:ml-64">
   <div class="p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-14">
-    <div class="text-gray-900 dark:text-blue-100 pb-4">
-      <h3 class="sm:text-3xl text-2xl text-left font-bold">Dashboard</h3>
+    <div class="text-gray-900 dark:text-blue-100 pb-4 flex items-center gap-2">
+      <h3 class="sm:text-3xl text-2xl font-poppins text-left font-bold">Dashboard</h3>
+      <select [(ngModel)]="selectedOption" class="ml-8 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+        <option value="funcionarios">Funcionários</option>
+        <option value="informacoes">Informações Gerais</option>
+      </select>
     </div>
-    <div class="flex flex-col md:grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4 mb-4">
-      <app-progresso-limpeza-chart></app-progresso-limpeza-chart>
-      <!-- ULTIMAS OCORRENCIAS -->
-      <app-historico-ocorrencia-chart></app-historico-ocorrencia-chart>
-      <!-- META DOS FUNCIONÁRIOS -->
-      <app-meta-funcionarios-chart></app-meta-funcionarios-chart>
-    </div>
+    <ng-container *ngIf="selectedOption === 'funcionarios'">
+      <div class="text-gray-900 dark:text-blue-100 pb-4">
+        <h3 class="sm:text-xl text-l font-poppins text-left font-bold">Funcionários</h3>
+      </div>
+      <div class="flex flex-col gap-4 mb-4 md:grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-[auto-fit_min(300px,_1fr)]">
+        <app-progresso-limpeza-funcionario-chart
+          *ngFor="let servico of servicosPorUsuario"
+          [nome]="servico.nome"
+          [toDo]="servico.toDo!"
+          [inProgress]="servico.inProgress!"
+          [completed]="servico.completed!">
+        </app-progresso-limpeza-funcionario-chart>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="selectedOption === 'informacoes'">
+      <div class="text-gray-900 dark:text-blue-100 pb-4">
+        <h3 class="sm:text-xl text-l font-poppins text-left font-bold">Informações Gerais</h3>
+      </div>
+      <div class="flex flex-col md:grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-4 mb-4">
+        <app-progresso-limpeza-chart></app-progresso-limpeza-chart>
+        <!-- ULTIMAS OCORRENCIAS -->
+        <app-historico-ocorrencia-chart></app-historico-ocorrencia-chart>
+      </div>
+    </ng-container>
   </div>
+</div>

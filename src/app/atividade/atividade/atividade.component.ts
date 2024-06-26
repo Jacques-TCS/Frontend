@@ -31,6 +31,7 @@ export class AtividadeComponent implements OnInit {
   ngOnInit(): void {
     this.seletor.limite = this.TAMANHO_PAGINA;
     this.seletor.pagina = 0;
+    this.contarPaginas();
     this.filtrarAtividade();
 
     this.hideAnimatedDiv();
@@ -91,6 +92,8 @@ export class AtividadeComponent implements OnInit {
     this.atividadeService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.atividades = resultado;
+        this.contarPaginas();
+        this.criarArrayPaginas();
       },
       (erro) => {
         console.log('Erro ao buscar atividades', erro);
@@ -133,6 +136,47 @@ export class AtividadeComponent implements OnInit {
         );
       }
     });
+  }
+
+  criarArrayPaginas(): any[] {
+    const totalPages = this.totalPaginas;
+    const currentPage = this.seletor.pagina + 1;
+    const maxPagesToShow = 4;
+    const pages = [];
+    if (totalPages <= maxPagesToShow) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = startPage + maxPagesToShow - 1;
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
+  atualizarPaginacao() {
+    this.contarPaginas();
+    this.irParaPagina(0);
+    this.filtrarAtividade();
+  }
+
+  avancarPagina() {
+    this.seletor.pagina++;
+    this.filtrarAtividade();
+  }
+
+  voltarPagina() {
+    this.seletor.pagina--;
+    this.filtrarAtividade();
+  }
+
+  irParaPagina(indicePagina: number) {
+    this.seletor.pagina = indicePagina;
+    this.filtrarAtividade();
   }
 }
 
