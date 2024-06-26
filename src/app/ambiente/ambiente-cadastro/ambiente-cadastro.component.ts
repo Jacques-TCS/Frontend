@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Ambiente } from 'src/app/shared/model/ambiente';
 import { AmbienteService } from 'src/app/shared/service/ambiente.service';
@@ -21,6 +21,7 @@ export class AmbienteCadastroComponent implements OnInit {
   public atividades: Atividade[] = [];
   public ambienteTemAtividade: AmbienteTemAtividade = new AmbienteTemAtividade();
   public atividadeSelected: Atividade = new Atividade();
+  public setorSelected: string = '';
   public frequenciaDeLimpezasConcorrente: string[] = ['1x ao dia', '2x ao dia', '3x ao dia'];
   public frequenciaDeLimpezasTerminal: string[] = ['Semanal', 'Quinzenal'];
   public id: number | null = null;
@@ -47,6 +48,8 @@ export class AmbienteCadastroComponent implements OnInit {
     this.atividadeService.listarTodos().subscribe(
       (resultado) => {
         this.atividades = resultado.map((atividade) => atividade);
+        this.ambiente.atividades = [];
+        // this.ambiente.setor = new Setor();
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
@@ -61,11 +64,6 @@ export class AmbienteCadastroComponent implements OnInit {
         Swal.fire('Erro', 'Erro ao buscar setores', 'error');
       }
     );
-
-    if (this.id != null) {
-      console.log(this.id);
-    };
-
     this.hideAnimatedDiv();
   }
 
@@ -114,6 +112,7 @@ export class AmbienteCadastroComponent implements OnInit {
       (resultado) => {
         this.id = id;
         this.ambiente = resultado;
+        this.setorSelected = this.ambiente.setor.nome;
       },
       (erro) => {
         console.log('Erro ao editar ambiente', erro);
@@ -121,22 +120,36 @@ export class AmbienteCadastroComponent implements OnInit {
     );
   }
 
+  associarAtividade() {
+    const novaAtividade: AmbienteTemAtividade = new AmbienteTemAtividade();
+    novaAtividade.atividade = this.atividadeSelected;
+    novaAtividade.frequenciaManha = '';
+    novaAtividade.frequenciaTarde = '';
+    novaAtividade.frequenciaNoite = '';
+    novaAtividade.frequenciaTerminal = '';
+    this.ambiente.atividades.push(novaAtividade);
+  }
+
   selecionarAtividade() {
-    if (this.atividadeSelected.id != null && Object.keys(this.atividadeSelected).length != 0) {
-      const atividadesDuplicadas = this.ambiente.atividades.filter((atividade) => atividade.atividade.id == this.atividadeSelected.id);
-      if (atividadesDuplicadas.length > 0) {
-        Swal.fire('Erro', 'Atividade já cadastrada', 'error');
-      } else {
-        const novaAtividade: AmbienteTemAtividade = new AmbienteTemAtividade();
-        novaAtividade.atividade = this.atividadeSelected;
-        novaAtividade.frequenciaManha = '';
-        novaAtividade.frequenciaTarde = '';
-        novaAtividade.frequenciaNoite = '';
-        novaAtividade.frequenciaTerminal = '';
-        this.ambiente.atividades.push(novaAtividade);
-        console.log(this.ambiente.atividades);
-      }
+    if (this.atividadeSelected.id == null || Object.keys(this.atividadeSelected).length == 0) {
+      Swal.fire('Erro', 'Selecione uma atividade', 'error');
+    } else if (this.ambiente.atividades.length == 0) {
+      this.associarAtividade();
+    } else if (this.ambiente.atividades.filter((atividade) => atividade.atividade.id == this.atividadeSelected.id).length == 0) {
+      this.associarAtividade();
+    } else {
+      Swal.fire('Erro', 'Atividade já cadastrada', 'error');
     }
+  }
+
+  trazerAtividadesPorSetor(setorSelected: string) {
+    const setor = this.setores.find((setor) => setor.nome == setorSelected);
+    this.ambiente.atividades = setor!.atividades;
+    this.ambiente.setor = setor!;
+  }
+
+  excluir(ambienteTemAtividade: AmbienteTemAtividade) {
+    this.ambiente.atividades = this.ambiente.atividades.filter((atividade) => atividade !== ambienteTemAtividade);
   }
 
 }
