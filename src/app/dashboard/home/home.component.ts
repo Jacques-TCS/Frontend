@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ApexNonAxisChartSeries, ApexChart, ApexPlotOptions, ChartComponent } from 'ng-apexcharts';
 import { ServicoSeletor } from 'src/app/shared/model/seletor/servico.seletor';
 import { Usuario } from 'src/app/shared/model/usuario';
@@ -26,19 +26,27 @@ export type ServicosPorUsuario = {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild("chart") chart: ChartComponent;
   public progressoLimpezaChart: Partial<ChartOptions>;
-  public servicosPorUsuario: Array<ServicosPorUsuario> = new Array<ServicosPorUsuario>();
+  public servicosPorUsuario: Array<ServicosPorUsuario> = [];
+  private intervalId: any;
+  selectedOption: string = 'funcionarios';
 
   constructor(
     private servicoService: ServicoService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.initializeChartOptions();
     this.buscarServicos();
+    this.startPolling();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
   }
 
   buscarServicos() {
@@ -47,8 +55,11 @@ export class HomeComponent implements OnInit {
     seletor.limite = 100;
     seletor.dataProgramadaInicio = new Date();
     seletor.dataProgramadaFim = new Date();
-    for (let i = 0; i < 4; i++) {
-      seletor.usuario = {id: 15} as Usuario;
+
+    this.servicosPorUsuario = [];
+
+    for (let i = 0; i < 15; i++) {
+      seletor.usuario = { id: 15 } as Usuario;
       this.servicoService.listarComSeletor(seletor).subscribe(
         (resultado) => {
           let toDo = resultado.filter(servico => servico.dataHoraInicio == null && servico.dataHoraFim == null).length;
@@ -64,6 +75,7 @@ export class HomeComponent implements OnInit {
                 inProgress: inProgress,
                 completed: completed
               });
+              this.cdr.detectChanges();
             },
             (erro) => {
               console.error('Erro ao buscar o usuário:', erro);
@@ -80,5 +92,11 @@ export class HomeComponent implements OnInit {
   private initializeChartOptions() {
     const prefersDarkMode = localStorage.getItem('color-theme') === 'dark' ||
                              (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+
+  startPolling() {
+    this.intervalId = setInterval(() => {
+      this.buscarServicos();
+    }, 300000);
   }
 }

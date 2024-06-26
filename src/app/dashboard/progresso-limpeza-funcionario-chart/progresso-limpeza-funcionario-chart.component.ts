@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { ApexNonAxisChartSeries, ApexChart, ApexPlotOptions, ChartComponent } from 'ng-apexcharts';
-import { Servico } from '../../shared/model/servico';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -14,7 +13,7 @@ export type ChartOptions = {
   templateUrl: './progresso-limpeza-funcionario-chart.component.html',
   styleUrls: ['./progresso-limpeza-funcionario-chart.component.scss']
 })
-export class ProgressoLimpezaFuncionarioChartComponent implements OnInit {
+export class ProgressoLimpezaFuncionarioChartComponent implements OnInit, OnChanges {
   @ViewChild("chart") chart: ChartComponent;
   public progressoLimpezaChart: Partial<ChartOptions>;
   private observer: MutationObserver;
@@ -30,8 +29,10 @@ export class ProgressoLimpezaFuncionarioChartComponent implements OnInit {
     this.setupThemeObserver();
   }
 
-  ngOnChanges() {
-    this.updateChart();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['toDo'] || changes['inProgress'] || changes['completed']) {
+      this.updateChart();
+    }
   }
 
   ngOnDestroy() {
@@ -61,6 +62,9 @@ export class ProgressoLimpezaFuncionarioChartComponent implements OnInit {
             },
             value: {
               fontSize: "16px",
+              formatter: function (val) {
+                return Number(val).toFixed(0);
+              }
             },
             total: {
               show: true,
@@ -98,6 +102,9 @@ export class ProgressoLimpezaFuncionarioChartComponent implements OnInit {
             },
             value: {
               fontSize: "16px",
+              formatter: function (val) {
+                return Number(val).toFixed(0);
+              }
             },
             total: {
               show: true,
