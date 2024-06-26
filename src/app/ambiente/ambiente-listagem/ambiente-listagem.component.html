@@ -43,34 +43,27 @@
                 </label>
                 <input
                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  name="descricao" [(ngModel)]="seletor.descricao" />
+                  name="nome" [(ngModel)]="seletor.nome" />
               </div>
 
               <!--SETOR-->
               <div class="mb-5 relative flex-1 pr-2">
                 <label for="setor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Setor:
                 </label>
-                <select
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  name="setor" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.setor" required>
-                  <option></option>
-                  <option *ngFor="let setor of setores" [ngValue]="setor">
-                    {{ setor.nome }}
-                  </option>
-                </select>
+                <input
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  name="setor" [(ngModel)]="seletor.setor" />
               </div>
             </div>
 
             <div class="flex flex-col sm:flex-row">
               <!--ATIVIDADE-->
               <div class="mb-5 relative flex-1 pr-2">
-                <label for="atividade" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividade:
+                <label for="atividades" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atividade:
                 </label>
                 <select
                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  name="atividade" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.atividades" required>
-                  <!-- Testar forma de deixar uma opção vazia -->
-                  <!-- <option>&nbsp;</option> -->
+                  name="atividades" [(ngModel)]="seletor.atividade" required>
                   <option [ngValue]="{}"></option>
                   <option *ngFor="let atividade of atividades" [ngValue]="atividade">
                     {{ atividade.descricao }}
@@ -81,12 +74,8 @@
               <!--BOTÃO FILTRAR-->
               <div class="mb-5 relative flex-1  flex flex-col justify-end pr-2">
                 <button id="btn-filtrar"
-                  class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  style="
-                  background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-                  color: #00314d;
-                  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-                " (click)="filtrarAmbiente(); mostrarFiltros()" type="submit">
+                  class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                  (click)="filtrarAmbiente(); mostrarFiltros()" type="submit">
                   Filtrar
                 </button>
               </div>
@@ -142,7 +131,6 @@
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="px-8 py-4">{{ ambiente.descricao }}</td>
                     <td class="px-8 py-4">{{ ambiente.setor.nome }}</td>
-
                     <td class="px-8 py-4">
                       <ol>
                         <li *ngFor="let ambienteTemAtividade of ambiente.atividades">

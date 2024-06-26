@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Ambiente } from 'src/app/shared/model/ambiente';
 import { Atividade } from 'src/app/shared/model/atividade';
 import { Cronograma } from 'src/app/shared/model/cronograma';
 import { CronogramaSeletor } from 'src/app/shared/model/seletor/cronograma.seletor';
-import { Setor } from 'src/app/shared/model/setor';
+import { Servico } from 'src/app/shared/model/servico';
 import { CronogramaService } from 'src/app/shared/service/cronograma.service';
 
 @Component({
@@ -16,9 +15,8 @@ import { CronogramaService } from 'src/app/shared/service/cronograma.service';
 export class CronogramaListagemTerminalComponent implements OnInit {
   public cronogramas: Array<Cronograma> = new Array();
   public seletor: CronogramaSeletor = new CronogramaSeletor();
+  public servicos: Array<Servico> = new Array();
   public atividades: Atividade[];
-
-  
 
   public totalPaginas: number = 0;
   public readonly TAMANHO_PAGINA: number = 10;

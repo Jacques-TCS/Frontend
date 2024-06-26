@@ -84,12 +84,8 @@
             <!--BOTÃO FILTRAR-->
             <div class="mb-5 relative flex-1  flex flex-col justify-end pr-2">
               <button id="btn-filtrar"
-                class="btn font-semibold shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                style="
-                  background: linear-gradient(180deg, #4ac9ff 0%, #06b5ec 100%);
-                  color: #00314d;
-                  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-                " (click)="filtrarOcorrencia(); mostrarFiltros()" type="submit">
+                class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
+                (click)="filtrarOcorrencia(); mostrarFiltros()" type="submit">
                 Filtrar
               </button>
             </div>

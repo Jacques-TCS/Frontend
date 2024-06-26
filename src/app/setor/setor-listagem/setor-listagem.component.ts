@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Atividade } from 'src/app/shared/model/atividade';
 import { SetorSeletor } from 'src/app/shared/model/seletor/setor.seletor';
 import { Setor } from 'src/app/shared/model/setor';
+import { AtividadeService } from 'src/app/shared/service/atividade.service';
 import { SetorService } from 'src/app/shared/service/setor.service';
 import Swal from 'sweetalert2';
 
@@ -42,6 +43,7 @@ export class SetorListagemComponent implements OnInit {
 
   constructor(
     private setorService: SetorService,
+    private atividadeService: AtividadeService,
     private router: Router
   ) { }
 
@@ -50,6 +52,15 @@ export class SetorListagemComponent implements OnInit {
     this.seletor.pagina = 0;
     this.contarPaginas();
     this.filtrarSetor();
+
+    this.atividadeService.listarTodos().subscribe(
+      (resultado) => {
+        this.atividades = resultado.map((atividade) => atividade);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
+      }
+    );
   }
 
   public contarPaginas() {
@@ -71,17 +82,6 @@ export class SetorListagemComponent implements OnInit {
     return Array(this.totalPaginas)
       .fill(0)
       .map((x, i) => i + 1);
-  }
-
-  buscarTodos() {
-    this.setorService.listarTodos().subscribe(
-      (resultado) => {
-        this.setores = resultado;
-      },
-      (erro) => {
-        console.log('Erro ao buscar setores', erro);
-      }
-    );
   }
 
   filtrarSetor() {

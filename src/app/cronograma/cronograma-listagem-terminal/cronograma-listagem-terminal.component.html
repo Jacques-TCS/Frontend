@@ -163,18 +163,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- TODO - VER DE ONDE DEVO PEGAR ESSAS INFORMAÇÕES PARA INSERIR NA TABELA -->
-                                    <tr *ngFor="let cronograma of cronogramas"
-                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <!-- AMBIENTE, SETOR, DATA, FUNCIONARIO E ATIVIDADES -->
-                                        <!-- <td class="px-8 py-4">{{  }}</td> -->
-                                        <!-- <td class="px-8 py-4">
+                                    <tr *ngFor="let servico of servicos" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-8 py-4">{{ servico.ambiente }}</td>
+                                        <td class="px-8 py-4">{{ servico.ambiente.setor }}</td>
+                                        <td class="px-8 py-4">{{ servico.dataProgramada }}</td>
+                                        <td class="px-8 py-4">{{ servico.usuario }}</td>
+                                        <td class="px-8 py-4">
                                             <ol>
-                                                <li *ngFor="let XXX of .atividades">
-                                                    {{
-                                                    XXX.atividade.descricao }}</li>
+                                                <li *ngFor="let atividade of servico.atividades">
+                                                    {{atividade.descricao }}</li>
                                             </ol>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
