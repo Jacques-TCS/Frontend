@@ -17,13 +17,11 @@ input::-webkit-calendar-picker-indicator {
   left: 8px;
 }
 
-/* Tooltip container */
 .tooltip {
   position: relative;
   display: inline-block;
 }
 
-/* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 180px;
@@ -35,24 +33,22 @@ input::-webkit-calendar-picker-indicator {
   position: absolute;
   z-index: 1;
   top: 50%;
-  left: 100%; /* Position the tooltip text to the right of the icon */
-  margin-left: 10px; /* Adjust the space between the icon and the tooltip */
-  transform: translateY(-50%); /* Center the tooltip vertically */
+  left: 100%;
+  margin-left: 10px;
+  transform: translateY(-50%);
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
-/* Style for the tooltip arrow */
 .tooltip .tooltiptext::after {
   content: " ";
   position: absolute;
   top: 50%;
-  left: -5px; /* Position the arrow on the left side */
+  left: -5px;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent black transparent transparent; /* Arrow pointing left */
+  border-color: transparent black transparent transparent; 
 }

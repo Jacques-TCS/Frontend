@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.initializeChartOptions();
     this.filtrarUsuario();
     this.startPolling();
-    this.buscarServicosEOcorrencias();
+    this.buscarTodosServicos();
   }
 
   ngOnDestroy() {
@@ -89,12 +89,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     data6Meses.setUTCHours(data6Meses.getUTCHours() - 3);
     seletor.dataInicio = data6Meses;
 
-    this.series = [];
-
     this.ocorrenciaService.listarComSeletor(seletor).subscribe(
       (resultado) => {
         let categorias = resultado.map(ocorrencia => ocorrencia.categoria);
         let categoriasUnicas = [...new Set(categorias)];
+        let novaSerie: OcorrenciasSeries[] = [];
+
         for (let categoria of categoriasUnicas) {
           let data = resultado.filter(ocorrencia => ocorrencia.categoria === categoria);
           let ocorrenciasMensais: number[] = [];
@@ -104,14 +104,14 @@ export class HomeComponent implements OnInit, OnDestroy {
             let total = data.filter(ocorrencia => new Date(ocorrencia.dataOcorrencia).getMonth() === dataMes.getMonth()).length;
             ocorrenciasMensais.push(total);
           }
-
-          this.series.push({
+          novaSerie.push({
             name: ocorrenciasMensais[0] + ' ' + categoria,
             data: ocorrenciasMensais.reverse()
           });
-
-          this.cdr.detectChanges();
         }
+
+        this.series = novaSerie;
+        this.cdr.detectChanges();
       },
       (erro) => {
         console.error('Erro ao buscar ocorrências:', erro);
@@ -143,7 +143,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.servicosPorUsuario = [];
 
-    this.usuarios.forEach(usuario => {
+    for (const usuario of this.usuarios) {
+      if (usuario.status.id !== 1) {
+        continue; // Skip this iteration if the user's status is not 1
+      }
+
       let seletor = new ServicoSeletor();
       seletor.pagina = 0;
       seletor.limite = 100;
@@ -178,7 +182,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.error('Erro ao buscar serviços para o usuário:', erro);
         }
       );
-    });
+    }
   };
 
   buscarTodosServicos() {
@@ -192,6 +196,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.servicoService.listarComSeletor(seletor).subscribe(
       (resultado) => {
+        this.buscarOcorrencias();
         let toDo = resultado.filter(servico => servico.dataHoraInicio == null && servico.dataHoraFim == null).length;
         let inProgress = resultado.filter(servico => servico.dataHoraInicio != null && servico.dataHoraFim == null).length;
         let completed = resultado.filter(servico => servico.dataHoraInicio != null && servico.dataHoraFim != null).length;
@@ -216,17 +221,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
 
-  buscarServicosEOcorrencias() {
-    this.buscarTodosServicos();
-    this.buscarOcorrencias();
-  }
-
   startPolling() {
     this.intervalId = setInterval(() => {
       if (this.selectedOption === 'funcionarios') {
         this.buscarServicos();
-      } else if (this.selectedOption === 'informacoes') {
-        this.buscarServicosEOcorrencias();
+      } else {
+        this.buscarTodosServicos();
       }
     }, 300000);
   };
