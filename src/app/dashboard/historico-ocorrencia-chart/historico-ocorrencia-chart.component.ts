@@ -5,7 +5,6 @@ import {
   ApexChart,
   ApexXAxis,
   ApexDataLabels,
-  ApexTitleSubtitle,
   ApexStroke,
   ApexGrid
 } from "ng-apexcharts";
@@ -17,7 +16,6 @@ export type ChartOptions = {
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
   stroke: ApexStroke;
-  title: ApexTitleSubtitle;
 };
 
 export type OcorrenciasSeries = {
@@ -48,8 +46,8 @@ export class HistoricoOcorrenciaChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['name'] || changes['data']) {
-      this.initializeChartOptions();
+    if (changes["series"] && !changes["series"].firstChange) {
+      this.updateChartOptions();
     }
   }
 
@@ -58,7 +56,6 @@ export class HistoricoOcorrenciaChartComponent implements OnInit, OnDestroy {
     const textColor = isDarkMode ? '#FFFFFF' : '#000000';
     const gridColor = isDarkMode ? '#374151' : '#f3f3f3';
 
-    console.log(this.series)
     this.chartOptions = {
       series: this.series,
       chart: {
@@ -67,6 +64,9 @@ export class HistoricoOcorrenciaChartComponent implements OnInit, OnDestroy {
         foreColor: textColor,
         zoom: {
           enabled: false
+        },
+        toolbar: {
+          show: false
         }
       },
       dataLabels: {
@@ -90,6 +90,10 @@ export class HistoricoOcorrenciaChartComponent implements OnInit, OnDestroy {
         }
       },
     };
+  }
+
+  updateChartOptions() {
+    this.initializeChartOptions();
   }
 
   setupThemeObserver() {
