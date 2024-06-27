@@ -9,20 +9,17 @@
   </div>
   <div class="bg-gray-50 dark:bg-dark-chart-gray p-3 rounded-lg">
     <div class="py-6" id="chart">
-      <apx-chart
-        [series]="chartOptions.series!"
-        [chart]="chartOptions.chart!"
-        [dataLabels]="chartOptions.dataLabels!"
-        [markers]="chartOptions.markers!"
-        [xaxis]="chartOptions.xaxis!"
-        [yaxis]="chartOptions.yaxis!"
-        [stroke]="chartOptions.stroke!"
-        [title]="chartOptions.title!"
-        [colors]="chartOptions.colors!"
-        [fill]="chartOptions.fill!"
-        [forecastDataPoints]="chartOptions.forecastDataPoints!"
-        [legend]="chartOptions.legend!"
-      ></apx-chart>
+      <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [grid]="chartOptions.grid!"
+          [stroke]="chartOptions.stroke!"
+          [title]="chartOptions.title!"
+        ></apx-chart>
+      </div>
     </div>
   </div>
 </div>

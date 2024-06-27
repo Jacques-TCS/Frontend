@@ -18,6 +18,7 @@ export class ProgressoLimpezaFuncionarioChartComponent implements OnInit, OnChan
   public progressoLimpezaChart: Partial<ChartOptions>;
   private observer: MutationObserver;
   @Input() nome: string;
+  @Input() dataHoraInicio?: Date;
   @Input() toDo: number;
   @Input() inProgress: number;
   @Input() completed: number;
