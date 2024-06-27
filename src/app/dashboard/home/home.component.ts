@@ -28,9 +28,9 @@ export type ServicosPorUsuario = {
 
 export type ServicosTotais = {
   servicos: number;
-  toDo: number;
-  inProgress: number;
-  completed: number;
+  toDoTotal?: number;
+  inProgressTotal?: number;
+  completedTotal?: number;
 };
 
 export type OcorrenciasSeries = {
@@ -47,23 +47,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild("chart") chart: ChartComponent;
   public progressoLimpezaChart: Partial<ChartOptions>;
   public servicosPorUsuario: Array<ServicosPorUsuario> = [];
-  public servicosTotais: ServicosTotais;
   private intervalId: any;
   public usuarios: Array<Usuario> = [];
   public selectedOption: 'funcionarios' | 'informacoes' = 'funcionarios';
-  public series:  Array<OcorrenciasSeries> = [];
+  public series: Array<OcorrenciasSeries> = [];
+
+  servicosTotais: ServicosTotais = {
+    servicos: 0,
+    toDoTotal: 0,
+    inProgressTotal: 0,
+    completedTotal: 0
+  };
 
   constructor(
     private servicoService: ServicoService,
     private usuarioService: UsuarioService,
     private ocorrenciaService: OcorrenciaService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.initializeChartOptions();
     this.filtrarUsuario();
     this.startPolling();
+    this.buscarServicosEOcorrencias();
   }
 
   ngOnDestroy() {
@@ -99,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
 
           this.series.push({
-            name: categoria.categoria,
+            name: ocorrenciasMensais[0] + ' ' + categoria,
             data: ocorrenciasMensais.reverse()
           });
 
@@ -111,8 +118,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-
 
   filtrarUsuario() {
     let seletor = new UsuarioSeletor();
@@ -193,9 +198,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.servicosTotais = {
           servicos: resultado.length,
-          toDo: toDo,
-          inProgress: inProgress,
-          completed: completed
+          toDoTotal: toDo,
+          inProgressTotal: inProgress,
+          completedTotal: completed
         };
 
         this.cdr.detectChanges();
@@ -204,11 +209,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error('Erro ao buscar todos os serviços:', erro);
       }
     );
-  };
+  }
 
   private initializeChartOptions() {
     const prefersDarkMode = localStorage.getItem('color-theme') === 'dark' ||
-                             (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
 
   buscarServicosEOcorrencias() {
@@ -218,12 +223,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   startPolling() {
     this.intervalId = setInterval(() => {
-      debugger;
       if (this.selectedOption === 'funcionarios') {
         this.buscarServicos();
       } else if (this.selectedOption === 'informacoes') {
-        this.buscarTodosServicos();
-        this.buscarOcorrencias();
+        this.buscarServicosEOcorrencias();
       }
     }, 300000);
   };

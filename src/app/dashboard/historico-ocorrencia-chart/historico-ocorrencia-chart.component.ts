@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnInit, OnDestroy } from "@angular/core";
+import { Component, Input, ViewChild, OnInit, OnDestroy, SimpleChanges } from "@angular/core";
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -47,16 +47,24 @@ export class HistoricoOcorrenciaChartComponent implements OnInit, OnDestroy {
     this.observer.disconnect();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['name'] || changes['data']) {
+      this.initializeChartOptions();
+    }
+  }
+
   initializeChartOptions() {
     const isDarkMode = document.documentElement.classList.contains('dark');
     const textColor = isDarkMode ? '#FFFFFF' : '#000000';
+    const gridColor = isDarkMode ? '#374151' : '#f3f3f3';
 
     console.log(this.series)
     this.chartOptions = {
       series: this.series,
       chart: {
-        height: 350,
+        height: 420,
         type: "line",
+        foreColor: textColor,
         zoom: {
           enabled: false
         }
@@ -69,8 +77,8 @@ export class HistoricoOcorrenciaChartComponent implements OnInit, OnDestroy {
       },
       grid: {
         row: {
-          colors: ["#f3f3f3", "transparent"],
-          opacity: 0.5
+          colors: [gridColor, "transparent"],
+          opacity: 0.3
         }
       },
       xaxis: {

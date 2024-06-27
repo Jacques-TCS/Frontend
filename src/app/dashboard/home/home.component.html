@@ -30,9 +30,9 @@
       </div>
       <div class="flex flex-col md:grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-4 mb-4">
         <app-progresso-limpeza-chart
-        [toDo]="servicosTotais.toDo"
-        [inProgress]="servicosTotais.inProgress"
-        [completed]="servicosTotais.completed">
+        [toDo]="servicosTotais.toDoTotal!"
+        [inProgress]="servicosTotais.inProgressTotal!"
+        [completed]="servicosTotais.completedTotal!">
         ></app-progresso-limpeza-chart>
         <!-- ULTIMAS OCORRENCIAS -->
         <app-historico-ocorrencia-chart
