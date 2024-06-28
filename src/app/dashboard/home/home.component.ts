@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     for (const usuario of this.usuarios) {
       if (usuario.status.id !== 1) {
-        continue; // Skip this iteration if the user's status is not 1
+        continue; 
       }
 
       let seletor = new ServicoSeletor();
