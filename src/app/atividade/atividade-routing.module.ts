@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AtividadeComponent } from './atividade/atividade.component';
 
 const routes: Routes = [
-  { path: 'cadastroListagem', component: AtividadeComponent },
+  { path: 'cadastro-listagem', component: AtividadeComponent },
 ];
 
 @NgModule({
