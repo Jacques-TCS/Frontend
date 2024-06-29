@@ -24,9 +24,14 @@
             <div class="mb-5">
               <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Funcionário:
               </label>
-              <input
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
-                name="nome" [(ngModel)]="seletor.usuario" />
+              <select
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
+                name="usuario" [(ngModel)]="seletor.usuario" required>
+                <option [value]="{}"></option>
+                <option *ngFor="let usuario of usuarios" [ngValue]="usuario">
+                  {{ usuario.nome }}
+                </option>
+              </select>
             </div>
             <div class="mb-5">
               <label for="ambiente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ambiente:
@@ -48,11 +53,13 @@
               </select>
             </div>
             <div class="mb-5">
-              <label for="tipoDeLimpeza" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de Limpeza:
+              <label for="tipoDeLimpeza" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de
+                Limpeza:
               </label>
               <select
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
-                name="tipoDeLimpeza" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.tipoDeLimpeza" required>
+                name="tipoDeLimpeza" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.tipoDeLimpeza"
+                required>
                 <option></option>
                 <option *ngFor="let tipo of tipoDeLimpeza" [ngValue]="tipo">
                   {{ tipo.tipoDeLimpeza }}
@@ -75,9 +82,11 @@
             </div>
             <div class="mb-5">
               <label for="dataInicio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">De:
-                <div class="tooltip ml-4"><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
+                <div class="tooltip ml-4"><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
                   <span class="tooltiptext">Filtrando por data programada</span>
                 </div>
               </label>
@@ -87,9 +96,11 @@
             </div>
             <div class="mb-5 mt-1">
               <label for="dataFim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Até:
-                <div class="tooltip ml-4"><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
+                <div class="tooltip ml-4"><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
                   <span class="tooltiptext">Filtrando por data programada</span>
                 </div>
               </label>
@@ -176,7 +187,8 @@
                 <td class="px-8 py-4">{{ servico.usuario?.nome }}</td>
                 <td class="px-8 py-4">{{ servico.ambiente.descricao }}</td>
                 <td class="px-8 py-4">{{ servico.tipoDeLimpeza.tipoDeLimpeza }}</td>
-                <td class="px-8 py-4">{{ servico.dataProgramada | date : "dd/MM/yyyy" }} {{ servico.turno ? '- ' + servico.turno.turno : '' }}</td>
+                <td class="px-8 py-4">{{ servico.dataProgramada | date : "dd/MM/yyyy" }} {{ servico.turno ? '- ' +
+                  servico.turno.turno : '' }}</td>
                 <td class="px-8 py-4">{{ servico.dataHoraFim | date : "dd/MM/yyyy - HH:mm" }}</td>
                 <td class="px-8 py-4">
                   <div *ngFor="let atividade of servico.atividades; let isLast=last">
