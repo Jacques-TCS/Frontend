@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { AmbienteRoutingModule } from './ambiente-routing.module';
 import { AmbienteCadastroComponent } from './ambiente-cadastro/ambiente-cadastro.component';
 import { AmbienteListagemComponent } from './ambiente-listagem/ambiente-listagem.component';
+import { QRCodeComponent } from './qrcode/qrcode.component';
 
 
 @NgModule({
     declarations: [
         AmbienteCadastroComponent,
-        AmbienteListagemComponent
+        AmbienteListagemComponent,
+        QRCodeComponent
     ],
     imports: [
         CommonModule,

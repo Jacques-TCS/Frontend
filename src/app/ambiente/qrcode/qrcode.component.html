@@ -1,0 +1,8 @@
+<div class="p-4 sm:ml-64 print:ml-0 flex items-center justify-center h-screen">
+  <div class="p-4 border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="container mx-auto">
+      <img *ngIf="qrCodeUrl" [src]="qrCodeUrl" alt="QR Code" />
+      <h1 class="text-center font-poppins text-4xl mt-10">{{ambiente.descricao}}</h1>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,7 @@ export class RequestInterceptor implements HttpInterceptor {
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (!req.url.includes('login') && !req.url.includes('recuperar-senha')) {
+        if (!req.url.includes('login') && !req.url.includes('recuperar-senha') && !req.url.includes('api.qrserver')) {
             var authToken = localStorage.getItem('id_token')
 
             const authReq = req.clone({ setHeaders: { 'Authorization': 'Bearer ' + authToken } });
