@@ -229,8 +229,7 @@
                                         </td>
                                         <td class="px-8 py-4">{{ servico.ambiente.descricao }}</td>
                                         <td class="px-8 py-4">{{ servico.ambiente.setor.nome }}</td>
-                                        <td class="px-8 py-4">{{ servico.dataProgramada | date : "dd/MM/yyyy"}} {{
-                                            servico.turno?.turno }}</td>
+                                        <td class="px-8 py-4">{{ servico.dataProgramada | date : "dd/MM/yyyy"}} {{ servico.turno ? '- ' + servico.turno.turno : '' }}</td>
                                         <td class="px-8 py-4">{{ servico.usuario?.nome }}</td>
                                         <td class="px-8 py-4">
                                             <ol>

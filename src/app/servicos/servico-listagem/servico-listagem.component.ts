@@ -5,10 +5,12 @@ import { Categoria } from 'src/app/shared/model/categoria';
 import { ServicoSeletor } from 'src/app/shared/model/seletor/servico.seletor';
 import { Servico } from 'src/app/shared/model/servico';
 import { StatusUsuario } from 'src/app/shared/model/status-usuario';
+import { TipoDeLimpeza } from 'src/app/shared/model/tipoDeLimpeza';
 import { AtividadeService } from 'src/app/shared/service/atividade.service';
-import { CategoriaService } from 'src/app/shared/service/categoria-ocorrencia.service';
+import { CategoriaService } from 'src/app/shared/service/categoria.service';
 import { OcorrenciaService } from 'src/app/shared/service/ocorrencia.service';
 import { ServicoService } from 'src/app/shared/service/servico.service';
+import { TipoDeLimpezaService } from 'src/app/shared/service/tipo-de-limpeza.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 
@@ -23,6 +25,7 @@ export class ServicoListagemComponent implements OnInit {
   public atividades: Atividade[]
   public categoriaOcorrencias: Categoria[]
   public status: StatusUsuario[];
+  public tipoDeLimpeza: TipoDeLimpeza[];
   public totalPaginas: number = 1;
   public readonly TAMANHO_PAGINA: number = 10;
 
@@ -41,6 +44,7 @@ export class ServicoListagemComponent implements OnInit {
     private servicoService: ServicoService,
     private atividadeService: AtividadeService,
     private categoriaOcorrenciaService: CategoriaService,
+    private tipoDeLimpezaService: TipoDeLimpezaService,
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +58,14 @@ export class ServicoListagemComponent implements OnInit {
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
+      }
+    );
+    this.tipoDeLimpezaService.listarTodos().subscribe(
+      (resultado) => {
+        this.tipoDeLimpeza = resultado.map((tipoDeLimpeza) => tipoDeLimpeza);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar tipo de limpeza', 'error');
       }
     );
     this.categoriaOcorrenciaService.listarTodos().subscribe(
