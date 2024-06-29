@@ -146,4 +146,9 @@ export class AmbienteListagemComponent implements OnInit {
     this.filtrarAmbiente();
   }
 
+  qrcode(id: number) {
+    const url = '/ambiente/listagem/qrcode/' + id;
+    const windowFeatures = 'width=800,height=600,toolbar=no,scrollbars=no,resizable=yes';
+    window.open(url, '_blank', windowFeatures);
+  }
 }
