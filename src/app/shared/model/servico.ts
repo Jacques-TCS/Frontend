@@ -16,5 +16,5 @@ export class Servico {
   dataHoraFim: Date;
   atividades: Atividade[];
   ocorrencia: Ocorrencia[];
-  turno: Turno;
+  turno?: Turno;
 }

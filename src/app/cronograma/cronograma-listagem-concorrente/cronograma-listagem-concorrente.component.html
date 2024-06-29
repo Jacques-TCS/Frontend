@@ -23,18 +23,22 @@
 
                 <div *ngIf="this.mostrarCronogramas">
                     <div class="flex flex-col sm:flex-row">
-                        <!-- INPUT FUNCIONÁRIO -->
-                         <!-- TODO FAZER SELECT AO INVÉS DE INPUT -->
                         <div class="mb-5 relative pr-2">
-                            <input
+                            <select
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-96 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                placeholder="Buscar funcionário" name="setor" [(ngModel)]="usuario.nome" />
+                                name="usuario" [(ngModel)]="usuario" required>
+                                <option>&nbsp;&nbsp;</option>
+                                <option *ngFor="let usuario of usuarios" [ngValue]="usuario">
+                                    {{ usuario.nome }}
+                                </option>
+                            </select>
                         </div>
+
                         <!-- BTN ATRIBUIÇÃO DE FUNCIONÁRIO -->
                         <div class="mb-5 relative pr-2">
                             <button id="btn-atribiur-funcionario"
                                 class="flex items-center space-x-2 px-4 justify-center btn font-semibold shadow-sm text-sm rounded-lg w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
-                                (click)="atribuirFuncionario(usuario.id)" type="submit">
+                                (click)="atribuirFuncionario()" type="submit">
                                 <svg class="w-5 h-5 mr-4" aria-hidden="true" width="24" height="24" fill="currentColor"
                                     viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -83,11 +87,11 @@
 
                                 <div class="mb-5">
                                     <label for="data"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data:
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">De:
                                     </label>
                                     <input
                                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                        name="data" type="datetime-local" [(ngModel)]="seletor.dataProgramada" />
+                                        name="data" type="date" [(ngModel)]="seletor.dataProgramadaInicio" />
                                 </div>
                             </div>
 
@@ -96,9 +100,14 @@
                                     <label for="funcionario"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Funcionário:
                                     </label>
-                                    <input
+                                    <select
                                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                        name="funcionario" [(ngModel)]="seletor.funcionario" />
+                                        name="usuario" [(ngModel)]="seletor.usuario" required>
+                                        <option>&nbsp;&nbsp;</option>
+                                        <option *ngFor="let usuario of usuarios" [ngValue]="usuario">
+                                            {{ usuario.nome }}
+                                        </option>
+                                    </select>
                                 </div>
 
                                 <div class="mb-5">
@@ -114,6 +123,15 @@
                                             {{ atividade.descricao }}
                                         </option>
                                     </select>
+                                </div>
+
+                                <div class="mb-5">
+                                    <label for="data"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Até:
+                                    </label>
+                                    <input
+                                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                        name="data" type="date" [(ngModel)]="seletor.dataProgramadaFim" />
                                 </div>
 
                                 <div class="mb-5">
@@ -137,9 +155,7 @@
                                 <thead class="text-xs text-gray-700 bg-gray-100 dark:bg-gray-600 dark:text-gray-200">
                                     <tr>
                                         <th scope="col" class="px-8 py-3">
-                                            <div class="flex items-center">
-                                                CHECK
-                                            </div>
+                                            <input type="checkbox" #checkMaster (change)="selecionarTodos()">
                                         </th>
                                         <th scope="col" class="px-8 py-3">
                                             <div class="flex items-center">
@@ -199,12 +215,13 @@
                                     <tr *ngFor="let servico of servicos"
                                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-8 py-4">
-                                            <input type="checkbox" [(ngModel)]="servico.id">
+                                            <input type="checkbox" [value]="servico.id" #checkboxes>
                                         </td>
-                                        <td class="px-8 py-4">{{ servico.ambiente }}</td>
-                                        <td class="px-8 py-4">{{ servico.ambiente.setor }}</td>
-                                        <td class="px-8 py-4">{{ servico.dataProgramada }}</td>
-                                        <td class="px-8 py-4">{{ servico.usuario }}</td>
+                                        <td class="px-8 py-4">{{ servico.ambiente.descricao }}</td>
+                                        <td class="px-8 py-4">{{ servico.ambiente.setor.nome }}</td>
+                                        <td class="px-8 py-4">{{ servico.dataProgramada | date : "dd/MM/yyyy"}} {{
+                                            servico.turno?.turno }}</td>
+                                        <td class="px-8 py-4">{{ servico.usuario?.nome }}</td>
                                         <td class="px-8 py-4">
                                             <ol>
                                                 <li *ngFor="let atividade of servico.atividades">
@@ -218,82 +235,91 @@
                     </div>
                     <!--PAGINAÇÃO-->
                     <nav aria-label="Navigation" class="sm:flex sm:justify-between flex-col sm:flex-row">
-                      <div class="xl:w-1/12 lg:w-1/10 md:w-1/6 sm:w-1/4 w-full mr-8">
-                        <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">Exibir registros:</label>
-                        <select
-                          class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
-                          [(ngModel)]="seletor.limite" [ngModelOptions]="{ standalone: true }" (change)="atualizarPaginacao()">
-                          <option value="10">10</option>
-                          <option value="20">20</option>
-                          <option value="40">40</option>
-                        </select>
-                      </div>
-                      <div class="flex justify-center">
-                        <div class="w-1/2 mb-4">
-                          <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">&nbsp;</label>
-                          <ul class="pagination flex items-center justify-center -space-x-px h-10 text-base">
-                            <li class="page-item">
-                              <button [disabled]="seletor.pagina == 0"
-                                class="page-link flex items-center justify-center px-1 h-10 leading-tight text-gray-900 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
-                                (click)="irParaPagina(0)">
-                                <span class="sr-only">Primeira Página</span>
-                                <svg aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="m17 16-4-4 4-4m-6 8-4-4 4-4" />
-                                </svg>
-
-                              </button>
-                            </li>
-                            <li class="page-item">
-                              <button [disabled]="seletor.pagina == 0"
-                                class="page-link flex items-center justify-center px-3 h-10 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
-                                (click)="voltarPagina()">
-                                <span class="sr-only">Anterior</span>
-                                <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
-                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M5 1 1 5l4 4" />
-                                </svg>
-                              </button>
-                            </li>
-                            <li class="page-item" *ngFor="let indice of criarArrayPaginas()">
-                              <button *ngIf="indice !== '...'"
-                                class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
-                                (click)="irParaPagina(indice-1)">{{indice}}</button>
-                              <span *ngIf="indice === '...'"
-                                class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-900 bg-white border border-gray-300">{{indice}}</span>
-                            </li>
-                            <li class="page-item">
-                              <button [disabled]="seletor.pagina == totalPaginas-1"
-                                class="page-link flex items-center justify-center px-3 h-10 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
-                                (click)="avancarPagina()">
-                                <span class="sr-only">Próximo</span>
-                                <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
-                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="m1 9 4-4-4-4" />
-                                </svg>
-                              </button>
-                            </li>
-                            <li class="page-item">
-                              <button [disabled]="seletor.pagina == totalPaginas-1"
-                                class="page-link flex items-center justify-center px-1 h-10 leading-tight text-gray-900 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
-                                (click)="irParaPagina(totalPaginas-1)">
-                                <span class="sr-only">Última Página</span>
-                                <svg aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="m7 16 4-4-4-4m6 8 4-4-4-4" />
-                                </svg>
-                              </button>
-                            </li>
-                          </ul>
+                        <div class="xl:w-1/12 lg:w-1/10 md:w-1/6 sm:w-1/4 w-full mr-8">
+                            <label for="quantidadeRegistros" class="block text-gray-700 dark:text-gray-200">Exibir
+                                registros:</label>
+                            <select
+                                class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+                                [(ngModel)]="seletor.limite" [ngModelOptions]="{ standalone: true }"
+                                (change)="atualizarPaginacao()">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="40">40</option>
+                            </select>
                         </div>
-                      </div>
-                      <div class="flex w-1/6 justify-end items-center">
-                        <button id="btn-exportar"
-                          class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-dark"
-                          (click)="exportarPlanilhaCronConcorrente()" type="submit">
-                          Exportar
-                        </button>
-                      </div>
+                        <div class="flex justify-center">
+                            <div class="w-1/2 mb-4">
+                                <label for="quantidadeRegistros"
+                                    class="block text-gray-700 dark:text-gray-200">&nbsp;</label>
+                                <ul class="pagination flex items-center justify-center -space-x-px h-10 text-base">
+                                    <li class="page-item">
+                                        <button [disabled]="seletor.pagina == 0"
+                                            class="page-link flex items-center justify-center px-1 h-10 leading-tight text-gray-900 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            (click)="irParaPagina(0)">
+                                            <span class="sr-only">Primeira Página</span>
+                                            <svg aria-hidden="true" width="24" height="24" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5"
+                                                    d="m17 16-4-4 4-4m-6 8-4-4 4-4" />
+                                            </svg>
+
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <button [disabled]="seletor.pagina == 0"
+                                            class="page-link flex items-center justify-center px-3 h-10 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            (click)="voltarPagina()">
+                                            <span class="sr-only">Anterior</span>
+                                            <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none"
+                                                viewBox="0 0 6 10">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5" d="M5 1 1 5l4 4" />
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li class="page-item" *ngFor="let indice of criarArrayPaginas()">
+                                        <button *ngIf="indice !== '...'"
+                                            class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            (click)="irParaPagina(indice-1)">{{indice}}</button>
+                                        <span *ngIf="indice === '...'"
+                                            class="page-link flex items-center justify-center px-4 h-10 leading-tight text-gray-900 bg-white border border-gray-300">{{indice}}</span>
+                                    </li>
+                                    <li class="page-item">
+                                        <button [disabled]="seletor.pagina == totalPaginas-1"
+                                            class="page-link flex items-center justify-center px-3 h-10 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            (click)="avancarPagina()">
+                                            <span class="sr-only">Próximo</span>
+                                            <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none"
+                                                viewBox="0 0 6 10">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5" d="m1 9 4-4-4-4" />
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <button [disabled]="seletor.pagina == totalPaginas-1"
+                                            class="page-link flex items-center justify-center px-1 h-10 leading-tight text-gray-900 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            (click)="irParaPagina(totalPaginas-1)">
+                                            <span class="sr-only">Última Página</span>
+                                            <svg aria-hidden="true" width="24" height="24" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5"
+                                                    d="m7 16 4-4-4-4m6 8 4-4-4-4" />
+                                            </svg>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex w-1/6 justify-end items-center">
+                            <button id="btn-exportar"
+                                class="btn font-semibold shadow-sm text-sm rounded-lg block w-full p-2.5 bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text focus:ring-light-dark-blue focus:border-light-dark-blue dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-dark"
+                                (click)="exportarPlanilhaCronConcorrente()" type="submit">
+                                Exportar
+                            </button>
+                        </div>
                     </nav>
                 </div>
             </form>

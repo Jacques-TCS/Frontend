@@ -5,7 +5,7 @@ import { BaseSeletor } from './base.seletor';
 export class UsuarioSeletor extends BaseSeletor {
   nome: string;
   cargo: Cargo;
-  statusUsuario: StatusUsuario;
+  status: StatusUsuario;
   dataDesligamentoInicio: Date;
   dataDesligamentoFim: Date;
 }

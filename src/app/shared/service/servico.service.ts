@@ -39,4 +39,8 @@ export class ServicoService {
   contarPaginas(seletor: ServicoSeletor): Observable<number> {
     return this.httpClient.post<number>(this.API + '/total-paginas', seletor, this.httpOptions);
   }
+
+  atribuirFuncionario(id: number, servicosSelecionados: Array<number>) {
+    return this.httpClient.put(this.API + '/atualizar-em-massa?usuarioId=' + id, servicosSelecionados, this.httpOptions);
+  }
 }
