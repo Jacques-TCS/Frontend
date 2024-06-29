@@ -1,4 +1,4 @@
-input[type="datetime-local"] {
+input[type="date"] {
   box-sizing: border-box;
   padding: 8px;
   width: 100%;
@@ -17,3 +17,38 @@ input::-webkit-calendar-picker-indicator {
   left: 8px;
 }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 100%;
+  margin-left: 10px;
+  transform: translateY(-50%);
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent; 
+}

@@ -117,20 +117,20 @@ export class AtividadeComponent implements OnInit {
 
   excluir(atividade: Atividade) {
     Swal.fire({
-      title: 'Tem certeza de que deseja inativar essa atividade?',
+      title: 'Tem certeza de que deseja mudar o status dessa atividade?',
       showDenyButton: true,
       confirmButtonText: `Sim`,
       denyButtonText: `Não`,
     }).then((result) => {
       if (result.isConfirmed) {
-        atividade.status = false;
+        atividade.status = !atividade.status;
         this.atividadeService.atualizar(atividade).subscribe(
           (sucesso) => {
-            Swal.fire('Sucesso', 'Atividade inativada!', 'success');
+            Swal.fire('Sucesso', 'Status de atividade atualizada!', 'success');
             this.filtrarAtividade();
           },
           (erro) => {
-            Swal.fire('Erro', 'Erro ao inativar atividade', 'error');
+            Swal.fire('Erro', 'Erro ao atualizar status de atividade', 'error');
             console.error('Erro ao inativar atividade:', erro);
           }
         );

@@ -89,6 +89,7 @@ export class UsuarioEdicaoComponent {
       this.usuarioService.atualizar(this.usuario).subscribe(
         (sucesso) => {
           Swal.fire('Sucesso', 'Usuario atualizado!', 'success');
+          this.router.navigate(['usuarios/listagem']);
           this.isDisplayed = false;
         },
         (erro) => {
