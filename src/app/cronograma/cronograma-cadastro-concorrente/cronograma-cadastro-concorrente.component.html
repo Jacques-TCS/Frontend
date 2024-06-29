@@ -13,7 +13,7 @@
                 <select
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     name="mesesConc" [(ngModel)]="cronograma.mes" required>
-                    <option [ngValue]="{}"></option>
+                    <option></option>
                     <option *ngFor="let meses of meses" [ngValue]="meses.valor">
                         {{ meses.texto }}
                     </option>
@@ -22,7 +22,7 @@
             <div class="flex w-1/4 h-10 pr-2">
                 <button id="btn-salvar"
                     class="btn font-semibold shadow-sm bg-gradient-to-b from-light-light-blue to-light-dark-blue text-light-text text-sm rounded-lg focus:ring-light-dark-blue focus:border-light-dark-blue block w-full p-2.5 dark:bg-gradient-to-b dark:from-dark-light-blue dark:to-dark-dark-blue dark:text-blue-100 dark:focus:ring-dark-dark-blue dark:focus:border-dark-dark-blue dark:shadow-sm-light"
-                    (click)="inserirCronograma(ngForm)" type="submit">
+                    type="submit">
                     Gerar</button>
             </div>
         </div>

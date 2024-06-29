@@ -9,12 +9,12 @@ export class Servico {
   id: number;
   ambiente: Ambiente;
   cronograma: Cronograma;
-  usuario: Usuario;
+  usuario?: Usuario;
   tipoDeLimpeza: number;
   dataProgramada: Date
   dataHoraInicio: Date;
   dataHoraFim: Date;
   atividades: Atividade[];
   ocorrencia: Ocorrencia[];
-  turno: Turno;
+  turno?: Turno;
 }
