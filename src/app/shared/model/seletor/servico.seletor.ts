@@ -2,11 +2,13 @@ import { Ambiente } from '../ambiente';
 import { Atividade } from '../atividade';
 import { Cargo } from '../cargo';
 import { Ocorrencia } from '../ocorrencia';
+import { TipoDeLimpeza } from '../tipoDeLimpeza';
 import { Usuario } from '../usuario';
 import { BaseSeletor } from './base.seletor';
 
 export class ServicoSeletor extends BaseSeletor {
-  ambiente: Ambiente;
+  ambiente: string;
+  setor: string;
   dataEncerramentoInicio: Date;
   dataEncerramentoFim: Date;
   dataProgramadaInicio: Date;
@@ -15,4 +17,5 @@ export class ServicoSeletor extends BaseSeletor {
   cargo: Cargo;
   usuario: Usuario;
   atividade: Atividade;
+  tipoDeLimpeza: TipoDeLimpeza;
 }

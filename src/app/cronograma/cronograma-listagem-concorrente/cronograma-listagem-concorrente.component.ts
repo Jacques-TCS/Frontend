@@ -1,12 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Atividade } from 'src/app/shared/model/atividade';
+import { Cargo } from 'src/app/shared/model/cargo';
 import { Cronograma } from 'src/app/shared/model/cronograma';
-import { CronogramaSeletor } from 'src/app/shared/model/seletor/cronograma.seletor';
+import { ServicoSeletor } from 'src/app/shared/model/seletor/servico.seletor';
+import { UsuarioSeletor } from 'src/app/shared/model/seletor/usuario.seletor';
 import { Servico } from 'src/app/shared/model/servico';
+import { StatusUsuario } from 'src/app/shared/model/status-usuario';
+import { TipoDeLimpeza } from 'src/app/shared/model/tipoDeLimpeza';
 import { Usuario } from 'src/app/shared/model/usuario';
-import { CronogramaService } from 'src/app/shared/service/cronograma.service';
+import { AtividadeService } from 'src/app/shared/service/atividade.service';
+import { ServicoService } from 'src/app/shared/service/servico.service';
+import { UsuarioService } from 'src/app/shared/service/usuario.service';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -18,7 +25,7 @@ export class CronogramaListagemConcorrenteComponent implements OnInit {
   public cronograma: Cronograma = new Cronograma();
   public cronogramas: Array<Cronograma> = new Array();
   public servicos: Array<Servico> = new Array();
-  public seletor: CronogramaSeletor = new CronogramaSeletor();
+  public seletor: ServicoSeletor = new ServicoSeletor();
   public atividades: Atividade[];
   public usuario: Usuario = new Usuario();
   public usuarios: Array<Usuario> = new Array();
@@ -45,20 +52,49 @@ export class CronogramaListagemConcorrenteComponent implements OnInit {
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
+  @ViewChildren('checkboxes') checkboxes: QueryList<ElementRef>;
+
+  @ViewChild('checkMaster') checkMaster: ElementRef;
+
   constructor(
-    private cronogramaService: CronogramaService,
+    private servicoService: ServicoService,
+    private usuarioService: UsuarioService,
+    private atividadeService: AtividadeService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    // this.seletor.limite = this.TAMANHO_PAGINA;
-    // this.seletor.pagina = 0;
-    // this.contarPaginas();
-    // this.filtrarCronograma();
+    this.seletor.limite = this.TAMANHO_PAGINA;
+    this.seletor.pagina = 0;
+    this.contarPaginas();
+    this.filtrarCronograma();
+
+    let usuarioSeletor = new UsuarioSeletor();
+    usuarioSeletor.limite = 1000;
+    usuarioSeletor.pagina = 0;
+    usuarioSeletor.status = { id: 1 } as StatusUsuario;
+    usuarioSeletor.cargo = { id: 1 } as Cargo;
+    this.usuarioService.listarComSeletor(usuarioSeletor).subscribe(
+      (resultado) => {
+        this.usuarios = resultado.map((usuario) => usuario);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar usuarios', 'error');
+      }
+    );
+
+    this.atividadeService.listarTodos().subscribe(
+      (resultado) => {
+        this.atividades = resultado.map((usuario) => usuario);
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
+      }
+    );
   }
 
   public contarPaginas() {
-    this.cronogramaService.contarPaginas(this.seletor).subscribe(
+    this.servicoService.contarPaginas(this.seletor).subscribe(
       (resultado) => {
         this.totalPaginas = resultado;
       },
@@ -88,21 +124,17 @@ export class CronogramaListagemConcorrenteComponent implements OnInit {
     return pages;
   }
 
-  buscarTodos() {
-    this.cronogramaService.listarTodos().subscribe(
-      (resultado) => {
-        this.cronogramas = resultado;
-      },
-      (erro) => {
-        console.log('Erro ao buscar cronogramas', erro);
-      }
-    );
-  }
 
   public filtrarCronograma() {
-    this.cronogramaService.listarComSeletor(this.seletor).subscribe(
+    this.seletor.tipoDeLimpeza = { id: 1 } as TipoDeLimpeza;
+    if (this.seletor.usuario != null) {
+      this.seletor.usuario = { id: this.seletor.usuario.id } as Usuario;
+    }
+    this.servicoService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
-        this.cronogramas = resultado;
+        this.servicos = resultado;
+        this.contarPaginas();
+        this.criarArrayPaginas();
       },
       (erro) => {
         console.error(erro);
@@ -131,9 +163,31 @@ export class CronogramaListagemConcorrenteComponent implements OnInit {
     this.filtrarCronograma();
   }
 
-  //TODO Método para atribuir funcionário ao cronograma por meio da edição de um cronograma
-  public atribuirFuncionario(idFuncionario: number) {
-    this.router.navigate(['/cronograma/editar', idFuncionario]);
+  public selecionarTodos(): void {
+    this.checkboxes.forEach((element) => {
+      element.nativeElement.checked = this.checkMaster.nativeElement.checked;
+    });
+  }
+
+  public atribuirFuncionario() {
+    let servicosSelecionados = new Array<number>();
+    this.checkboxes.forEach((element) => {
+      if (element.nativeElement.checked) {
+        servicosSelecionados.push(element.nativeElement.value);
+      }
+    });
+    if (servicosSelecionados.length === 0) {
+      Swal.fire('Erro', 'Nenhum serviço selecionado', 'error');
+      return;
+    }
+    this.servicoService.atribuirFuncionario(this.usuario.id, servicosSelecionados).subscribe(
+      (resultado) => {
+        Swal.fire('Sucess', 'Funcionário atribuído', 'success');
+      },
+      (erro) => {
+        Swal.fire('Erro', 'Erro ao atribuir funcionário ao serviço', 'error');
+      }
+    );
   }
 
   fileName = 'ExcleSheet.xlsx';
