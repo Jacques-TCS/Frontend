@@ -7,6 +7,7 @@ import { AtividadeService } from 'src/app/shared/service/atividade.service';
 import { SetorService } from 'src/app/shared/service/setor.service';
 import Swal from 'sweetalert2';
 import { SetorListagemComponent } from '../setor-listagem/setor-listagem.component';
+import { AtividadeSeletor } from 'src/app/shared/model/seletor/atividade.seletor';
 
 @Component({
   selector: 'app-setor-cadastro',
@@ -24,6 +25,7 @@ export class SetorCadastroComponent implements OnInit {
   public frequenciaDeLimpezasTerminal: string[] = ['Semanal', 'Quinzenal'];
   public id: number | null = null;
   public isDisplayed: boolean = false;
+  public atividadeSeletor: AtividadeSeletor = new AtividadeSeletor();
 
   public mostrar: boolean = true;
   public esconder: boolean;
@@ -42,9 +44,11 @@ export class SetorCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.atividadeService.listarTodos().subscribe(
+    this.atividadeSeletor.limite = 1000;
+    this.atividadeSeletor.pagina = 0;
+    this.atividadeService.listarComSeletor(this.atividadeSeletor).subscribe(
       (resultado) => {
-        this.atividades = resultado.map((atividade) => atividade);
+        this.atividades = resultado.filter((atividade) => atividade.status === true);
         this.setor.atividades = [];
       },
       (erro) => {
