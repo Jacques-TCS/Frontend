@@ -38,6 +38,7 @@ export class SetorListagemComponent implements OnInit {
     this.esconderSetores = !this.esconderSetores;
   }
 
+  @Output() refreshListagem = new EventEmitter<void>();
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
@@ -102,6 +103,7 @@ export class SetorListagemComponent implements OnInit {
     this.setorService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.setores = resultado;
+        this.refreshListagem.emit(); 
       },
       (erro) => {
         console.log('Erro ao buscar setores', erro);
