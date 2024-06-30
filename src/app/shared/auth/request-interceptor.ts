@@ -22,7 +22,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
             return next.handle(authReq).pipe(
                 catchError((error: HttpErrorResponse) => {
-                    if (error.status == 403) {
+                    if (error.status == 401) {
                         this.authService.logout();
                         this.router.navigate(['/login']);
                     }
