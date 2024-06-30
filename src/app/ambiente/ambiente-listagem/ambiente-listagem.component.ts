@@ -40,6 +40,7 @@ export class AmbienteListagemComponent implements OnInit {
     this.esconderAmbientes = !this.esconderAmbientes;
   }
 
+  @Output() refreshListagem = new EventEmitter<void>();
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
@@ -114,6 +115,7 @@ export class AmbienteListagemComponent implements OnInit {
     this.ambienteService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.ambientes = resultado;
+        this.refreshListagem.emit(); 
       },
       (erro) => {
         console.log('Erro ao buscar ambientes', erro);

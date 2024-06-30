@@ -8,6 +8,7 @@ import { Atividade } from 'src/app/shared/model/atividade';
 import { AmbienteTemAtividade } from 'src/app/shared/model/ambienteTemAtividade';
 import { AtividadeService } from 'src/app/shared/service/atividade.service';
 import { SetorService } from 'src/app/shared/service/setor.service';
+import { AmbienteListagemComponent } from '../ambiente-listagem/ambiente-listagem.component';
 
 @Component({
   selector: 'app-ambiente-cadastro',
@@ -34,7 +35,7 @@ export class AmbienteCadastroComponent implements OnInit {
     this.mostrar = !this.mostrar;
     this.esconder = !this.esconder;
   }
-
+  @ViewChild('listagemAmbiente') listagemAmbiente: AmbienteListagemComponent;
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
@@ -49,7 +50,6 @@ export class AmbienteCadastroComponent implements OnInit {
       (resultado) => {
         this.atividades = resultado.map((atividade) => atividade);
         this.ambiente.atividades = [];
-        // this.ambiente.setor = new Setor();
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
@@ -79,7 +79,11 @@ export class AmbienteCadastroComponent implements OnInit {
         (sucesso) => {
           Swal.fire('Sucesso', 'Ambiente atualizado!', 'success');
           this.ambiente = new Ambiente();
+          this.ambiente.setor = new Setor();
+          this.setorSelected = '';
+          this.ambiente.atividades = [];
           this.id = null;
+          this.refreshListagemAmbiente();
         },
         (erro) => {
           Swal.fire(
@@ -93,6 +97,10 @@ export class AmbienteCadastroComponent implements OnInit {
         (sucesso) => {
           Swal.fire('Sucesso', 'Ambiente cadastrado!', 'success');
           this.ambiente = new Ambiente();
+          this.ambiente.setor = new Setor();
+          this.setorSelected = '';
+          this.ambiente.atividades = [];
+          this.refreshListagemAmbiente();
         },
         (erro) => {
           Swal.fire(
@@ -107,12 +115,19 @@ export class AmbienteCadastroComponent implements OnInit {
     }
   }
 
+  refreshListagemAmbiente() {
+    if (this.listagemAmbiente) {
+      this.listagemAmbiente.filtrarAmbiente();
+    }
+  }
+
   editar(id: number) {
     this.ambienteService.consultarPorId(id).subscribe(
       (resultado) => {
         this.id = id;
         this.ambiente = resultado;
         this.setorSelected = this.ambiente.setor.nome;
+        this.refreshListagemAmbiente();
       },
       (erro) => {
         console.log('Erro ao editar ambiente', erro);
