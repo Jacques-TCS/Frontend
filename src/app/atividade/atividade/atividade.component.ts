@@ -64,6 +64,7 @@ export class AtividadeComponent implements OnInit {
         this.atividade.id = this.atividadeId;
         this.atividadeService.atualizar(this.atividade).subscribe(
           (sucesso) => {
+            this.filtrarAtividade();
             Swal.fire('Sucesso', 'atividade atualizada!', 'success');
           },
           (erro) => {
@@ -76,6 +77,7 @@ export class AtividadeComponent implements OnInit {
           (sucesso) => {
             Swal.fire('Sucesso', 'atividade cadastrada!', 'success');
             this.atividade = new Atividade();
+            this.filtrarAtividade();
           },
           (erro) => {
             Swal.fire('Erro', 'Erro ao cadastrar atividade', 'error');
