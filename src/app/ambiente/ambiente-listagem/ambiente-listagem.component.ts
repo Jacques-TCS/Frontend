@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Ambiente } from 'src/app/shared/model/ambiente';
 import { Atividade } from 'src/app/shared/model/atividade';
 import { AmbienteSeletor } from 'src/app/shared/model/seletor/ambiente.seletor';
+import { AtividadeSeletor } from 'src/app/shared/model/seletor/atividade.seletor';
 import { Setor } from 'src/app/shared/model/setor';
 import { AmbienteService } from 'src/app/shared/service/ambiente.service';
 import { AtividadeService } from 'src/app/shared/service/atividade.service';
@@ -23,6 +24,7 @@ export class AmbienteListagemComponent implements OnInit {
   public atividades: Atividade[] = [];
   public totalPaginas: number = 0;
   public readonly TAMANHO_PAGINA: number = 10;
+  public atividadeSeletor: AtividadeSeletor = new AtividadeSeletor();
 
   public mostrar: boolean;
   public esconder: boolean;
@@ -54,12 +56,14 @@ export class AmbienteListagemComponent implements OnInit {
   ngOnInit(): void {
     this.seletor.limite = this.TAMANHO_PAGINA;
     this.seletor.pagina = 0;
+    this.atividadeSeletor.limite = this.TAMANHO_PAGINA;
+    this.atividadeSeletor.pagina = 0;
     this.contarPaginas();
     this.filtrarAmbiente();
 
-    this.atividadeService.listarTodos().subscribe(
+    this.atividadeService.listarComSeletor(this.atividadeSeletor).subscribe(
       (resultado) => {
-        this.atividades = resultado.map((atividade) => atividade);
+        this.atividades = resultado.filter((atividade) => atividade.status === true);
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
@@ -115,7 +119,7 @@ export class AmbienteListagemComponent implements OnInit {
     this.ambienteService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.ambientes = resultado;
-        this.refreshListagem.emit(); 
+        this.refreshListagem.emit();
       },
       (erro) => {
         console.log('Erro ao buscar ambientes', erro);
