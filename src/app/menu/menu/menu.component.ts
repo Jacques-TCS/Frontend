@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) { }
 
   title = 'SistemaRegistroVerificacao';
   isDarkTheme: boolean;
@@ -17,6 +17,12 @@ export class MenuComponent {
   nome: String = '';
   username: String;
   perfil: String;
+  hasScrolled = false;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    this.hasScrolled = window.scrollY > 0;
+  }
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -38,7 +44,7 @@ export class MenuComponent {
   }
 
   handleLogout(): void {
-    this.authService.logout()
+    this.authService.logout();
   }
 
   private updateTheme(): void {
