@@ -122,7 +122,7 @@ export class UsuarioListagemComponent implements OnInit {
     this.router.navigate(['/usuarios/afastamento', id]);
   }
 
-  fileName = 'ExcleSheet.xlsx';
+  fileName = 'ListagemDeFuncionarios.xlsx';
   exportarPlanilhaUsuario() {
     let data = document.getElementById('tabela-usuarios');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(data);

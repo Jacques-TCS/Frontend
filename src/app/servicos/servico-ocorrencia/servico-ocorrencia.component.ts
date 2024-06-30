@@ -142,7 +142,7 @@ export class ServicoOcorrenciaComponent implements OnInit {
     );
   }
 
-  fileName = 'ExcleSheet.xlsx';
+  fileName = 'ListagemDeOcorrencia.xlsx';
   exportarPlanilhaOcorrencia() {
     let data = document.getElementById('tabela-ocorrencia');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(data);

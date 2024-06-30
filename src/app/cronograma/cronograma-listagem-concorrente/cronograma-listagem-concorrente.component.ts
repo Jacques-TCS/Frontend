@@ -187,9 +187,9 @@ export class CronogramaListagemConcorrenteComponent implements OnInit {
     );
   }
 
-  fileName = 'ExcleSheet.xlsx';
+  fileName = 'RelatórioDeCronogramaConcorrente.xlsx';
   exportarPlanilhaCronConcorrente() {
-    let data = document.getElementById('tabela-ocorrencia');
+    let data = document.getElementById('tabela-cronograma-concorrente');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(data);
 
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
