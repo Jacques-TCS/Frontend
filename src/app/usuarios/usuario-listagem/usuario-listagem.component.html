@@ -31,7 +31,7 @@
             <select
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
               name="cargo" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.cargo" required>
-              <option></option>
+              <option [ngValue]="{}"></option>
               <option *ngFor="let cargo of cargos" [ngValue]="cargo">
                 {{ cargo.cargo }}
               </option>
@@ -42,7 +42,7 @@
             <select
               class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 2xl:w-64 lg:w-72 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
               name="status" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.status" required>
-              <option></option>
+              <option [ngValue]="{}"></option>
               <option *ngFor="let status of status" [ngValue]="status">
                 {{ status.status }}
               </option>

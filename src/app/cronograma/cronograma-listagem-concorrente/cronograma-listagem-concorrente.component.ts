@@ -127,9 +127,6 @@ export class CronogramaListagemConcorrenteComponent implements OnInit {
 
   public filtrarCronograma() {
     this.seletor.tipoDeLimpeza = { id: 1 } as TipoDeLimpeza;
-    if (this.seletor.usuario != null) {
-      this.seletor.usuario = { id: this.seletor.usuario.id } as Usuario;
-    }
     this.servicoService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.servicos = resultado;

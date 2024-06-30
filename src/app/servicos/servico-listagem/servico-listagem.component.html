@@ -26,8 +26,8 @@
               </label>
               <select
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
-                name="usuario" [(ngModel)]="seletor.usuario" required>
-                <option [value]="{}"></option>
+                [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.usuario">
+                <option [ngValue]="{}"></option>
                 <option *ngFor="let usuario of usuarios" [ngValue]="usuario">
                   {{ usuario.nome }}
                 </option>
@@ -46,7 +46,7 @@
               <select
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
                 name="atividades" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.atividade" required>
-                <option></option>
+                <option [ngValue]="{}"></option>
                 <option *ngFor="let atividade of atividades" [ngValue]="atividade">
                   {{ atividade.descricao }}
                 </option>
@@ -60,7 +60,7 @@
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
                 name="tipoDeLimpeza" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.tipoDeLimpeza"
                 required>
-                <option></option>
+                <option [ngValue]="{}"></option>
                 <option *ngFor="let tipo of tipoDeLimpeza" [ngValue]="tipo">
                   {{ tipo.tipoDeLimpeza }}
                 </option>
@@ -73,10 +73,10 @@
               </label>
               <select
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-dark"
-                name="ocorrencia" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.ocorrencia" required>
+                name="status" [ngModelOptions]="{ standalone: true }" [(ngModel)]="seletor.statusOcorrencia" required>
                 <option></option>
-                <option *ngFor="let ocorrencia of categoriaOcorrencias" [ngValue]="ocorrencia.categoria">
-                  {{ ocorrencia.categoria }}
+                <option *ngFor="let status of status" [ngValue]="status.valor">
+                  {{ status.texto }}
                 </option>
               </select>
             </div>

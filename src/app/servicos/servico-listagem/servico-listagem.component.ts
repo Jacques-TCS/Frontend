@@ -29,11 +29,14 @@ export class ServicoListagemComponent implements OnInit {
   public seletor: ServicoSeletor = new ServicoSeletor();
   public atividades: Atividade[]
   public categoriaOcorrencias: Categoria[]
-  public status: StatusUsuario[];
   public tipoDeLimpeza: TipoDeLimpeza[];
   public usuarios: Array<Usuario> = new Array();
   public totalPaginas: number = 1;
   public readonly TAMANHO_PAGINA: number = 10;
+  public status: { valor: boolean, texto: string }[] = [
+    { valor: false, texto: 'Em andamento' },
+    { valor: true, texto: 'Concluída' }
+  ];
 
   public mostrar: boolean;
   public esconder: boolean;
@@ -131,14 +134,16 @@ export class ServicoListagemComponent implements OnInit {
   }
 
   filtrarServico() {
-    if(this.seletor.usuario != null) {
-      this.seletor.usuario = { id: this.seletor.usuario.id } as Usuario;
-    }
+    // if (this.seletor.usuario != null) {
+    //   this.seletor.usuario = { id: this.seletor.usuario.id } as Usuario;
+    // }
     this.servicoService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.servicos = resultado;
         this.contarPaginas();
         this.criarArrayPaginas();
+        console.log(this.seletor);
+
       },
       (erro) => {
         console.log('Erro ao buscar serviços', erro);
