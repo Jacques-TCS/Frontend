@@ -6,6 +6,8 @@ import { SetorTemAtividade } from 'src/app/shared/model/setorTemAtividade';
 import { AtividadeService } from 'src/app/shared/service/atividade.service';
 import { SetorService } from 'src/app/shared/service/setor.service';
 import Swal from 'sweetalert2';
+import { SetorListagemComponent } from '../setor-listagem/setor-listagem.component';
+import { AtividadeSeletor } from 'src/app/shared/model/seletor/atividade.seletor';
 
 @Component({
   selector: 'app-setor-cadastro',
@@ -23,6 +25,7 @@ export class SetorCadastroComponent implements OnInit {
   public frequenciaDeLimpezasTerminal: string[] = ['Semanal', 'Quinzenal'];
   public id: number | null = null;
   public isDisplayed: boolean = false;
+  public atividadeSeletor: AtividadeSeletor = new AtividadeSeletor();
 
   public mostrar: boolean = true;
   public esconder: boolean;
@@ -31,6 +34,7 @@ export class SetorCadastroComponent implements OnInit {
     this.mostrar = !this.mostrar;
     this.esconder = !this.esconder;
   }
+  @ViewChild('listagemSetor') listagemSetor: SetorListagemComponent;
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
@@ -40,9 +44,11 @@ export class SetorCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.atividadeService.listarTodos().subscribe(
+    this.atividadeSeletor.limite = 1000;
+    this.atividadeSeletor.pagina = 0;
+    this.atividadeService.listarComSeletor(this.atividadeSeletor).subscribe(
       (resultado) => {
-        this.atividades = resultado.map((atividade) => atividade);
+        this.atividades = resultado.filter((atividade) => atividade.status === true);
         this.setor.atividades = [];
       },
       (erro) => {
@@ -69,30 +75,37 @@ export class SetorCadastroComponent implements OnInit {
         (sucesso) => {
           Swal.fire('Sucesso', 'Setor atualizado!', 'success');
           this.setor = new Setor();
+          this.setor.atividades = [];
+          this.atividadeSelected = new Atividade();
           this.id = null;
+          this.refreshListagemSetor();
         },
         (erro) => {
-          Swal.fire(
-            'Erro', erro.error.message, 'error'
-          );
+          Swal.fire('Erro', erro.error.message, 'error');
         }
       );
-    }
-    else if (!form.invalid) {
+    } else if (!form.invalid) {
       this.setorService.inserir(this.setor).subscribe(
         (sucesso) => {
           Swal.fire('Sucesso', 'Setor cadastrado!', 'success');
           this.setor = new Setor();
+          this.setor.atividades = [];
+          this.atividadeSelected = new Atividade();
+          this.refreshListagemSetor();
         },
         (erro) => {
-          Swal.fire(
-            'Erro', erro.error.message, 'error'
-          );
+          Swal.fire('Erro', erro.error.message, 'error');
         }
       );
     } else {
       this.isDisplayed = true;
       this.hideAnimatedDiv();
+    }
+  }
+
+  refreshListagemSetor() {
+    if (this.listagemSetor) {
+      this.listagemSetor.filtrarSetor();
     }
   }
 
@@ -105,6 +118,7 @@ export class SetorCadastroComponent implements OnInit {
       (resultado) => {
         this.id = id;
         this.setor = resultado;
+        this.refreshListagemSetor();
       },
       (erro) => {
         console.log('Erro ao editar setor', erro);

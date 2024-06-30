@@ -8,6 +8,8 @@ import { Atividade } from 'src/app/shared/model/atividade';
 import { AmbienteTemAtividade } from 'src/app/shared/model/ambienteTemAtividade';
 import { AtividadeService } from 'src/app/shared/service/atividade.service';
 import { SetorService } from 'src/app/shared/service/setor.service';
+import { AmbienteListagemComponent } from '../ambiente-listagem/ambiente-listagem.component';
+import { AtividadeSeletor } from 'src/app/shared/model/seletor/atividade.seletor';
 
 @Component({
   selector: 'app-ambiente-cadastro',
@@ -26,6 +28,7 @@ export class AmbienteCadastroComponent implements OnInit {
   public frequenciaDeLimpezasTerminal: string[] = ['Semanal', 'Quinzenal'];
   public id: number | null = null;
   public isDisplayed: boolean = false;
+  public atividadeSeletor: AtividadeSeletor = new AtividadeSeletor();
 
   public mostrar: boolean = true;
   public esconder: boolean;
@@ -34,7 +37,7 @@ export class AmbienteCadastroComponent implements OnInit {
     this.mostrar = !this.mostrar;
     this.esconder = !this.esconder;
   }
-
+  @ViewChild('listagemAmbiente') listagemAmbiente: AmbienteListagemComponent;
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
@@ -45,11 +48,12 @@ export class AmbienteCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.atividadeService.listarTodos().subscribe(
+    this.atividadeSeletor.limite = 1000;
+    this.atividadeSeletor.pagina = 0;
+    this.atividadeService.listarComSeletor(this.atividadeSeletor).subscribe(
       (resultado) => {
-        this.atividades = resultado.map((atividade) => atividade);
+        this.atividades = resultado.filter((atividade) => atividade.status === true);
         this.ambiente.atividades = [];
-        // this.ambiente.setor = new Setor();
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
@@ -79,7 +83,11 @@ export class AmbienteCadastroComponent implements OnInit {
         (sucesso) => {
           Swal.fire('Sucesso', 'Ambiente atualizado!', 'success');
           this.ambiente = new Ambiente();
+          this.ambiente.setor = new Setor();
+          this.setorSelected = '';
+          this.atividadeSelected = new Atividade();
           this.id = null;
+          this.refreshListagemAmbiente();
         },
         (erro) => {
           Swal.fire(
@@ -93,6 +101,10 @@ export class AmbienteCadastroComponent implements OnInit {
         (sucesso) => {
           Swal.fire('Sucesso', 'Ambiente cadastrado!', 'success');
           this.ambiente = new Ambiente();
+          this.ambiente.setor = new Setor();
+          this.setorSelected = '';
+          this.atividadeSelected = new Atividade();
+          this.refreshListagemAmbiente();
         },
         (erro) => {
           Swal.fire(
@@ -107,12 +119,20 @@ export class AmbienteCadastroComponent implements OnInit {
     }
   }
 
+  refreshListagemAmbiente() {
+    if (this.listagemAmbiente) {
+      this.listagemAmbiente.filtrarAmbiente();
+    }
+  }
+
   editar(id: number) {
     this.ambienteService.consultarPorId(id).subscribe(
       (resultado) => {
         this.id = id;
         this.ambiente = resultado;
-        this.setorSelected = this.ambiente.setor.nome;
+        this.setorSelected = '';
+        this.atividadeSelected = new Atividade();
+        this.refreshListagemAmbiente();
       },
       (erro) => {
         console.log('Erro ao editar ambiente', erro);

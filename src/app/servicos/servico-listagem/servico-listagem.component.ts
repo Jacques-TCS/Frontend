@@ -1,16 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Atividade } from 'src/app/shared/model/atividade';
+import { Cargo } from 'src/app/shared/model/cargo';
 import { Categoria } from 'src/app/shared/model/categoria';
 import { ServicoSeletor } from 'src/app/shared/model/seletor/servico.seletor';
+import { UsuarioSeletor } from 'src/app/shared/model/seletor/usuario.seletor';
 import { Servico } from 'src/app/shared/model/servico';
 import { StatusUsuario } from 'src/app/shared/model/status-usuario';
 import { TipoDeLimpeza } from 'src/app/shared/model/tipoDeLimpeza';
+import { Usuario } from 'src/app/shared/model/usuario';
 import { AtividadeService } from 'src/app/shared/service/atividade.service';
 import { CategoriaService } from 'src/app/shared/service/categoria.service';
 import { OcorrenciaService } from 'src/app/shared/service/ocorrencia.service';
 import { ServicoService } from 'src/app/shared/service/servico.service';
 import { TipoDeLimpezaService } from 'src/app/shared/service/tipo-de-limpeza.service';
+import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 
@@ -21,13 +25,18 @@ import * as XLSX from 'xlsx';
 })
 export class ServicoListagemComponent implements OnInit {
   public servicos: Array<Servico> = new Array();
+  public usuario: Usuario = new Usuario();
   public seletor: ServicoSeletor = new ServicoSeletor();
   public atividades: Atividade[]
   public categoriaOcorrencias: Categoria[]
-  public status: StatusUsuario[];
   public tipoDeLimpeza: TipoDeLimpeza[];
+  public usuarios: Array<Usuario> = new Array();
   public totalPaginas: number = 1;
   public readonly TAMANHO_PAGINA: number = 10;
+  public status: { valor: boolean, texto: string }[] = [
+    { valor: false, texto: 'Em andamento' },
+    { valor: true, texto: 'Concluída' }
+  ];
 
   public mostrar: boolean;
   public esconder: boolean;
@@ -45,9 +54,15 @@ export class ServicoListagemComponent implements OnInit {
     private atividadeService: AtividadeService,
     private categoriaOcorrenciaService: CategoriaService,
     private tipoDeLimpezaService: TipoDeLimpezaService,
+    private usuarioService: UsuarioService,
   ) {}
 
   ngOnInit(): void {
+    let usuarioSeletor = new UsuarioSeletor();
+    usuarioSeletor.limite = 1000;
+    usuarioSeletor.pagina = 0;
+    usuarioSeletor.status = { id: 1 } as StatusUsuario;
+    usuarioSeletor.cargo = { id: 1 } as Cargo;
     this.seletor.limite = this.TAMANHO_PAGINA;
     this.seletor.pagina = 0;
     this.filtrarServico();
@@ -68,6 +83,10 @@ export class ServicoListagemComponent implements OnInit {
         Swal.fire('Erro', 'Erro ao buscar tipo de limpeza', 'error');
       }
     );
+    this.usuarioService.listarComSeletor(usuarioSeletor).subscribe(
+      (resultado) => {
+        this.usuarios = resultado.map((usuario) => usuario);
+      });
     this.categoriaOcorrenciaService.listarTodos().subscribe(
       (resultado) => {
         this.categoriaOcorrencias = resultado.map((categoriaOcorrencias) => categoriaOcorrencias);
@@ -115,11 +134,16 @@ export class ServicoListagemComponent implements OnInit {
   }
 
   filtrarServico() {
+    // if (this.seletor.usuario != null) {
+    //   this.seletor.usuario = { id: this.seletor.usuario.id } as Usuario;
+    // }
     this.servicoService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.servicos = resultado;
         this.contarPaginas();
         this.criarArrayPaginas();
+        console.log(this.seletor);
+
       },
       (erro) => {
         console.log('Erro ao buscar serviços', erro);

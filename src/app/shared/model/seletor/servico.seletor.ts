@@ -13,9 +13,9 @@ export class ServicoSeletor extends BaseSeletor {
   dataEncerramentoFim: Date;
   dataProgramadaInicio: Date;
   dataProgramadaFim: Date;
-  ocorrencia: Ocorrencia;
+  statusOcorrencia: boolean;
   cargo: Cargo;
-  usuario: Usuario;
+  usuario?: Usuario;
   atividade: Atividade;
   tipoDeLimpeza: TipoDeLimpeza;
 }

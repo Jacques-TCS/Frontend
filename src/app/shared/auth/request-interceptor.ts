@@ -1,35 +1,55 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse
+} from '@angular/common/http';
+import { Observable, throwError, Subject } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
-    constructor(
-        private router: Router,
-        private authService: AuthService
-    ) { }
+  private cancelPendingRequests$ = new Subject<void>();
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (!req.url.includes('login') && !req.url.includes('recuperar-senha') && !req.url.includes('api.qrserver')) {
-            var authToken = localStorage.getItem('id_token')
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-            const authReq = req.clone({ setHeaders: { 'Authorization': 'Bearer ' + authToken } });
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (!req.url.includes('login') && !req.url.includes('recuperar-senha') && !req.url.includes('api.qrserver')) {
 
-            return next.handle(authReq).pipe(
-                catchError((error: HttpErrorResponse) => {
-                    if (error.status == 403) {
-                        this.authService.logout();
-                        this.router.navigate(['/login']);
-                    }
-                    return throwError(() => new Error('Requisição inválida.'));
-                })
-            );
-        }
-        return next.handle(req)
+      const authToken = localStorage.getItem('id_token');
+      const authReq = req.clone({ setHeaders: { 'Authorization': 'Bearer ' + authToken } });
+
+      return next.handle(authReq).pipe(
+        takeUntil(this.cancelPendingRequests$),
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            this.cancelPendingRequests$.next();
+            this.authService.logout();
+            this.router.navigate(['/login']);
+            Swal.fire({
+              title: 'Sessão expirada!',
+              text: 'Acesse novamente o sistema.',
+              icon: 'error',
+              confirmButtonColor: '#3085d6',
+            });
+          }
+          console.log(error.headers);
+
+          return throwError(() => new Error('Requisição inválida.'));
+        })
+      );
     }
+    return next.handle(req).pipe(
+      takeUntil(this.cancelPendingRequests$)
+    );
+  }
 }

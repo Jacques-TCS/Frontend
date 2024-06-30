@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Atividade } from 'src/app/shared/model/atividade';
+import { AtividadeSeletor } from 'src/app/shared/model/seletor/atividade.seletor';
 import { SetorSeletor } from 'src/app/shared/model/seletor/setor.seletor';
 import { Setor } from 'src/app/shared/model/setor';
 import { AtividadeService } from 'src/app/shared/service/atividade.service';
@@ -17,6 +18,7 @@ export class SetorListagemComponent implements OnInit {
   @Output() editarSetor = new EventEmitter<number>();
   public setores: Array<Setor> = new Array();
   public seletor: SetorSeletor = new SetorSeletor();
+  public atividadeSeletor: AtividadeSeletor = new AtividadeSeletor();
   public atividades: Atividade[];
 
   public totalPaginas: number = 0;
@@ -38,6 +40,7 @@ export class SetorListagemComponent implements OnInit {
     this.esconderSetores = !this.esconderSetores;
   }
 
+  @Output() refreshListagem = new EventEmitter<void>();
   @ViewChild('ngForm')
   public ngForm: NgForm;
 
@@ -50,12 +53,14 @@ export class SetorListagemComponent implements OnInit {
   ngOnInit(): void {
     this.seletor.limite = this.TAMANHO_PAGINA;
     this.seletor.pagina = 0;
+    this.atividadeSeletor.limite = this.TAMANHO_PAGINA;
+    this.atividadeSeletor.pagina = 0;
     this.contarPaginas();
     this.filtrarSetor();
 
-    this.atividadeService.listarTodos().subscribe(
+    this.atividadeService.listarComSeletor(this.atividadeSeletor).subscribe(
       (resultado) => {
-        this.atividades = resultado.map((atividade) => atividade);
+        this.atividades = resultado.filter((atividade) => atividade.status === true);
       },
       (erro) => {
         Swal.fire('Erro', 'Erro ao buscar atividades', 'error');
@@ -102,6 +107,7 @@ export class SetorListagemComponent implements OnInit {
     this.setorService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.setores = resultado;
+        this.refreshListagem.emit();
       },
       (erro) => {
         console.log('Erro ao buscar setores', erro);

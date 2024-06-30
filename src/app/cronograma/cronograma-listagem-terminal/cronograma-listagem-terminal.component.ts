@@ -126,9 +126,6 @@ export class CronogramaListagemTerminalComponent implements OnInit {
 
   public filtrarCronograma() {
     this.seletor.tipoDeLimpeza = { id: 0 } as TipoDeLimpeza;
-    if (this.seletor.usuario != null) {
-      this.seletor.usuario = { id: this.seletor.usuario.id } as Usuario;
-    }
     this.servicoService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
         this.servicos = resultado;
@@ -189,9 +186,9 @@ export class CronogramaListagemTerminalComponent implements OnInit {
     );
   }
 
-  fileName = 'ExcleSheet.xlsx';
+  fileName = 'RelatórioDeCronogramaTerminal.xlsx';
   exportarPlanilhaCronConcorrente() {
-    let data = document.getElementById('tabela-ocorrencia');
+    let data = document.getElementById('tabela-cronograma-terminal');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(data);
 
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
