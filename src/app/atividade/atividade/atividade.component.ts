@@ -93,7 +93,7 @@ export class AtividadeComponent implements OnInit {
   filtrarAtividade() {
     this.atividadeService.listarComSeletor(this.seletor).subscribe(
       (resultado) => {
-        this.atividades = resultado;
+        this.atividades = resultado; // This should include both active and inactive activities
         this.contarPaginas();
         this.criarArrayPaginas();
       },
@@ -102,6 +102,7 @@ export class AtividadeComponent implements OnInit {
       }
     );
   }
+
 
   editar(atividade: Atividade) {
     Swal.fire({
@@ -114,31 +115,77 @@ export class AtividadeComponent implements OnInit {
         this.atividade = { ...atividade };
         this.atividadeId = atividade.id;
       }
-    })
+    });
   }
 
   excluir(atividade: Atividade) {
     Swal.fire({
       title: 'Tem certeza de que deseja mudar o status dessa atividade?',
+      icon: 'warning',
       showDenyButton: true,
-      confirmButtonText: `Sim`,
-      denyButtonText: `Não`,
+      confirmButtonColor: '#3085d6',
+      denyButtonColor: '#d33',
+      confirmButtonText: 'Sim',
+      denyButtonText: 'Não'
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (result.isConfirmed && atividade.status === false) {
         atividade.status = !atividade.status;
         this.atividadeService.atualizar(atividade).subscribe(
           (sucesso) => {
-            Swal.fire('Sucesso', 'Status de atividade atualizada!', 'success');
+            Swal.fire({
+              title: 'Sucesso!',
+              text: 'Status de atividade atualizada!',
+              icon: 'success'
+            });
             this.filtrarAtividade();
           },
           (erro) => {
-            Swal.fire('Erro', 'Erro ao atualizar status de atividade', 'error');
+            Swal.fire({
+              title: 'Erro!',
+              text: 'Erro ao atualizar status de atividade',
+              icon: 'error'
+            });
             console.error('Erro ao inativar atividade:', erro);
           }
         );
+      } else if (result.isConfirmed && atividade.status === true) {
+        Swal.fire({
+          title: 'Você concorda que irá remover a associação desta atividade de todos os setores e ambientes?',
+          text: "Você não poderá reverter isso!",
+          icon: 'warning',
+          showDenyButton: true,
+          confirmButtonColor: '#00A36C',
+          denyButtonColor: '#d33',
+          confirmButtonText: 'Eu confirmo',
+          denyButtonText: 'Cancelar'
+        }).then((secondResult) => {
+          if (secondResult.isConfirmed) {
+            atividade.status = !atividade.status;
+            this.atividadeService.atualizar(atividade).subscribe(
+              (sucesso) => {
+                Swal.fire({
+                  title: 'Sucesso!',
+                  text: 'Status de atividade atualizada!',
+                  icon: 'success'
+                });
+                this.filtrarAtividade();
+              },
+              (erro) => {
+                Swal.fire({
+                  title: 'Erro!',
+                  text: 'Erro ao atualizar status de atividade',
+                  icon: 'error'
+                });
+                console.error('Erro ao inativar atividade:', erro);
+              }
+            );
+          }
+        });
       }
     });
   }
+
+
 
   criarArrayPaginas(): any[] {
     const totalPages = this.totalPaginas;
