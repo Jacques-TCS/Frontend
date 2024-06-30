@@ -1,11 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { int } from '@zxing/library/esm/customTypings';
-import { Cronograma } from 'src/app/shared/model/cronograma';
-import { TipoDeLimpeza } from 'src/app/shared/model/tipoDeLimpeza';
-import { CronogramaService } from 'src/app/shared/service/cronograma.service';
-import Swal from 'sweetalert2';
+import { CronogramaListagemConcorrenteComponent } from '../cronograma-listagem-concorrente/cronograma-listagem-concorrente.component';
+import { CronogramaListagemTerminalComponent } from '../cronograma-listagem-terminal/cronograma-listagem-terminal.component';
 
 @Component({
   selector: 'app-cronograma-home',
@@ -13,11 +8,19 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cronograma-home.component.scss']
 })
 export class CronogramaHomeComponent {
+  @ViewChild('listagemConcorrente') listagemConcorrente: CronogramaListagemConcorrenteComponent;
+  @ViewChild('listagemTerminal') listagemTerminal: CronogramaListagemTerminalComponent;
   public mostrar: boolean = true;
-  public esconder: boolean;
 
   public mostrarCadastro() {
     this.mostrar = !this.mostrar;
-    this.esconder = !this.esconder;
+  }
+
+  refreshListagemConcorrente() {
+    this.listagemConcorrente.filtrarCronograma();
+  }
+
+  refreshListagemTerminal() {
+    this.listagemTerminal.filtrarCronograma();
   }
 }
