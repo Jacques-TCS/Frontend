@@ -228,7 +228,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       } else {
         this.buscarTodosServicos();
       }
-    }, 3000);
+    }, 300000);
   };
 
   stopPolling() {
