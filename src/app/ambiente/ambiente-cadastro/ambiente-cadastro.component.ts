@@ -130,7 +130,7 @@ export class AmbienteCadastroComponent implements OnInit {
       (resultado) => {
         this.id = id;
         this.ambiente = resultado;
-        this.setorSelected = '';
+        this.setorSelected = resultado.setor.nome;
         this.atividadeSelected = new Atividade();
         this.refreshListagemAmbiente();
       },
