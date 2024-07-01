@@ -19,7 +19,7 @@ export class AtividadeComponent implements OnInit {
   public isDisplayed: boolean = false;
 
   public totalPaginas: number = 0;
-  public readonly TAMANHO_PAGINA: number = 10;
+  public readonly TAMANHO_PAGINA: number = 25;
 
   @ViewChild('ngForm')
   public ngForm: NgForm;

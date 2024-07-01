@@ -32,7 +32,7 @@ export class ServicoListagemComponent implements OnInit {
   public tipoDeLimpeza: TipoDeLimpeza[];
   public usuarios: Array<Usuario> = new Array();
   public totalPaginas: number = 1;
-  public readonly TAMANHO_PAGINA: number = 10;
+  public readonly TAMANHO_PAGINA: number = 25;
   public status: { valor: boolean, texto: string }[] = [
     { valor: false, texto: 'Em andamento' },
     { valor: true, texto: 'Concluída' }

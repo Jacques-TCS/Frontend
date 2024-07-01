@@ -22,7 +22,7 @@ export class ServicoOcorrenciaComponent implements OnInit {
     { valor: true, texto: 'Concluída' }
   ];
   public totalPaginas: number = 0;
-  public readonly TAMANHO_PAGINA: number = 10;
+  public readonly TAMANHO_PAGINA: number = 25;
 
   public mostrar: boolean;
   public esconder: boolean;

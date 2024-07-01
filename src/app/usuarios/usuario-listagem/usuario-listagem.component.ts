@@ -22,7 +22,7 @@ export class UsuarioListagemComponent implements OnInit {
   public cargos: Cargo[];
   public status: StatusUsuario[];
   public totalPaginas: number = 0;
-  public readonly TAMANHO_PAGINA: number = 10;
+  public readonly TAMANHO_PAGINA: number = 25;
 
   public mostrar: boolean;
   public esconder: boolean;

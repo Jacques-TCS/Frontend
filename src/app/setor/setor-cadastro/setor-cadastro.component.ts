@@ -106,6 +106,7 @@ export class SetorCadastroComponent implements OnInit {
   refreshListagemSetor() {
     if (this.listagemSetor) {
       this.listagemSetor.filtrarSetor();
+      this.listagemSetor.contarPaginas();
     }
   }
 

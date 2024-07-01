@@ -23,7 +23,7 @@ export class AmbienteListagemComponent implements OnInit {
   public setores: Array<Setor> = new Array();
   public atividades: Atividade[] = [];
   public totalPaginas: number = 0;
-  public readonly TAMANHO_PAGINA: number = 10;
+  public readonly TAMANHO_PAGINA: number = 25;
   public atividadeSeletor: AtividadeSeletor = new AtividadeSeletor();
 
   public mostrar: boolean;

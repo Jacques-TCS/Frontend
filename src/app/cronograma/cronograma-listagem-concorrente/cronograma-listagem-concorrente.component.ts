@@ -31,7 +31,7 @@ export class CronogramaListagemConcorrenteComponent implements OnInit {
   public usuarios: Array<Usuario> = new Array();
 
   public totalPaginas: number = 0;
-  public readonly TAMANHO_PAGINA: number = 10;
+  public readonly TAMANHO_PAGINA: number = 25;
 
   public mostrar: boolean;
   public esconder: boolean;

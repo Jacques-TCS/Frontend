@@ -22,7 +22,7 @@ export class SetorListagemComponent implements OnInit {
   public atividades: Atividade[];
 
   public totalPaginas: number = 0;
-  public readonly TAMANHO_PAGINA: number = 10;
+  public readonly TAMANHO_PAGINA: number = 25;
 
   public mostrar: boolean;
   public esconder: boolean;

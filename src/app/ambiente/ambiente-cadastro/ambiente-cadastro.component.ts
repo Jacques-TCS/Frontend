@@ -122,6 +122,7 @@ export class AmbienteCadastroComponent implements OnInit {
   refreshListagemAmbiente() {
     if (this.listagemAmbiente) {
       this.listagemAmbiente.filtrarAmbiente();
+      this.listagemAmbiente.contarPaginas();
     }
   }
 

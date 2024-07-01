@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     for (const usuario of this.usuarios) {
       if (usuario.status.id !== 1) {
-        continue; 
+        continue;
       }
 
       let seletor = new ServicoSeletor();
@@ -228,7 +228,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       } else {
         this.buscarTodosServicos();
       }
-    }, 300000);
+    }, 3000);
   };
 
   stopPolling() {
