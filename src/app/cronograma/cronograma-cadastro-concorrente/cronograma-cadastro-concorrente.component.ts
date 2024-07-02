@@ -62,7 +62,7 @@ export class CronogramaCadastroConcorrenteComponent implements OnInit {
           this.isLoading = false;
         },
         (erro) => {
-          Swal.fire('Erro', 'Erro ao cadastrar cronograma', 'error');
+          Swal.fire('Erro', 'Já existe um cronograma criado para esse mês!', 'error');
           this.isLoading = false;
         }
       );

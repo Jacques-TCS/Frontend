@@ -57,13 +57,13 @@ export class CronogramaCadastroTerminalComponent implements OnInit {
       this.cronograma.tipoDeLimpeza = { id: 0 } as TipoDeLimpeza;
       this.cronogramaService.inserir(this.cronograma).subscribe(
         (sucesso) => {
-          Swal.fire('Sucesso', 'cronograma cadastrado!', 'success');
+          Swal.fire('Sucesso', 'Cronograma cadastrado!', 'success');
           this.cronograma = new Cronograma();
           this.cronogramaCriado.emit();
           this.isLoading = false;
         },
         (erro) => {
-          Swal.fire('Erro', 'error');
+          Swal.fire('Erro', 'Já existe um cronograma criado para esse mês!', 'error');
           this.isLoading = false;
         }
       );
